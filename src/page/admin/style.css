@@ -1,0 +1,19 @@
+#admin-content {
+  padding: 0;
+  height: calc(100vh - 60px);
+}
+
+#admin-content .sidebar {
+  padding: 0;
+  width: 300px;
+}
+.card {
+    background: none;
+    border: none;
+}
+.card-img {
+    padding: 16px 0;
+}
+.card-body {
+    padding: 0;
+}
