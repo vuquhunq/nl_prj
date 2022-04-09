@@ -1,5 +1,4 @@
 import { axiosInstance } from "../config/axiosConfig";
-
 class ProductServices {
   getAllProduct() {
     return axiosInstance.get("/product/all-product").then((res) => res.data);
@@ -15,26 +14,31 @@ class ProductServices {
   }
   addDetailProduct(data) {
     console.log(data.file);
-    let formdata = new FormData();
+    const formData = new FormData();
     for (let i = 0; i < data.file.length; i++) {
-      formdata.append("File", data.file[i]);
+      console.log(data.file[i].name);
+      formData.append("file", data.file[i], data.file[i].name);
     }
-    console.log(formdata);
+
+    return axiosInstance({
+      url: `/product/create-product-detail?id_product=${data.id_product}&id_color=${data.id_color}`,
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+    })
+      .then((res) => res)
+      .catch((err) => alert(err));
+  }
+  addSizeQuantity(payload) {
     return axiosInstance
-      .post(
-        `product/create-product-detail?id_product=${data.id_product}&id_color=${data.id_color}`,
-        {
-          body: {
-            file: formdata,
-          },
+      .post("/product/create-size-quantity", payload, {
+        headers: {
+          "Content-Type": "Application/json",
         },
-        {
-          "Content-Type": "multipart/form-data",
-          accept: "application/json",
-        }
-      )
-      .then((res) => console.log("res", res))
-      .catch((err) => console.log(err));
+      })
+      .then((res) => res.data);
   }
 }
 export default new ProductServices();

@@ -1,9 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Form, Modal, ModalBody, ModalHeader } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+} from "react-bootstrap";
 import CategoryService from "../../../service/CategoryService";
 import ColorService from "../../../service/ColorService";
 import GenderService from "../../../service/GenderService";
 import ProductServices from "../../../service/ProductServices";
+import SizeService from "../../../service/SizeService";
 
 export default function ModalAdditionProduct({ show, setShow }) {
   const nameProduct = useRef("");
@@ -11,24 +20,32 @@ export default function ModalAdditionProduct({ show, setShow }) {
   const descProduct = useRef("");
   const categoryProduct = useRef("");
   const genderProduct = useRef("");
+  const quantityProduct = useRef("");
   //
   const [idProduct, setIdProduct] = useState(0);
   const [colorProduct, setColorProduct] = useState(0);
+  const [sizeProduct, setSizeProduct] = useState(0);
   const [fileSelected, setFileSelected] = useState({});
-
+  const [isUploadSuccess, setIsUploadSuccess] = useState(false);
+  console.log(isUploadSuccess);
   /////
   const [categories, setCategories] = useState([]);
   const [colories, setColories] = useState([]);
   const [genders, setGenders] = useState([]);
-  const [isAddition, setIsAddition] = useState({ basic: false, data: {} });
+  const [sizes, setSizes] = useState([]);
+  const [isAddition, setIsAddition] = useState({
+    basic: false,
+    detail: false,
+    data: {},
+  });
 
   //
   console.log(idProduct);
   console.log(colorProduct);
 
   const handleSelectFile = (e) => {
-    setFileSelected(e.target.files)
-  }
+    setFileSelected(e.target.files);
+  };
   const handleBasicAddition = () => {
     let objProduct = {};
     objProduct.name = nameProduct.current.value;
@@ -47,15 +64,35 @@ export default function ModalAdditionProduct({ show, setShow }) {
     objProduct.id_product = idProduct;
     objProduct.id_color = colorProduct;
     objProduct.file = fileSelected;
-    ProductServices.addDetailProduct(objProduct)
-    console.log(objProduct);
+    ProductServices.addDetailProduct(objProduct).then((res) => {
+      if (res.status === 200) {
+        setIsUploadSuccess(true);
+        const detail = res.data;
+        setIsAddition({
+          ...isAddition,
+          basic: true,
+          detail: true,
+          data: { ...isAddition.data, detail },
+        });
+      }
+    });
+  };
+  console.log(isAddition);
+  const handleSizeAddition = () => {
+    let obj = {};
+    obj.quantity = parseInt(quantityProduct.current.value);
+    obj.quantity_sold = 0;
+    obj.id_product_detail = isAddition.data.detail.id_product_detail || 0;
+    obj.id_size = parseInt(sizeProduct)
+    ProductServices.addSizeQuantity().then(res=>console.log(res))
+    console.log(obj);
   };
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
     ColorService.getColor().then((res) => setColories(res));
     GenderService.getGender().then((res) => setGenders(res));
+    SizeService.getSize().then((res) => setSizes(res));
   }, []);
-
   return (
     <Modal show={show} onHide={setShow}>
       <ModalHeader closeButton>Thêm sản phẩm</ModalHeader>
@@ -111,7 +148,11 @@ export default function ModalAdditionProduct({ show, setShow }) {
               </Form.Select>
             </div>
             <Form.Group className="mt-3 text-center">
-              <Button className="w-100" onClick={handleBasicAddition}>
+              <Button
+                disabled={isAddition.basic}
+                className="w-100"
+                onClick={handleBasicAddition}
+              >
                 Thêm thông tin căn bản
               </Button>
             </Form.Group>
@@ -148,11 +189,42 @@ export default function ModalAdditionProduct({ show, setShow }) {
           )}
           {colorProduct > 0 && (
             <Form.Group>
-             <Form.Label>Thêm hình ảnh: </Form.Label>
-             <Form.Control type="file" onChange={handleSelectFile} multiple required />
+              <Form.Label>Thêm hình ảnh: </Form.Label>
+              <Form.Control
+                type="file"
+                onChange={handleSelectFile}
+                multiple
+                required
+              />
+              <Container fluid className="p-0 mt-3">
+                <Button className="w-100" onClick={handleDetailAddition}>
+                  Thêm hình ảnh
+                </Button>
+              </Container>
             </Form.Group>
           )}
-          <Button onClick={handleDetailAddition}>Thêm hình ảnh</Button>
+          {isAddition.detail && (
+            <Form.Group className="d-flex text-nowrap align-items-center gap-3">
+              <Form.Label>Thêm size:</Form.Label>
+              <Form.Select onChange={(e) => setSizeProduct(e.target.value)}>
+                <option value="0">Kích thước:</option>
+                {sizes &&
+                  sizes.map((size, index) => (
+                    <option key={index} value={size.id_size}>
+                      {size.size_number}
+                    </option>
+                  ))}
+              </Form.Select>
+              <Form.Control
+                ref={quantityProduct}
+                disabled={sizeProduct === 0}
+                type="text"
+              />
+              <ButtonGroup>
+                <Button onClick={handleSizeAddition}>Thêm số lượng</Button>
+              </ButtonGroup>
+            </Form.Group>
+          )}
         </Form>
       </ModalBody>
     </Modal>

@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Navbar } from "react-bootstrap";
-import { access_admin, info_admin } from "../../config/authConfig";
+import { access_admin } from "../../config/authConfig";
+import AdminServices from "../../service/AdminServices";
 
-const UserToggle = () => {
+const UserToggle = ({ info }) => {
   if (access_admin) {
-    return <div className="rounded-pill outline-secondary shadow-lg px-3 py-1">{info_admin && info_admin.account}</div>;
+    return (
+      <div className="rounded-pill outline-secondary shadow-lg px-3 py-1">
+        {info}
+      </div>
+    );
   } else
     return <Button variant="btn btn-outline-none">Đăng ký/đăng nhập</Button>;
 };
 const AdminNavbar = () => {
+  const [infoAdmin, setInfoAdmin] = useState();
+  useEffect(() => {
+    AdminServices.getAdminInfo().then((res) => setInfoAdmin(res));
+  }, []);
+
   return (
     <Navbar sticky="top" bg="light">
       <Container
@@ -21,7 +31,7 @@ const AdminNavbar = () => {
           </Navbar.Brand>
         </Col>
         <Col className="d-flex gap-4 justify-content-end align-items-center">
-          <UserToggle />
+          <UserToggle info={infoAdmin && infoAdmin.full_name} />
         </Col>
       </Container>
     </Navbar>

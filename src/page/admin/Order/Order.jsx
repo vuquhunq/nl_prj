@@ -1,10 +1,9 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import AdminNavbar from "../../common/admin/Navbar";
-import Sidebar from "../../common/admin/Sidebar";
-import "./style.css";
+import AdminNavbar from "../../../common/admin/Navbar";
+import Sidebar from "../../../common/admin/Sidebar";
 
-export default function Home() {
+export default function Order() {
   return (
     <>
       <AdminNavbar />
@@ -14,9 +13,9 @@ export default function Home() {
         className="d-flex"
         style={{ height: "calc(100vh - 60px)" }}
       >
-        <Sidebar active="dashboard" />
+        <Sidebar active="orders" />
         <Container fluid>
-          <h1>Home</h1>
+          <h1>Order</h1>
         </Container>
       </Container>
     </>

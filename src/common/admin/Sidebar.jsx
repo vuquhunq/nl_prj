@@ -1,25 +1,7 @@
 import { Card, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { dataLink } from "../../constant/DirectAdmin";
 import "./style.css";
-const dataLink = [
-  { url: "/adminstrator", name: "Trang chủ", active: "dashboard" },
-  {
-    url: "/adminstrator/products",
-    name: "Quản lý sản phẩm",
-    active: "products",
-  },
-  {
-    url: "/adminstrator/services",
-    name: "Quản lý dịch vụ",
-    active: "services",
-  },
-  {
-    url: "/adminstrator/categories",
-    name: "Quản lý loại sản phẩm",
-    active: "categories",
-  },
-];
-
 const Sidebar = ({ active }) => {
   return (
     <Container fluid className="sidebar shadow-sm" sticky="left">
