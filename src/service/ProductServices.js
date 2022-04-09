@@ -31,13 +31,18 @@ class ProductServices {
       .then((res) => res)
       .catch((err) => alert(err));
   }
-  addSizeQuantity(payload) {
+  addSizeQuantity({ payload }) {
+    console.log(payload);
     return axiosInstance
-      .post("/product/create-size-quantity", payload, {
-        headers: {
-          "Content-Type": "Application/json",
-        },
-      })
+      .post(
+        "/product/create-size-quantity",
+        { data: payload },
+        {
+          headers: {
+            "Content-Type": "Application/json",
+          },
+        }
+      )
       .then((res) => res.data);
   }
 }

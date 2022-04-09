@@ -197,7 +197,7 @@ export default function ModalAdditionProduct({ show, setShow }) {
                 required
               />
               <Container fluid className="p-0 mt-3">
-                <Button className="w-100" onClick={handleDetailAddition}>
+                <Button disabled={isAddition.detail} className="w-100" onClick={handleDetailAddition}>
                   Thêm hình ảnh
                 </Button>
               </Container>
