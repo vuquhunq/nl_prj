@@ -6,6 +6,7 @@ import { access_admin_token } from "./config/authConfig";
 import "./index.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import Account from "./page/admin/Account/Account";
+<<<<<<< HEAD
 import Category from "./page/admin/Category/Category";
 import Home from "./page/admin/Home/Home";
 import Order from "./page/admin/Order/Order";
@@ -14,6 +15,9 @@ import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
+=======
+import DetailOrder from "./page/admin/Order/DetailOrder";
+>>>>>>> a735737 (backup)
 
 ReactDOM.render(
   <React.StrictMode>
@@ -50,6 +54,10 @@ ReactDOM.render(
         <Route
           path="/adminstrator/accounts"
           element={access_admin_token ? <Account /> : <Login />}
+        />
+        <Route
+          path="/adminstrator/detail_order"
+          element={access_admin ? <DetailOrder /> : <Login />}
         />
       </Routes>
     </BrowserRouter>
