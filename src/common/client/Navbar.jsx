@@ -31,7 +31,11 @@ const ClientNavbar = () => {
   const [isShowService, setIsShowService] = useState(false);
   //
   useEffect(() => {
-    access_token && UserServices.getInfoUser().then((res) => setUserInfo(res));
+    access_token &&
+      UserServices.getInfoUser().then((res) => {
+        setUserInfo(res);
+        localStorage.setItem('user_info', res)
+      });
   }, []);
   //
   const handleShowService = () => {
@@ -61,7 +65,7 @@ const ClientNavbar = () => {
         </Col>
         <Col className="d-flex gap-4 justify-content-end align-items-center">
           <SearchBox />
-          <UserToggle userInfo={userInfo}/>
+          <UserToggle userInfo={userInfo} />
         </Col>
       </Container>
     </Navbar>

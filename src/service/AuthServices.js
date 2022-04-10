@@ -1,5 +1,4 @@
 import { axiosInstance } from "../config/axiosConfig";
-import UserServices from "./UserServices";
 
 class AuthService {
   login(payload) {
@@ -25,9 +24,6 @@ class AuthService {
       })
       .then((res) => {
         localStorage.setItem("access_token", res.data);
-        UserServices.getInfoUser().then((res) =>
-          localStorage.setItem("info_user", res.data)
-        );
       });
   }
   logout() {

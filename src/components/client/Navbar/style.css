@@ -1,0 +1,8 @@
+.user-toggle {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: white;
+    box-shadow: 0 0 2px #F15E2C;
+}

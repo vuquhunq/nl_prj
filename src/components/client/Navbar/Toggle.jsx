@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { access_token } from "../../../config/authConfig";
 import ModalUserLogin from "../../../page/Auth/client/Login";
+import {ReactComponent as SearchIcon} from '../../../assets/search.svg'
+import './style.css'
 
-const DropdownToogle = ({ show }) => {
-  return <Container className="postion-absolute">
-      <span>Đăng xuất</span>
-  </Container>;
+const Toggle = ({ userInfo }) => {
+  return (
+   <div className="user-toggle rounded-pill">
+       {userInfo && userInfo.full_name} <SearchIcon />
+   </div>
+  );
 };
 export const UserToggle = ({ userInfo }) => {
   const [isShow, setIsShow] = useState(false);
@@ -17,9 +21,7 @@ export const UserToggle = ({ userInfo }) => {
     <>
       <ModalUserLogin show={isShow} onHide={handleShow} />
       {access_token ? (
-        <span className="postion-relative">{userInfo && userInfo.full_name}
-        <DropdownToogle />
-        </span>
+        <Toggle userInfo={userInfo} />
       ) : (
         <Button onClick={handleShow} variant="btn btn-outline-none">
           Đăng xuất/đăng nhập
