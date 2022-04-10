@@ -11,11 +11,11 @@ export default function Category() {
   const [modalShow, setModalShow] = useState(false);
   const [item, setItem] = useState("");
 
-  const handleAdd = () => {
-    CategoryService.addCategory({ name: text }).then(() =>
-      window.location.reload()
-    );
-  };
+  // const handleAdd = () => {
+  //   CategoryService.addCategory({ name: text }).then(() =>
+  //     window.location.reload()
+  //   );
+  // };
 
   const handelDelete = (slug) => {
     CategoryService.deleteCategory(slug).then(() => window.location.reload());
@@ -33,6 +33,12 @@ export default function Category() {
   const showUpdate = (item) => {
     setItem(item);
     setModalShow(true);
+  };
+
+  const handleAdd = (data) => {
+    let text = {};
+    text.name = data;
+    CategoryService.addCategory(text).then(() => window.location.reload());
   };
 
   useEffect(() => {
