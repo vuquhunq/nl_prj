@@ -31,8 +31,7 @@ class ProductServices {
       .then((res) => res)
       .catch((err) => alert(err));
   }
-  addSizeQuantity({ payload }) {
-    console.log(payload);
+  addSizeQuantity(payload) {
     return axiosInstance
       .post(
         "/product/create-size-quantity",

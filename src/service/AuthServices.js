@@ -1,4 +1,5 @@
 import { axiosInstance } from "../config/axiosConfig";
+import UserServices from "./UserServices";
 
 class AuthService {
   login(payload) {
@@ -10,14 +11,27 @@ class AuthService {
         },
       })
       .then((res) => {
-        localStorage.setItem("adminToken", res.data);
+        localStorage.setItem("access_token", res.data);
         window.location.reload();
       })
       .catch((err) => console.log(err.data));
   }
-
+  userLogin(payload) {
+    return axiosInstance
+      .post("/user/log-in", payload, {
+        headers: {
+          "Content-Type": "Application/json",
+        },
+      })
+      .then((res) => {
+        localStorage.setItem("access_token", res.data);
+        UserServices.getInfoUser().then((res) =>
+          localStorage.setItem("info_user", res.data)
+        );
+      });
+  }
   logout() {
-    localStorage.removeItem("adminToken");
+    localStorage.removeItem("access_token");
   }
 }
 export default new AuthService();

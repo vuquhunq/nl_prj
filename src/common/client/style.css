@@ -1,3 +1,15 @@
-nav h3 {
+#main--navbar { 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin: 0;
+}
+#main--navbar .navbar-nav {
+    gap: 30px;
+    font-size: large;
+}
+#main--navbar .navbar-brand h3{
+    color: orange !important;
     margin: 0;
 }

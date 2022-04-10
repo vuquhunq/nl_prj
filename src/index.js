@@ -1,46 +1,50 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./page/admin/Home/Home";
-import { access_admin } from "./config/authConfig";
-import Login from "./page/Auth/admin/Login";
-import Product from "./page/admin/Products/Product";
-import Category from "./page/admin/Category/Category";
-import Services from "./page/admin/Services/Services";
-import Order from "./page/admin/Order/Order";
+import { access_token } from "./config/authConfig";
+import "./index.css";
 import Account from "./page/admin/Account/Account";
+import Category from "./page/admin/Category/Category";
+import Home from "./page/admin/Home/Home";
+import Order from "./page/admin/Order/Order";
+import Product from "./page/admin/Products/Product";
+import Services from "./page/admin/Services/Services";
+import Login from "./page/Auth/admin/Login";
+import ListProducts from "./page/client/Product/ListProducts/ListProducts";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<ListProducts />} />
+        {/* Client */}
+
+
+        {/* Admin */}
         <Route
           path="/adminstrator/"
-          element={access_admin ? <Home /> : <Login />}
+          element={access_token ? <Home /> : <Login />}
         />
         <Route
           path="/adminstrator/products"
-          element={access_admin ? <Product /> : <Login />}
+          element={access_token ? <Product /> : <Login />}
         />
         <Route
           path="/adminstrator/categories"
-          element={access_admin ? <Category /> : <Login />}
+          element={access_token ? <Category /> : <Login />}
         />
         <Route
           path="/adminstrator/services"
-          element={access_admin ? <Services /> : <Login />}
+          element={access_token ? <Services /> : <Login />}
         />
         <Route
           path="/adminstrator/orders"
-          element={access_admin ? <Order /> : <Login />}
+          element={access_token ? <Order /> : <Login />}
         />
         <Route
           path="/adminstrator/accounts"
-          element={access_admin ? <Account /> : <Login />}
+          element={access_token ? <Account /> : <Login />}
         />
       </Routes>
     </BrowserRouter>

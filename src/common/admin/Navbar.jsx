@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Navbar } from "react-bootstrap";
-import { access_admin } from "../../config/authConfig";
+import { access_token } from "../../config/authConfig";
 import AdminServices from "../../service/AdminServices";
 
 const UserToggle = ({ info }) => {
-  if (access_admin) {
+  if (access_token) {
     return (
       <div className="rounded-pill outline-secondary shadow-lg px-3 py-1">
         {info}
