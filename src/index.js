@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { access_token } from "./config/authConfig";
 import "./index.css";
 import Account from "./page/admin/Account/Account";
+<<<<<<< HEAD
 import Category from "./page/admin/Category/Category";
 import Home from "./page/admin/Home/Home";
 import Order from "./page/admin/Order/Order";
@@ -12,6 +13,9 @@ import Product from "./page/admin/Products/Product";
 import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
+=======
+import DetailOrder from "./page/admin/Order/DetailOrder";
+>>>>>>> a735737 (backup)
 
 ReactDOM.render(
   <React.StrictMode>
@@ -45,6 +49,10 @@ ReactDOM.render(
         <Route
           path="/adminstrator/accounts"
           element={access_token ? <Account /> : <Login />}
+        />
+        <Route
+          path="/adminstrator/detail_order"
+          element={access_admin ? <DetailOrder /> : <Login />}
         />
       </Routes>
     </BrowserRouter>
