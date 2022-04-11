@@ -1,33 +1,62 @@
-#main--navbar { 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 500px;
-    margin: 0;
+#main--navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+  margin: 0;
 }
 #main--navbar .navbar-nav {
-    gap: 30px;
-    font-size: large;
+  gap: 30px;
+  font-size: large;
 }
-#main--navbar .navbar-brand h3{
-    color: #F15E2C !important;
-    margin: 0;
+#main--navbar .navbar-brand h3 {
+  color: #f15e2c !important;
+  margin: 0;
 }
 .navbar-search {
-    display: flex;
-    padding-left: 40px;
-    background-position: left 10px center;
-    z-index: 10;
+  display: flex;
+  padding-left: 40px;
+  background-position: left 10px center;
+  z-index: 10;
 }
 .navbar-search .form-label {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-search .form-control {
+  padding-left: 35px !important;
 }
 .navbar-search svg {
-    display: flex;
-    position: absolute;
-    left: 30px;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 8px;
+  left: 10px;
+}
+#sidebar-client .sidebar {
+  max-width: 350px;
+  overflow-y: auto;
+}
+#sidebar-client .sidebar-header {
+  padding: 0;
+}
+.main-header {
+  align-items: stretch;
+}
+.sidebar-header .main-header a {
+  display: flex;
+  flex-grow: 3;
+  justify-content: center;
+  font-size: large;
+  color: black;
+  font-weight: bolder;
+  padding: 16px 0;
+}
+.sidebar-header .sub-header {
+  padding: 16px 0;
+  border-top: 2px black solid;
+  border-bottom: 2px black solid;
 }

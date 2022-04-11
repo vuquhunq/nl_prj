@@ -13,6 +13,7 @@ import ColorService from "../../../service/ColorService";
 import GenderService from "../../../service/GenderService";
 import ProductServices from "../../../service/ProductServices";
 import SizeService from "../../../service/SizeService";
+import ColorBox from "../../ColorBox";
 
 export default function ModalAdditionProduct({ show, setShow }) {
   const nameProduct = useRef("");
@@ -21,6 +22,17 @@ export default function ModalAdditionProduct({ show, setShow }) {
   const categoryProduct = useRef("");
   const genderProduct = useRef("");
   const quantityProduct = useRef("");
+  const handleResetRef = () => {
+    nameProduct.current.value = "";
+    priceProduct.current.value = "";
+    descProduct.current.value = "";
+    categoryProduct.current.value = "";
+    genderProduct.current.value = "";
+    quantityProduct.current.value = "";
+
+    setColorProduct(0);
+    setIsAddition({ ...isAddition, basic: false, detail: false, data: {} });
+  };
   //
   const [idProduct, setIdProduct] = useState(0);
   const [colorProduct, setColorProduct] = useState(0);
@@ -83,8 +95,8 @@ export default function ModalAdditionProduct({ show, setShow }) {
     obj.quantity = parseInt(quantityProduct.current.value);
     obj.quantity_sold = 0;
     obj.id_product_detail = isAddition.data.detail.id_product_detail || 0;
-    obj.id_size = parseInt(sizeProduct)
-    ProductServices.addSizeQuantity().then(res=>console.log(res))
+    obj.id_size = parseInt(sizeProduct);
+    ProductServices.addSizeQuantity(obj).then((res) => console.log(res));
     console.log(obj);
   };
   useEffect(() => {
@@ -94,7 +106,13 @@ export default function ModalAdditionProduct({ show, setShow }) {
     SizeService.getSize().then((res) => setSizes(res));
   }, []);
   return (
-    <Modal show={show} onHide={setShow}>
+    <Modal
+      show={show}
+      onHide={() => {
+        setShow()
+        handleResetRef();
+      }}
+    >
       <ModalHeader closeButton>Thêm sản phẩm</ModalHeader>
       <ModalBody>
         <Form className="d-flex flex-column gap-3">
@@ -165,21 +183,12 @@ export default function ModalAdditionProduct({ show, setShow }) {
                   <div className="d-flex align-items-center gap-2">
                     {colories &&
                       colories.map((color, index) => (
-                        <div
-                          className="color-box"
+                        <ColorBox
+                          color={color}
+                          colorProduct={colorProduct}
+                          setColorProduct={setColorProduct}
                           key={index}
-                          onClick={() => setColorProduct(color.id_color)}
-                          style={{
-                            width: 40,
-                            height: 40,
-                            backgroundColor: color.hex,
-                            boxShadow: "0 0 10px rgba(0,0,0,.4)",
-                            border:
-                              colorProduct === color.id_color
-                                ? "2px green solid"
-                                : "none",
-                          }}
-                        ></div>
+                        />
                       ))}
                   </div>
                   <Button>+</Button>
@@ -197,7 +206,11 @@ export default function ModalAdditionProduct({ show, setShow }) {
                 required
               />
               <Container fluid className="p-0 mt-3">
-                <Button disabled={isAddition.detail} className="w-100" onClick={handleDetailAddition}>
+                <Button
+                  disabled={isAddition.detail}
+                  className="w-100"
+                  onClick={handleDetailAddition}
+                >
                   Thêm hình ảnh
                 </Button>
               </Container>

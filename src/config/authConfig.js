@@ -1,5 +1,5 @@
-export const access_user = localStorage.getItem("clientToken");
 export const access_token = localStorage.getItem("access_token");
+export const access_admin_token = localStorage.getItem("access_admin_token")
 function parseJwt(token) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -14,5 +14,5 @@ function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 }
-console.log(access_token && parseJwt(access_token))
 export const info_admin = access_token && parseJwt(access_token)
+export const infoAdmin = access_admin_token && parseJwt(access_admin_token) 

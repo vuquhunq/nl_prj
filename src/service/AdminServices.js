@@ -1,4 +1,4 @@
-import { access_token } from "../config/authConfig";
+import { access_admin_token } from "../config/authConfig";
 import { axiosInstance } from "../config/axiosConfig";
 
 class AdminServices {
@@ -6,7 +6,7 @@ class AdminServices {
     return axiosInstance
       .get("/admin/", {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${access_admin_token}`,
           "Content-Type": "Application/json",
         },
       })
@@ -17,7 +17,7 @@ class AdminServices {
     return axiosInstance
       .get("/admin/get-account-info", {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${access_admin_token}`,
           "Content-Type": "Application/json",
         },
       })
@@ -28,7 +28,7 @@ class AdminServices {
     return axiosInstance
       .get("/admin/get-all-admin", {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${access_admin_token}`,
           "Content-Type": "Application/json",
         },
       })

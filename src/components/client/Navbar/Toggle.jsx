@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { access_token } from "../../../config/authConfig";
 import ModalUserLogin from "../../../page/Auth/client/Login";
-import {ReactComponent as ChervDownIcon} from '../../../assets/chervDown.svg'
-import './style.css'
+import { ReactComponent as ChervDownIcon } from "../../../assets/chervDown.svg";
+import "./style.css";
 
 const Toggle = ({ userInfo }) => {
   return (
-   <div className="user-toggle rounded-pill">
-       {userInfo && userInfo.full_name} <ChervDownIcon />
-   </div>
+    <div className="user-toggle rounded-pill">
+      {userInfo && userInfo.full_name} <ChervDownIcon />
+    </div>
   );
 };
 export const UserToggle = ({ userInfo }) => {
@@ -24,7 +24,7 @@ export const UserToggle = ({ userInfo }) => {
         <Toggle userInfo={userInfo} />
       ) : (
         <Button onClick={handleShow} variant="btn btn-outline-none">
-          Đăng xuất/đăng nhập
+          Đăng ký/Đăng nhập
         </Button>
       )}
     </>

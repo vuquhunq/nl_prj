@@ -3,6 +3,11 @@ class ProductServices {
   getAllProduct() {
     return axiosInstance.get("/product/all-product").then((res) => res.data);
   }
+  getDetailProduct(payload) {
+    return axiosInstance
+      .get(`/product/first-product/${payload}`)
+      .then((res) => res.data);
+  }
   addBasicProduct(data) {
     return axiosInstance
       .post("/product/create-product-basic", data, {
@@ -33,15 +38,11 @@ class ProductServices {
   }
   addSizeQuantity(payload) {
     return axiosInstance
-      .post(
-        "/product/create-size-quantity",
-        { data: payload },
-        {
-          headers: {
-            "Content-Type": "Application/json",
-          },
-        }
-      )
+      .post("/product/create-size-quantity", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => res.data);
   }
 }

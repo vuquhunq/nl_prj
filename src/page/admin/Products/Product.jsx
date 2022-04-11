@@ -79,7 +79,7 @@ export default function Product() {
                         style={{ width: "auto", height: 200 }}
                       />
                     </td>
-                    <td>{product.money},000 VNĐ</td>
+                    <td>{product.money} VNĐ</td>
                     <td>
                       <FontAwesomeIcon
                         className="productlistEdit"

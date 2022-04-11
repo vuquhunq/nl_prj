@@ -15,7 +15,7 @@ const SearchBox = () => {
         <Form.Label>
           <SearchIcon />
         </Form.Label>
-        <Form.Control className=" rounded-pill" type="text" />
+        <Form.Control className="rounded-pill" type="text" />
       </Form.Group>
     </Form>
   );
@@ -30,7 +30,6 @@ const ClientNavbar = () => {
     access_token &&
       UserServices.getInfoUser().then((res) => {
         setUserInfo(res);
-        localStorage.setItem("user_info", res);
       });
   }, []);
   //

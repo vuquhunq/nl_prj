@@ -1,5 +1,5 @@
 import axios from "axios";
-import { access_token, access_user } from "./authConfig";
+import { access_token } from "./authConfig";
 
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:8000",
@@ -7,6 +7,6 @@ export const axiosInstance = axios.create({
     "Content-Type": "Applicaiton/json",
     accept: "*",
   },
-});
+}); 
 axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${access_token}`
 axiosInstance.defaults.headers.common["Content-Type"] = "Application/json"

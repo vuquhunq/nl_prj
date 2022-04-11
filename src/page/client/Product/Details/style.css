@@ -1,0 +1,41 @@
+#detail-product {
+  padding: 16px;
+}
+#datail-product .list_image-product {
+  display: flex;
+  flex-grow: 4;
+}
+.img-product {
+  max-width: 700px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  display: flex;
+  flex-grow: 4;
+}
+.name-product {
+  word-spacing: 10px;
+}
+.name-product h2 {
+  font-weight: bold;
+}
+.desc-product {
+  text-align: justify;
+  padding: 20px 0;
+  border-top: 2px black dashed;
+  border-bottom: 2px black dashed;
+  font-size: large;
+}
+.money-product h4 {
+  color: #f15e2c;
+}
+.color-product {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 16px 10px;
+  border-bottom: 2px black dashed ;
+}

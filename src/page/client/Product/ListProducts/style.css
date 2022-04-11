@@ -1,0 +1,8 @@
+#client-content {
+    padding: 0;
+    overflow-y: auto;
+}
+#client-content .sidebar {
+    width: 400px;
+    padding: 0;
+}
