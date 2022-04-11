@@ -8,5 +8,5 @@ export const axiosInstance = axios.create({
     accept: "*",
   },
 });
-axiosInstance.defaults.headers.common["Authorization"] =
-  access_token || access_user;
+axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${access_token}`
+axiosInstance.defaults.headers.common["Content-Type"] = "Application/json"
