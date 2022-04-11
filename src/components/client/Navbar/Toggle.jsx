@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { access_token } from "../../../config/authConfig";
 import ModalUserLogin from "../../../page/Auth/client/Login";
-import {ReactComponent as SearchIcon} from '../../../assets/search.svg'
+import {ReactComponent as ChervDownIcon} from '../../../assets/chervDown.svg'
 import './style.css'
 
 const Toggle = ({ userInfo }) => {
   return (
    <div className="user-toggle rounded-pill">
-       {userInfo && userInfo.full_name} <SearchIcon />
+       {userInfo && userInfo.full_name} <ChervDownIcon />
    </div>
   );
 };

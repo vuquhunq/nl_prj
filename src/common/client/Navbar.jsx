@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  Nav,
-  Navbar,
-} from "react-bootstrap";
+import { Col, Container, Form, Nav, Navbar } from "react-bootstrap";
 import { UserToggle } from "../../components/client/Navbar/Toggle";
 import ModalHandleSevice from "../../components/client/Service/modalHandleSevice";
 import { access_token } from "../../config/authConfig";
 import { linkData } from "../../constant/DirectClient";
 import UserServices from "../../service/UserServices";
+import { ReactComponent as SearchIcon } from "../../assets/search.svg";
 import "./style.css";
 
 const SearchBox = () => {
   return (
-    <FormGroup className="position-relative">
-      <FormLabel className="position-absolute">Hello</FormLabel>
-      <FormControl className="rounded-pill" type="text" />
-    </FormGroup>
+    <Form>
+      <Form.Group className="navbar-search position-relative">
+        <Form.Label>
+          <SearchIcon />
+        </Form.Label>
+        <Form.Control className=" rounded-pill" type="text" />
+      </Form.Group>
+    </Form>
   );
 };
 
@@ -34,7 +30,7 @@ const ClientNavbar = () => {
     access_token &&
       UserServices.getInfoUser().then((res) => {
         setUserInfo(res);
-        localStorage.setItem('user_info', res)
+        localStorage.setItem("user_info", res);
       });
   }, []);
   //

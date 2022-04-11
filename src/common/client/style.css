@@ -13,3 +13,21 @@
     color: #F15E2C !important;
     margin: 0;
 }
+.navbar-search {
+    display: flex;
+    padding-left: 40px;
+    background-position: left 10px center;
+    z-index: 10;
+}
+.navbar-search .form-label {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.navbar-search svg {
+    display: flex;
+    position: absolute;
+    left: 30px;
+}
