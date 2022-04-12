@@ -2,7 +2,7 @@
 }
 .card-header {
   padding: 0;
-  height: 250px;
+  max-height: 250px;
   overflow: hidden;
 }
 .card-img {

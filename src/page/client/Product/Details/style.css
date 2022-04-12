@@ -39,3 +39,8 @@
   padding: 16px 10px;
   border-bottom: 2px black dashed ;
 }
+.size_quantity-product {
+  padding: 16px 0;
+  display: flex;
+  gap: 16px;
+}
