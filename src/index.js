@@ -14,7 +14,7 @@ import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
-import 'swiper/css';
+import "swiper/css";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,6 +25,7 @@ ReactDOM.render(
           path="/product/detail/id_product=:id"
           element={<DetailProduct />}
         />
+        <Route path="/product/id_category=:id" element={<ListProducts />} />
         {/* Client */}
 
         {/* Admin */}
