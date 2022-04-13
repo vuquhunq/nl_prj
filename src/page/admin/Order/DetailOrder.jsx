@@ -1,10 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
+import BillService from "../../../service/BillService";
 
 export default function DetailOrder() {
+  const [detail, setDetailOrder] = useState({});
+  const location = useLocation();
+  const path = location.pathname.split("/")[3];
+  console.log(path);
+
+  const handleAccept = () => {
+    let objectStatus = {
+      status: "Xác Nhận",
+      id_verifier: 1,
+      id_bill: Number(path),
+    };
+    BillService.updateBillService(objectStatus).then((res) =>
+      console.log(res.data)
+    );
+  };
+
+  const handleCancel = () => {
+    let objectStatus = {
+      status: "Hủy",
+      id_verifier: 1,
+      id_bill: Number(path),
+    };
+    BillService.updateBillService(objectStatus).then((res) =>
+      console.log(res.data)
+    );
+  };
+
+  useEffect(() => {
+    BillService.getAdminDetailBillService(path).then((res) =>
+      setDetailOrder(res)
+    );
+  }, [path]);
+
+  console.log(detail);
+
   return (
     <>
       <AdminNavbar />
@@ -39,64 +75,74 @@ export default function DetailOrder() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <div className="left">
-                          <img
-                            src="https://th.bing.com/th/id/OIP.IwbWGr7qz8VmxzhHYNsh4QHaFA?pid=ImgDet&rs=1"
-                            alt=""
-                            style={{ width: "40px", height: "40px" }}
-                            className="img-xs"
-                          />
-                        </div>
-                        <p
-                          className="info"
-                          style={{
-                            marginLeft: "10px",
-                          }}
-                        >
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Expedita
-                        </p>
-                      </td>
-                      <td>
-                        <div
-                          style={{
-                            margin: "1px auto",
-                            width: "20px",
-                            height: "20px",
-                            borderStyle: "groove",
-                            borderWidth: "thin",
-                            borderColor: "gray",
-                            backgroundColor: "red",
-                          }}
-                        ></div>
-                      </td>
-                      <td>35</td>
-                      <td>100.000 VND</td>
-                      <td>2</td>
-                      <td className="text-end">100.000 VND</td>
-                    </tr>
+                    {detail !== {} ? (
+                      detail?.list_product_details?.map((items, index) => (
+                        <tr key={index}>
+                          <td>
+                            <div className="left">
+                              <img
+                                src={items.path}
+                                alt=""
+                                style={{ width: "40px", height: "40px" }}
+                                className="img-xs"
+                              />
+                            </div>
+                            <p
+                              className="info"
+                              style={{
+                                marginLeft: "10px",
+                              }}
+                            >
+                              {items.name}
+                            </p>
+                          </td>
+                          <td>
+                            <div
+                              style={{
+                                margin: "1px auto",
+                                width: "20px",
+                                height: "20px",
+                                borderStyle: "groove",
+                                borderWidth: "thin",
+                                borderColor: "gray",
+                                backgroundColor: items.hex,
+                              }}
+                            ></div>
+                          </td>
+                          <td>{items.size}</td>
+                          <td>{items.current_price} VND</td>
+                          <td>{items.quantily}</td>
+                          <td className="text-end">
+                            {items.current_price * items.quantily}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <h1>Loading ...</h1>
+                    )}
 
                     <tr>
                       <th colSpan={6}>
-                        <article className="float-end">
-                          <dl className="dlist">
-                            <dt>Tổng Tiền: 200000</dt>
+                        <article
+                          className="float-end"
+                          style={{ width: "300px" }}
+                        >
+                          <dl className="dlist d-flex justify-content-between">
+                            <dt>Thành Tiền:</dt>
+                            <span>{detail.total}</span>
                           </dl>
-                          <dl className="dlist">
-                            <dt>Khuyến Mãi: 10000</dt>
-                          </dl>
-                          <dl className="dlist">
-                            <dt>Thành Tiền: 190000</dt>
-                          </dl>
-                          <dl className="dlist">
-                            <dt className="text-muted">
+                          <dl className="dlist d-flex justify-content-between">
+                            <dt
+                              className="text-muted"
+                              style={{
+                                wordBreak: "break-word",
+                              }}
+                            >
                               Trạng thái Thanh toán:
-                              <span className="badge rounded-pill alert alert-success text-success">
-                                Đẫ Thanh Toán
-                              </span>
                             </dt>
+                            <span className="badge rounded-pill alert alert-success text-success">
+                              {detail.method}
+                            </span>
                           </dl>
                         </article>
                       </th>
@@ -105,9 +151,18 @@ export default function DetailOrder() {
                 </table>
 
                 <div className="col-lg-3">
-                  <div className="box shadow-sm bg-light">
-                    <button className="btn btn-success col-12">
-                      Đã Giao Hàng
+                  <div className="box d-flex shadow-sm bg-light ">
+                    <button
+                      className="btn mx-2 btn-success col-12"
+                      onClick={handleAccept}
+                    >
+                      Xác Nhận
+                    </button>
+                    <button
+                      className="btn btn-danger col-12"
+                      onClick={handleCancel}
+                    >
+                      Hủy
                     </button>
                   </div>
                 </div>
