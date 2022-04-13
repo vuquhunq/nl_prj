@@ -54,7 +54,7 @@ ReactDOM.render(
         />
         <Route
           path="/adminstrator/name_services"
-          element={access_token ? <NameServices /> : <Login />}
+          element={access_admin_token ? <NameServices /> : <Login />}
         />
         <Route
           path="/adminstrator/orders"
