@@ -14,7 +14,7 @@
 }
 .sidebar .nav a:hover {
     opacity: .6;
-    padding-left: 70px;
+    padding-left: 65px;
 }
 .sidebar .nav a.active {
     opacity: 1;
