@@ -16,27 +16,12 @@ const DetailContent = ({
   setColor,
   isSize,
   setSize,
+  isQuantity,
+  setQuantity,
 }) => {
   //
-  const [quantity, setQuantity] = useState(0);
   //
-  useEffect(() => {
-    quantity < 0
-      ? setQuantity(0)
-      : product &&
-        quantity >
-          product.list_color[isColor].list_size[isSize].SizeQuantity.quantity
-      ? setQuantity(
-          product.list_color[isColor].list_size[isSize].SizeQuantity.quantity
-        )
-      : setQuantity(quantity);
-  }, [
-    product,
-    isColor,
-    isSize,
-    quantity,
-  ]);
-  console.log(quantity);
+
   return (
     <Container fluid>
       <Col className="name-product">
@@ -89,18 +74,19 @@ const DetailContent = ({
           <InputGroup className="quantity-input">
             <Form.Label>Số lượng:</Form.Label>
             <Form.Control
+              disabled
               type="text"
-              value={quantity}
+              value={isQuantity}
               onChange={(e) => setQuantity(e.target.value)}
             />
             <span className="number-control">
               <FontAwesomeIcon
-                onClick={() => setQuantity(quantity + 1)}
+                onClick={() => setQuantity(isQuantity + 1)}
                 icon={faChevronUp}
                 color="#f15e2c"
               />
               <FontAwesomeIcon
-                onClick={() => setQuantity(quantity - 1)}
+                onClick={() => setQuantity(isQuantity - 1)}
                 icon={faChevronDown}
                 color="#f15e2c"
               />

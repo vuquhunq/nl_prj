@@ -39,7 +39,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
   const [sizeProduct, setSizeProduct] = useState(0);
   const [fileSelected, setFileSelected] = useState({});
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
-  console.log(isUploadSuccess);
   /////
   const [categories, setCategories] = useState([]);
   const [colories, setColories] = useState([]);
@@ -53,8 +52,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
 
   //
   console.log(idProduct);
-  console.log(colorProduct);
-
   const handleSelectFile = (e) => {
     setFileSelected(e.target.files);
   };

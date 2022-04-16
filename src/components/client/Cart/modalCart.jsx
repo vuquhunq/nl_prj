@@ -1,57 +1,107 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Button,
   Col,
   FormSelect,
   Image,
   Modal,
   ModalBody,
+  ModalFooter,
   ModalHeader,
   Row,
 } from "react-bootstrap";
+import CartService from "../../../service/CartService";
+import "./style.css";
 
-export default function ModalCart({ cartDetail, show, isShow }) {
-  console.log(cartDetail);
+export default function ModalCart({ show, isShow }) {
+  const [cartProduct, setCartProduct] = useState([]);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setCartProduct(CartService.getCart());
+    cartProduct &&
+      cartProduct.map((e) => {
+        setTotal(total + e.current_price * e.quantily);
+      });
+  }, []);
+  console.log(total);
   return (
-    <Modal show={show} onHide={isShow} size="xl">
+    <Modal show={show} onHide={isShow} size="xl" centered>
       <ModalHeader closeButton>GIỎ HÀNG</ModalHeader>
-      <ModalBody>
-        <Row>
-          <Col md={8}>
-            <h4>Chi tiết giỏ hàng</h4>
-          </Col>
-          <Col md={4}>
-            <h4>Thanh toán</h4>
-          </Col>
-        </Row>
-        <Row className="info-product">
-          <Col
-            className="d-flex justify-content-between align-item-center flex-nowrap gap-1 grow-1"
-            md={8}
-          >
-            <div className="d-flex gap-1">
-              <Image src="https://picsum.photos/50" />
-              <span className="d-flex align-items-center flex-nowrap overflow-auto">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </span>
-            </div>
-            <span className="d-flex align-items-center flex-nowrap overflow-auto">
-              <FormSelect
-                className="d-flex align-items-center"
-                style={{ width: 100, height: 40 }}
-              >
-                <option>Size</option>
-              </FormSelect>
-            </span>
-          </Col>
-          <Col
-            className="d-flex align-items-center justify-content-between gap-2"
-            md={4}
-          >
-            <span className="d-flex align-items-center">x3</span>
-            <span className="d-flex align-items-center">300.000 VND</span>
-          </Col>
-        </Row>
-      </ModalBody>
+      {cartProduct.length > 0 ? (
+        <ModalBody>
+          <Row className="info-product">
+            {cartProduct &&
+              cartProduct.map((product, index) => {
+                return <DetailProduct key={index} product={product} />;
+              })}
+          </Row>
+        </ModalBody>
+      ) : (
+        <ModalBody
+          className="d-flex justify-content-center align-items-center m-auto"
+          style={{ height: 400, fontWeight: 700 }}
+        >
+          Không có sản phẩm trong giỏ hàng
+        </ModalBody>
+      )}
+
+      <ModalFooter>
+        {total.toLocaleString("it-IT", {
+          style: "currency",
+          currency: "VND",
+        })}
+        <Button variant="btn btn-outline-success">Đặt hàng</Button>
+        <Button variant="ben btn-success">Thanh toán</Button>
+      </ModalFooter>
     </Modal>
   );
 }
+const DetailPurchase = ({ product }) => {
+  return (
+    <Col
+      className="d-flex align-items-center justify-content-between gap-2"
+      md={4}
+    >
+      <span className="caculator-price d-flex align-items-center">
+        {product.current_price.toLocaleString("it-IT", {
+          style: "currency",
+          currency: "VND",
+        })}
+        <span>x</span>
+        {product.quantily}
+      </span>
+      <span className="total-price d-flex align-items-center">
+        {(product.current_price * product.quantily).toLocaleString("it-IT", {
+          style: "currency",
+          currency: "VND",
+        })}
+      </span>
+    </Col>
+  );
+};
+const DetailProduct = ({ product }) => {
+  return (
+    <>
+      <Col
+        className="info-item d-flex justify-content-between align-item-center flex-nowrap gap-1 grow-1"
+        md={8}
+      >
+        <div className="d-flex gap-1">
+          <Image src={product.img} height={100} width={100} />
+          <span className="name-product d-flex align-items-center flex-nowrap overflow-auto">
+            {product.name}
+          </span>
+        </div>
+        <span className="d-flex align-items-center flex-nowrap overflow-auto">
+          <FormSelect
+            className="d-flex align-items-center"
+            style={{ width: 100, height: 40 }}
+          >
+            <option>{product.size}</option>
+          </FormSelect>
+        </span>
+      </Col>
+      <DetailPurchase product={product} />
+    </>
+  );
+};

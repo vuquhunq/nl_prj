@@ -16,7 +16,7 @@ export default function CardProduct({ product }) {
       <Card.Header className="bg-none" >
         <Card.Img
           src={FileServices.getIMG(
-            product.list_color[colorProduct].list_image[0]
+            product.list_color.length > 0 ? product.list_color[colorProduct].list_image[0] : ''
           )}
         />
       </Card.Header>

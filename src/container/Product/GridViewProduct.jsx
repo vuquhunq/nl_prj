@@ -1,19 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Masonry from "react-masonry-css";
 import CardProduct from "../../components/client/Product/CardProduct";
-import ProductServices from "../../service/ProductServices";
 import "./style.css";
-export default function GridViewProduct() {
-  const [products, setProducts] = useState([]);
+export default function GridViewProduct({products}) {
   const [limit, setLimit] = useState(8);
-  useEffect(() => {
-    ProductServices.getAllProduct().then((res) => setProducts(res));
-  }, []);
-
-  useEffect(() => {
-    if (products.length > 0 && limit > products.length) setLimit(products.length);
-
-  }, [limit, products]);
 
   const breakpointColumnsObj = {
     default: 4,
@@ -25,7 +15,6 @@ export default function GridViewProduct() {
   return (
     <>
       <Masonry
-      onScroll={(e)=>console.log(e)}
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
