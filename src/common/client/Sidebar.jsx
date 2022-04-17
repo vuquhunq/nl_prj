@@ -1,4 +1,3 @@
-import { faPersonWalkingDashedLineArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Container, NavLink } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
@@ -6,22 +5,29 @@ import Masonry from "react-masonry-css";
 import CategoryService from "../../service/CategoryService";
 import ColorService from "../../service/ColorService";
 import "./style.css";
-const Sidebar = () => {
-
+const Sidebar = ({
+  colorList,
+  categoryList,
+  setColorList,
+  setCategoryList,
+}) => {
+  console.log(colorList, categoryList);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
-  const [isColorSelect, setIsColorSelect] = useState([]);
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
     ColorService.getColor().then((res) => setColors(res));
   }, []);
-
+  const handleAddCategory = (category) => {
+    if (categoryList.indexOf(category) > -1) {
+      const newList = categoryList.filter((item) => item !== category);
+      setCategoryList(newList);
+    } else setCategoryList([...categoryList, category]);
+  };
   const cols = {
     default: 6,
     1420: 5,
   };
-  console.log(isColorSelect);
-  console.log(colors);
   return (
     <Container
       id="sidebar-client"
@@ -41,8 +47,9 @@ const Sidebar = () => {
               return (
                 <CategoriesList
                   category={category}
+                  categoryList={categoryList}
+                  setCategoryList={handleAddCategory}
                   key={index}
-                  setColors={setIsColorSelect}
                 />
               );
             })
@@ -58,7 +65,13 @@ const Sidebar = () => {
           >
             {colors &&
               colors.map((color, index) => (
-                <ColorList color={color} key={index} active />
+                <ColorList
+                  color={color}
+                  key={index}
+                  colorList={colorList}
+                  setColorList={setColorList}
+                  active={colorList.indexOf(color.id_color) > -1 ? true : false}
+                />
               ))}
           </Masonry>
         </div>
@@ -68,21 +81,43 @@ const Sidebar = () => {
 };
 export default Sidebar;
 
-const CategoriesList = ({ category }) => {
+const CategoriesList = ({
+  category,
+  categoryList,
+  setCategoryList,
+  active,
+}) => {
+  console.log("Focus", category, categoryList, setCategoryList, active);
+
   return (
-    <NavLink href={`/product/id_category=${category.id_category}`}>
+    <NavLink
+      onClick={() => setCategoryList(category.id_category)}
+      style={{
+        color: active ? "#F15E2C" : "black",
+        fontWeight: active ? 300 : 500,
+      }}
+    >
       {category.name}
     </NavLink>
   );
 };
-const ColorList = ({ color, active }) => {
+const ColorList = ({ color, colorList, setColorList, active }) => {
+  const handleAddColor = () => {
+    if (colorList.indexOf(color.id_color) > -1) {
+      const newColorList = colorList.filter((e) => e !== color.id_color);
+      setColorList(newColorList);
+    } else setColorList([...colorList, color.id_color]);
+  };
   return (
     <div
+      onClick={handleAddColor}
       style={{
         width: 40,
         height: 40,
         backgroundColor: color.hex,
+        transition: ".125s ease",
         outline: active ? "1px #F15E2C solid" : "0",
+        borderRadius: active ? "50%" : "0",
       }}
     ></div>
   );

@@ -29,6 +29,6 @@ class AuthService {
   logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("access_admin_token");
-
-  }}
+  }
+}
 export default new AuthService();

@@ -1,5 +1,6 @@
 import { access_token } from "../config/authConfig";
 import { axiosInstance } from "../config/axiosConfig";
+import AuthServices from "./AuthServices";
 
 class UserServices {
   getInfoUser() {
@@ -11,7 +12,10 @@ class UserServices {
         },
       })
       .then((res) => res.data)
-      .catch((err) => alert(err));
+      .catch(() => {
+        AuthServices.logout();
+        window.location.reload();
+      });
   }
 }
 

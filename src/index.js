@@ -25,7 +25,7 @@ ReactDOM.render(
           path="/product/detail/id_product=:id"
           element={<DetailProduct />}
         />
-        <Route path="/product/id_category=:id_category" element={<ListProducts />} />
+        <Route path="/products/" element={<ListProducts />} />
         {/* Client */}
 
         {/* Admin */}

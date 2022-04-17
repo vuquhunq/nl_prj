@@ -7,7 +7,6 @@ import ColorBox from "../../ColorBox";
 import "./style.css";
 export default function CardProduct({ product }) {
   const [colorProduct, setColorProduct] = useState(0);
-  console.log(colorProduct);
   const handleLink = () => {
     window.location = `/product/detail/id_product=${product.id_product}`;
   };

@@ -23,7 +23,6 @@ export default function ModalCart({ show, isShow }) {
         setTotal(total + e.current_price * e.quantily);
       });
   }, []);
-  console.log(total);
   return (
     <Modal show={show} onHide={isShow} size="xl" centered>
       <ModalHeader closeButton>GIỎ HÀNG</ModalHeader>

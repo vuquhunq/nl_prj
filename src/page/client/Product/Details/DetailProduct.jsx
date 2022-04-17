@@ -149,7 +149,6 @@ const CommentContainer = () => {
   useEffect(() => {
     CommentServices.getCommentProduct(id).then((res) => setComments(res));
   }, [id]);
-  console.log(comments);
   return (
     <Container className="px-4">
       <Container>

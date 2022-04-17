@@ -51,7 +51,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
   });
 
   //
-  console.log(idProduct);
   const handleSelectFile = (e) => {
     setFileSelected(e.target.files);
   };
@@ -86,7 +85,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
       }
     });
   };
-  console.log(isAddition);
   const handleSizeAddition = () => {
     let obj = {};
     obj.quantity = parseInt(quantityProduct.current.value);
@@ -94,7 +92,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
     obj.id_product_detail = isAddition.data.detail.id_product_detail || 0;
     obj.id_size = parseInt(sizeProduct);
     ProductServices.addSizeQuantity(obj).then((res) => console.log(res));
-    console.log(obj);
   };
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
@@ -106,7 +103,7 @@ export default function ModalAdditionProduct({ show, setShow }) {
     <Modal
       show={show}
       onHide={() => {
-        setShow()
+        setShow();
         handleResetRef();
       }}
     >
