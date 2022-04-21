@@ -1,17 +1,13 @@
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
-import ServiceServices from "../../../service/ServiceServices";
 
 export default function Services() {
   const [services, setServices] = useState();
 
-  useEffect(() => {
-    ServiceServices.getAllService().then((res) => setServices(res));
-  }, []);
   return (
     <>
       <AdminNavbar />

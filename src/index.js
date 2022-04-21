@@ -57,6 +57,10 @@ ReactDOM.render(
           element={access_admin_token ? <NameServices /> : <Login />}
         />
         <Route
+          path="/adminstrator/name_services"
+          element={access_admin_token ? <NameServices /> : <Login />}
+        />
+        <Route
           path="/adminstrator/orders"
           element={access_admin_token ? <Order /> : <Login />}
         />
@@ -73,8 +77,12 @@ ReactDOM.render(
           element={access_admin_token ? <Promotion /> : <Login />}
         />
         <Route
-          path="/adminstrator/detail_order"
+          path="/adminstrator/detail_order/:id"
           element={access_admin_token ? <DetailOrder /> : <Login />}
+        />
+        <Route
+          path="/adminstrator/promotion"
+          element={access_admin_token ? <Promotion /> : <Login />}
         />
       </Routes>
     </BrowserRouter>
