@@ -6,6 +6,7 @@ class CategoryService {
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
+<<<<<<< HEAD
 
   addCategory(payload) {
     return axiosInstance({
@@ -44,5 +45,23 @@ class CategoryService {
       .catch((err) => alert(err));
   }
  
+=======
+  addCategory(payload) {
+    return axiosInstance
+      .post("/category/", payload)
+      .then((res) => alert("Thành công"))
+      .catch((err) => alert(err));
+  }
+  updateCategory(payload) {
+    return axiosInstance
+      .put("/category/", payload)
+      .then((res) => console.log("Thành công"));
+  }
+  deleteCategory(id_category) {
+    return axiosInstance
+      .delete(`/category/${id_category}`)
+      .then((res) => alert("Thành công"));
+  }
+>>>>>>> 725b1a9 (add service category)
 }
 export default new CategoryService();
