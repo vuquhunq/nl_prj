@@ -11,6 +11,18 @@ class ServiceServices {
       },
     }).then(() => alert("Thành công"));
   }
+
+  getAllService() {
+    return axiosInstance({
+      url: "/services/get-unconfimred-all/",
+      method: "GET",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    }).then(() => alert("Thành công"));
+  }
+
+  //Name Services
   getAllNameServices() {
     return axiosInstance
       .get("/name-services/")

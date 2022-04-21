@@ -39,3 +39,11 @@
   background-color: #e0eaff;
   color: #2a7ade;
 }
+
+/* Promotion */
+.task{
+  display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+}

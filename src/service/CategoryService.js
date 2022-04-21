@@ -6,21 +6,43 @@ class CategoryService {
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
+
   addCategory(payload) {
-    return axiosInstance
-      .post("/category/", payload)
-      .then((res) => alert("Thành công"))
+    return axiosInstance({
+      url: "/category/",
+      method: "POST",
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+       
+      },
+    }).then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
+
   updateCategory(payload) {
-    return axiosInstance
-      .put("/category/", payload)
-      .then((res) => console.log("Thành công"));
+    return axiosInstance({
+      url: "/category/",
+      method: "PUT", 
+      data: payload,
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    }).then(() => alert("Thành công"))
+      .catch((err) => alert(err));
   }
+
   deleteCategory(id_category) {
-    return axiosInstance
-      .delete(`/category/${id_category}`)
-      .then((res) => alert("Thành công"));
+    return axiosInstance({
+      url: "/category/"+id_category,
+      method: "DELETE",
+      data: id_category,
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    }).then(() => alert("Thành công"))
+      .catch((err) => alert(err));
   }
+ 
 }
 export default new CategoryService();
