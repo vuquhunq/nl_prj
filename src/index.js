@@ -72,6 +72,10 @@ ReactDOM.render(
           path="/adminstrator/promotion"
           element={access_admin_token ? <Promotion /> : <Login />}
         />
+        <Route
+          path="/adminstrator/detail_order"
+          element={access_admin_token ? <DetailOrder /> : <Login />}
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

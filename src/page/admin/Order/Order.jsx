@@ -1,4 +1,4 @@
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -8,10 +8,10 @@ import Sidebar from "../../../common/admin/Sidebar";
 import BillService from "../../../service/BillService";
 
 export default function Order() {
-  const [orders, setOrders] = useState([]);
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    BillService.getAdminBillService().then((res) => setOrders(res));
+    BillService.getBillService().then((res) => setOrder(res));
   }, []);
 
   return (
@@ -34,11 +34,10 @@ export default function Order() {
               <table className="table table-bordered bg-white rounded shadow-sm table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Mã ĐH</th>
+                    <th scope="col">Mã Đơn Hàng</th>
                     <th scope="col">Tên Khách Hàng</th>
                     <th scope="col">Tên Nhân Viên</th>
                     <th scope="col">Ngày Đặt Hàng</th>
-                    <th scope="col">Địa chỉ</th>
                     <th scope="col">Tổng Tiền</th>
                     <th scope="col">Phương Thức Thanh Toán</th>
                     <th scope="col">Trạng Thái</th>
@@ -46,40 +45,29 @@ export default function Order() {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders ? (
-                    orders.map((order, index) => (
-                      <tr key={index}>
-                        <th scope="row">{order.id_bill}</th>
-                        <td>{order.name_user}</td>
-                        <td>{order.name_admin}</td>
-                        <td>{new Date(order.date_create).toDateString()}</td>
-                        <td>{order.address}</td>
-                        <td>{order.total} VNĐ</td>
-                        <td>
-                          <span className="badge rounded-pill alert-danger">
-                            {order.method}
-                          </span>
-                        </td>
-                        <td>
-                          <span className="badge btn-success">
-                            {order.status}
-                          </span>
-                        </td>
-                        <td>
-                          <Link
-                            to={`/adminstrator/detail_order/${order.id_bill}`}
-                          >
-                            <FontAwesomeIcon
-                              style={{ color: "green" }}
-                              icon={faEye}
-                            />
-                          </Link>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <h1>Loading ...</h1>
-                  )}
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Sản Phẩm 1</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>
+                      <span className="badge rounded-pill alert-danger">
+                        Tiền Mặt
+                      </span>
+                    </td>
+                    <td>
+                      <span className="badge btn-success">Đã Giao Hàng</span>
+                    </td>
+                    <td>
+                      <Link to="/adminstrator/detail_order">
+                        <FontAwesomeIcon
+                          className="productlistView"
+                          icon={faEye}
+                        />
+                      </Link>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
