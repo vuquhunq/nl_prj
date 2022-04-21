@@ -6,7 +6,7 @@ import {
   Form,
   Modal,
   ModalBody,
-  ModalHeader,
+  ModalHeader
 } from "react-bootstrap";
 import CategoryService from "../../../service/CategoryService";
 import ColorService from "../../../service/ColorService";

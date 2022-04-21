@@ -1,19 +1,18 @@
-import { useState } from "react";
-import { Button, Container, Dropdown } from "react-bootstrap";
-import { access_token } from "../../../config/authConfig";
-import ModalUserLogin from "../../../page/Auth/client/Login";
-import { ReactComponent as ChervDownIcon } from "../../../assets/chervDown.svg";
-import "./style.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartArrowDown,
   faChevronDown,
   faChevronUp,
   faSignOut,
-  faUser,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
-import AuthServices from "../../../service/AuthServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { Button } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
+import { access_token } from "../../../config/authConfig";
+import ModalUserLogin from "../../../page/Auth/client/Login";
+import AuthServices from "../../../service/AuthServices";
+import "./style.css";
 
 const DropMenu = ({ isDisplay }) => {
   return (

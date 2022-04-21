@@ -2,11 +2,11 @@ import {
   faBox,
   faComments,
   faCubes,
-  faTruckFast,
+  faTruckFast
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
 import "../style.css";

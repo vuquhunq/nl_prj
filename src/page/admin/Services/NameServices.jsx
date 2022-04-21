@@ -6,7 +6,7 @@ import ServiceServices from "../../../service/ServiceServices";
 
 export default function NameServices() {
   const [nameServices, setNameServices] = useState([]);
-  const [text, setText] = useState("");
+  // const [text, setText] = useState("");
 
   //   const handleAdd = (data) => {
   //     let text = {};
