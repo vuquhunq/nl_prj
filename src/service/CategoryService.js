@@ -22,9 +22,5 @@ class CategoryService {
       .delete(`/category/${id_category}`)
       .then((res) => alert("Thành công"));
   }
-<<<<<<< HEAD
->>>>>>> 725b1a9 (add service category)
-=======
->>>>>>> cc91e14 (backup)
 }
 export default new CategoryService();
