@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Button, Container } from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
 import CategoryService from "../../../service/CategoryService";
 import { ModalUpdateCategory } from "./ModalUpdateCategory";
+=======
+import { Container } from "react-bootstrap";
+import AdminNavbar from "../../../common/admin/Navbar";
+import Sidebar from "../../../common/admin/Sidebar";
+import CategoryService from "../../../service/CategoryService";
+>>>>>>> b4f7513 (backup)
 
 export default function Category() {
   const [categories, setCategories] = useState([]);
   const [text, setText] = useState("");
+<<<<<<< HEAD
   const [modalShow, setModalShow] = useState(false);
   const [item, setItem] = useState("");
 
@@ -34,6 +42,8 @@ export default function Category() {
     setItem(item);
     setModalShow(true);
   };
+=======
+>>>>>>> b4f7513 (backup)
 
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
@@ -83,7 +93,11 @@ export default function Category() {
                   className="btn btn-success mt-2"
                   name="btnLuu"
                   type="submit"
+<<<<<<< HEAD
                   onClick={handleAdd}
+=======
+                  // onClick={handleAdd}
+>>>>>>> b4f7513 (backup)
                 >
                   Lưu
                 </button>
@@ -96,7 +110,10 @@ export default function Category() {
                   <tr>
                     <th style={{ width: 80 }}>Mã Loại</th>
                     <th>Tên Loại Sản Phẩm</th>
+<<<<<<< HEAD
                     <th>Tên Khuyến Mãi</th>
+=======
+>>>>>>> b4f7513 (backup)
                     <th style={{ width: 150 }}>Tác Vụ</th>
                   </tr>
                 </thead>
@@ -106,6 +123,7 @@ export default function Category() {
                       <tr key={item.id_category}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
+<<<<<<< HEAD
                         <td>{item.id_promotion}</td>
                         {console.log(item)}
                         <td>
@@ -123,6 +141,23 @@ export default function Category() {
                           >
                             Xóa
                           </Button>
+=======
+                        <td>
+                          <a href="/">
+                            <button
+                              className="btn btn-warning"
+                              style={{ marginRight: 20 }}
+                            >
+                              Sửa
+                            </button>
+                          </a>
+                          <button
+                            className="btn btn-danger"
+                            // onClick={() => deleteConfirm(item.id_category)}
+                          >
+                            Xóa
+                          </button>
+>>>>>>> b4f7513 (backup)
                         </td>
                       </tr>
                     ))}
@@ -130,6 +165,7 @@ export default function Category() {
               </table>
             </div>
           </div>
+<<<<<<< HEAD
           <ModalUpdateCategory
             item={item}
             // name={name}
@@ -137,6 +173,8 @@ export default function Category() {
             show={modalShow}
             hide={() => setModalShow(false)}
           />
+=======
+>>>>>>> b4f7513 (backup)
         </Container>
       </Container>
     </>
