@@ -1,0 +1,9 @@
+.detail-items { 
+    padding: 4px;
+    transition: .5s ease;
+}
+.detail-items:hover {
+    box-shadow: 0 0 4px black;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -14,8 +14,29 @@ class UserServices {
       .then((res) => res.data)
       .catch(() => {
         AuthServices.logout();
-        window.location.reload();
+        window.location = "/";
       });
+  }
+  updateProfileUser(payload) {
+    return axiosInstance
+      .put("/user/update-info-user/", payload, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "Application/json",
+        },
+      })
+      .then((res) => res.data);
+  }
+  updatePasswordUser({payload}) {
+    return axiosInstance
+      .put("/user/change-password/", payload, {
+        header: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => alert(res))
+      .catch((err) => alert(err));
   }
 }
 

@@ -7,6 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "react-bootstrap";
+import './style.css'
 import AuthServices from "../../../service/AuthServices";
 
 export default function ModalUserLogin({ show, onHide }) {
@@ -19,7 +20,7 @@ export default function ModalUserLogin({ show, onHide }) {
     AuthServices.userLogin(obj).then(() => window.location.reload());
   };
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal id="login-form" show={show} onHide={onHide} centered>
       <ModalHeader closeButton>Đăng nhập</ModalHeader>
       <ModalBody>
         <Form

@@ -5,14 +5,25 @@ import Sidebar from "../../../../common/client/Sidebar";
 import GridViewProduct from "../../../../container/Product/GridViewProduct";
 import ProductServices from "../../../../service/ProductServices";
 import "./style.css";
-export default function ListProducts() {
+export default function ListProducts({ gender }) {
   const [products, setProducts] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-
   useEffect(() => {
-    ProductServices.getAllProduct().then((res) => setProducts(res));
-  }, []);
+    if (colorList.length > 0 || categoryList.length > 0) {
+      let obj = {};
+      if (categoryList.length > 0) obj.list_id_category = categoryList;
+      if (colorList.length > 0) obj.list_id_color = colorList;
+      obj.id_gender = 0;
+      ProductServices.getFilterProduct(obj).then((res) => setProducts(res));
+    } else
+      ProductServices.getAllProduct().then((res) =>
+        gender
+          ? setProducts(res.filter((product) => product.id_gender === gender))
+          : setProducts(res)
+      );
+  }, [colorList, categoryList, gender]);
+
   return (
     <>
       <ClientNavbar />

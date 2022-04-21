@@ -56,13 +56,18 @@
 }
 .quantity-input {
   display: flex;
+  flex-wrap: nowrap;
   gap: 8px;
   align-items: center;
 }
 .quantity-input .form-control {
-  width: 30px;
+  width: 40px;
+  display: flex;
+  flex-wrap: nowrap;
 }
 .quantity-input .form-label {
+  display: flex;
+  flex-wrap: nowrap;
   margin: 0;
   font-weight: bolder;
   color: #f15e2c;

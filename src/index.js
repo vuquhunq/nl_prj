@@ -15,6 +15,7 @@ import Login from "./page/Auth/admin/Login";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
 import "swiper/css";
+import ProfileUser from "./page/client/Profile/ProfileUser";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,6 +27,9 @@ ReactDOM.render(
           element={<DetailProduct />}
         />
         <Route path="/products/" element={<ListProducts />} />
+        <Route path="/products/nam" element={<ListProducts gender={1} />} />
+        <Route path="/products/nu" element={<ListProducts gender={2}/>} />
+        <Route path="/profile/" element={<ProfileUser />} />
         {/* Client */}
 
         {/* Admin */}

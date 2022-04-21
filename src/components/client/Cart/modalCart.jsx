@@ -15,16 +15,11 @@ import "./style.css";
 
 export default function ModalCart({ show, isShow }) {
   const [cartProduct, setCartProduct] = useState([]);
-  const [total, setTotal] = useState(0);
   useEffect(() => {
     setCartProduct(CartService.getCart());
-    cartProduct &&
-      cartProduct.map((e) => {
-        setTotal(total + e.current_price * e.quantily);
-      });
-  }, []);
+  }, [show]);
   return (
-    <Modal show={show} onHide={isShow} size="xl" centered>
+    <Modal id="cart-modal" show={show} onHide={isShow} size="xl" centered>
       <ModalHeader closeButton>GIỎ HÀNG</ModalHeader>
       {cartProduct.length > 0 ? (
         <ModalBody>
@@ -45,10 +40,10 @@ export default function ModalCart({ show, isShow }) {
       )}
 
       <ModalFooter>
-        {total.toLocaleString("it-IT", {
+        {/* {total.toLocaleString("it-IT", {
           style: "currency",
           currency: "VND",
-        })}
+        })} */}
         <Button variant="btn btn-outline-success">Đặt hàng</Button>
         <Button variant="ben btn-success">Thanh toán</Button>
       </ModalFooter>

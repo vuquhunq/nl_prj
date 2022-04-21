@@ -4,9 +4,21 @@ class ProductServices {
     return axiosInstance.get("/product/all-product").then((res) => res.data);
   }
   getFilterProduct(payload) {
-    return axiosInstance.post("/product/filter-product", payload, {
-      "Content-Type": "application/json",
-    });
+    // return axiosInstance.post("/product/filter-product", payload, {
+    //   "Content-Type": "application/json",
+    //   accept: "application/json",
+    // });
+    return axiosInstance({
+      method: "POST",
+      url: "/product/filter-product",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      data: payload,
+    })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
   }
   getDetailProduct(payload) {
     return axiosInstance

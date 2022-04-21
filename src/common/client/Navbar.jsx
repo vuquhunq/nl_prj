@@ -23,7 +23,7 @@ const SearchBox = () => {
   );
 };
 
-const ClientNavbar = () => {
+const ClientNavbar = ({ setGender }) => {
   const [userInfo, setUserInfo] = useState();
   //
   const [isShowService, setIsShowService] = useState(false);
@@ -53,13 +53,17 @@ const ClientNavbar = () => {
         <Col>
           <Container id="main--navbar" className="d-flex align-items-center">
             <Navbar.Brand>
-              <Link to="/" style={{textDecoration: 'none'}}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <h3>H.L.H</h3>
               </Link>
             </Navbar.Brand>
             <Nav>
               {linkData.map((link, index) => (
-                <Nav.Link style={{color: "#F15E12"}} key={index} href={link.url}>
+                <Nav.Link
+                  style={{ color: "#F15E12" }}
+                  key={index}
+                  href={link.url}
+                >
                   {link.name}
                 </Nav.Link>
               ))}

@@ -1,6 +1,6 @@
 export const linkData = [
   {
-    url: "/products/nam",
+    url: '/products/nam',
     name: "Nam",
     active: 1,
   },

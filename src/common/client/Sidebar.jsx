@@ -11,7 +11,6 @@ const Sidebar = ({
   setColorList,
   setCategoryList,
 }) => {
-  console.log(colorList, categoryList);
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
   useEffect(() => {
@@ -49,6 +48,7 @@ const Sidebar = ({
                   category={category}
                   categoryList={categoryList}
                   setCategoryList={handleAddCategory}
+                  active={categoryList.indexOf(category.id_category) > -1 ? true : false}
                   key={index}
                 />
               );
@@ -87,14 +87,13 @@ const CategoriesList = ({
   setCategoryList,
   active,
 }) => {
-  console.log("Focus", category, categoryList, setCategoryList, active);
 
   return (
     <NavLink
       onClick={() => setCategoryList(category.id_category)}
       style={{
         color: active ? "#F15E2C" : "black",
-        fontWeight: active ? 300 : 500,
+        fontWeight: active ? 700 : 500,
       }}
     >
       {category.name}
