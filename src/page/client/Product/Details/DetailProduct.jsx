@@ -1,3 +1,5 @@
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Button, Container, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
@@ -5,6 +7,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
+import { infoUser } from "../../../../config/authConfig";
 import CartService from "../../../../service/CartService";
 import CommentServices from "../../../../service/CommentServices";
 import ProductServices from "../../../../service/ProductServices";
@@ -66,7 +69,8 @@ export default function DetailProduct() {
     obj.quantily = parseInt(quantityProduct);
     obj.img = product.list_color[colorProduct].list_image[0];
     obj.name = product.name;
-    obj.size = product.list_color[colorProduct].list_size[sizeProduct].size_number;
+    obj.size =
+      product.list_color[colorProduct].list_size[sizeProduct].size_number;
     let diktat = cart.find(
       (e) =>
         e.id_product_detail === obj.id_product_detail &&
@@ -79,9 +83,6 @@ export default function DetailProduct() {
 
     setQuantityProduct(0);
   };
-  useEffect(() => {
-    CartService.addCart(cart);
-  }, [cart]);
   return (
     <>
       <ClientNavbar />
@@ -149,12 +150,24 @@ const CommentContainer = () => {
   useEffect(() => {
     CommentServices.getCommentProduct(id).then((res) => setComments(res));
   }, [id]);
+  console.log(comments);
   return (
     <Container className="px-4">
       <Container>
+        <h1>Đánh giá sản phẩm</h1>
+      </Container>
+      <Container>
         {comments &&
           comments.map((comment, index) => (
-            <p key={index}>{JSON.stringify(comment,null,2)}</p>
+            <Container className="p-0 my-1" key={index}>
+              <div className="d-flex flex-column">
+                <span className="username">
+                  {comment.Info.full_name} <FontAwesomeIcon icon={faStar} color="orange" /> x{comment.Rate.number_star}
+                </span>
+                <span className="text-muted">{}</span>
+                {comment.Comments.Content}
+              </div>
+            </Container>
           ))}
       </Container>
     </Container>

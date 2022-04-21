@@ -1,5 +1,5 @@
 import { axiosInstance } from "../config/axiosConfig";
-import { access_token } from "../config/authConfig";
+import { access_admin_token, access_token } from "../config/authConfig";
 class BillService {
   getBillService(){
     return axiosInstance
@@ -21,9 +21,9 @@ class BillService {
 
   getAdminDetailBillService(id){
     return axiosInstance
-      .get("/bill/admin-get-bill/?id_bill="+id, {
+      .get(`/bill/admin-get-bill/${id && `?id_bill=${id}`}`, {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${id ? access_admin_token : access_token}`,
           "Content-Type": "Application/json",
         },
       })
