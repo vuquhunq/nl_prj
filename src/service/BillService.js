@@ -1,5 +1,9 @@
 import { axiosInstance } from "../config/axiosConfig";
+<<<<<<< HEAD
 import { access_admin_token} from "../config/authConfig";
+=======
+import { access_token } from "../config/authConfig";
+>>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
 class BillService {
   getBillService(){
     return axiosInstance
@@ -11,7 +15,11 @@ class BillService {
     return axiosInstance
       .get("/bill/admin-get-bill/", {
         headers: {
+<<<<<<< HEAD
           Authorization: `Bearer ${access_admin_token}`,
+=======
+          Authorization: `Bearer ${access_token}`,
+>>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
           "Content-Type": "Application/json",
         },
       })
@@ -23,7 +31,11 @@ class BillService {
     return axiosInstance
       .get("/bill/admin-get-bill/?id_bill="+id, {
         headers: {
+<<<<<<< HEAD
           Authorization: `Bearer ${access_admin_token}`,
+=======
+          Authorization: `Bearer ${access_token}`,
+>>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
           "Content-Type": "Application/json",
         },
       })
@@ -42,7 +54,11 @@ class BillService {
     return axiosInstance
       .put("/bill/",payload,{
         headers: {
+<<<<<<< HEAD
           Authorization: `Bearer ${access_admin_token}`,
+=======
+          Authorization: `Bearer ${access_token}`,
+>>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
           "Content-Type": "Application/json",
         },
       })
