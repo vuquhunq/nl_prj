@@ -9,5 +9,5 @@ export default {
   Product,
   Home,
   Order,
-  Category
+  Category,
 };
