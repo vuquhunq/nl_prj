@@ -11,7 +11,7 @@ class ServiceServices {
       },
     }).then(() => alert("Thành công"));
   }
-  getAllServices() {
+  getAllNameServices() {
     return axiosInstance
       .get("/name-services/")
       .then((res) => res.data)
