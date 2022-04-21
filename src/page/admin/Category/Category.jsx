@@ -1,17 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
 import CategoryService from "../../../service/CategoryService";
+import { ModalUpdateCategory } from "./ModalUpdateCategory";
 
 export default function Category() {
   const [categories, setCategories] = useState([]);
   const [text, setText] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+  const [item, setItem] = useState("");
 
-  const handleAdd = (data) => {
-    let text = {};
-    text.name = data;
-    CategoryService.addCategory(text).then(() => window.location.reload());
+  const handleAdd = () => {
+    CategoryService.addCategory({ name: text }).then(() =>
+      window.location.reload()
+    );
+  };
+
+  const handelDelete = (slug) => {
+    CategoryService.deleteCategory(slug).then(() => window.location.reload());
+  };
+
+  const deleteConfirm = (slug) => {
+    let answer = window.confirm(
+      "Are you sure you want to delete your category?"
+    );
+    if (answer) {
+      handelDelete(slug);
+    }
+  };
+
+  const showUpdate = (item) => {
+    setItem(item);
+    setModalShow(true);
   };
 
   useEffect(() => {
@@ -62,7 +83,7 @@ export default function Category() {
                   className="btn btn-success mt-2"
                   name="btnLuu"
                   type="submit"
-                  onClick={(e) => handleAdd(e.target.value)}
+                  onClick={handleAdd}
                 >
                   Lưu
                 </button>
@@ -75,6 +96,7 @@ export default function Category() {
                   <tr>
                     <th style={{ width: 80 }}>Mã Loại</th>
                     <th>Tên Loại Sản Phẩm</th>
+                    <th>Tên Khuyến Mãi</th>
                     <th style={{ width: 150 }}>Tác Vụ</th>
                   </tr>
                 </thead>
@@ -84,21 +106,23 @@ export default function Category() {
                       <tr key={item.id_category}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
+                        <td>{item.id_promotion}</td>
+                        {console.log(item)}
                         <td>
-                          <a href="/">
-                            <button
-                              className="btn btn-warning"
-                              style={{ marginRight: 20 }}
-                            >
-                              Sửa
-                            </button>
-                          </a>
-                          <button
+                          <Button
+                            className="btn btn-warning"
+                            style={{ marginRight: 20 }}
+                            onClick={() => showUpdate(item)}
+                          >
+                            Sửa
+                          </Button>
+
+                          <Button
                             className="btn btn-danger"
-                            // onClick={() => deleteConfirm(item.id_category)}
+                            onClick={() => deleteConfirm(item.id_category)}
                           >
                             Xóa
-                          </button>
+                          </Button>
                         </td>
                       </tr>
                     ))}
@@ -106,6 +130,13 @@ export default function Category() {
               </table>
             </div>
           </div>
+          <ModalUpdateCategory
+            item={item}
+            // name={name}
+            // id_promotion={promotion}
+            show={modalShow}
+            hide={() => setModalShow(false)}
+          />
         </Container>
       </Container>
     </>

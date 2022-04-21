@@ -1,4 +1,4 @@
-import { faEye, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -50,8 +50,8 @@ export default function Order() {
                     orders.map((order, index) => (
                       <tr key={index}>
                         <th scope="row">{order.id_bill}</th>
-                        <td>{order.id_user}</td>
-                        <td>{order.id_verifier}</td>
+                        <td>{order.name_user}</td>
+                        <td>{order.name_admin}</td>
                         <td>{new Date(order.date_create).toDateString()}</td>
                         <td>{order.address}</td>
                         <td>{order.total} VNĐ</td>
@@ -70,7 +70,7 @@ export default function Order() {
                             to={`/adminstrator/detail_order/${order.id_bill}`}
                           >
                             <FontAwesomeIcon
-                              className="productlistView"
+                              style={{ color: "green" }}
                               icon={faEye}
                             />
                           </Link>
