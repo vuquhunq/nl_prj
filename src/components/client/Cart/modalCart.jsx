@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Button,
   Col,
@@ -8,47 +8,36 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Row,
+  Row
 } from "react-bootstrap";
-import CartService from "../../../service/CartService";
+import { cartDetail } from "../../../config/authConfig";
 import "./style.css";
 
 export default function ModalCart({ show, isShow }) {
-  const [cartProduct, setCartProduct] = useState([]);
-  useEffect(() => {
-    setCartProduct(CartService.getCart());
-  }, [show]);
-  return (
-    <Modal id="cart-modal" show={show} onHide={isShow} size="xl" centered>
-      <ModalHeader closeButton>GIỎ HÀNG</ModalHeader>
-      {cartProduct.length > 0 ? (
-        <ModalBody>
-          <Row className="info-product">
-            {cartProduct &&
-              cartProduct.map((product, index) => {
-                return <DetailProduct key={index} product={product} />;
-              })}
-          </Row>
-        </ModalBody>
-      ) : (
-        <ModalBody
-          className="d-flex justify-content-center align-items-center m-auto"
-          style={{ height: 400, fontWeight: 700 }}
-        >
-          Không có sản phẩm trong giỏ hàng
-        </ModalBody>
-      )}
-
-      <ModalFooter>
-        {/* {total.toLocaleString("it-IT", {
-          style: "currency",
-          currency: "VND",
-        })} */}
-        <Button variant="btn btn-outline-success">Đặt hàng</Button>
-        <Button variant="ben btn-success">Thanh toán</Button>
-      </ModalFooter>
-    </Modal>
-  );
+  <Modal id="cart-modal" show={show} onHide={isShow} size="xl" centered>
+    <ModalHeader closeButton>GIỎ HÀNG</ModalHeader>
+    {cartDetail !== null ? (
+      <ModalBody>
+        <Row className="info-product">
+          {cartDetail.length > 0 &&
+            cartDetail.map((product, index) => {
+              return <DetailProduct key={index} product={product} />;
+            })}
+        </Row>
+      </ModalBody>
+    ) : (
+      <ModalBody
+        className="d-flex justify-content-center align-items-center m-auto"
+        style={{ height: 400, fontWeight: 700 }}
+      >
+        Không có sản phẩm trong giỏ hàng
+      </ModalBody>
+    )}
+    <ModalFooter>
+      <Button variant="btn btn-outline-success">Đặt hàng</Button>
+      <Button variant="ben btn-success">Thanh toán</Button>
+    </ModalFooter>
+  </Modal>;
 }
 const DetailPurchase = ({ product }) => {
   return (

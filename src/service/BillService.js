@@ -21,7 +21,7 @@ class BillService {
 
   getAdminDetailBillService(id){
     return axiosInstance
-      .get("/bill/admin-get-bill/?id_bill="+id, {
+      .get(`/bill/admin-get-bill/${id && `?id_bill=${id}`}`, {
         headers: {
           Authorization: `Bearer ${access_admin_token}`,
           "Content-Type": "Application/json",

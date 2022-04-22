@@ -51,7 +51,7 @@ export default function ProfileUser() {
   };
   useEffect(() => {
     UserServices.getInfoUser().then((res) => setProfile(res));
-    BillService.getBillUser().then((res) => setHistoryPurchase(res));
+    BillService.getBillService().then((res) => setHistoryPurchase(res));
   }, []);
   useEffect(() => {
     setFullName(profile.full_name);
@@ -212,7 +212,7 @@ export default function ProfileUser() {
 const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
   const [details, setDetails] = useState({});
   useEffect(() => {
-    BillService.getDetailBillUser(detailOrder).then((res) => setDetails(res));
+    BillService.getAdminDetailBillService(detailOrder).then((res) => setDetails(res));
   }, [detailOrder]);
   return (
     <Modal centered show={show} onHide={onHide} size="lg">

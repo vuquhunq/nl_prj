@@ -14,5 +14,6 @@ function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 }
-export const info_admin = access_token && parseJwt(access_token)
+export const infoUser = access_token && parseJwt(access_token)
 export const infoAdmin = access_admin_token && parseJwt(access_admin_token) 
+export const cartDetail = localStorage.getItem("cart-detail")

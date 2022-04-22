@@ -1,9 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { access_admin_token } from "./config/authConfig";
-import "./index.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import Account from "./page/admin/Account/Account";
 import Category from "./page/admin/Category/Category";
@@ -14,14 +11,11 @@ import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
-<<<<<<< HEAD
-=======
-import "swiper/css";
-import ProfileUser from "./page/client/Profile/ProfileUser";
->>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
 import DetailOrder from "./page/admin/Order/DetailOrder";
 import NameServices from "./page/admin/Services/NameServices";
 import Promotion from "./page/admin/promotion/Promotion";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { access_admin_token } from "./config/authConfig";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -35,7 +29,7 @@ ReactDOM.render(
         <Route path="/products/" element={<ListProducts />} />
         <Route path="/products/nam" element={<ListProducts gender={1} />} />
         <Route path="/products/nu" element={<ListProducts gender={2} />} />
-        <Route path="/profile/" element={<ProfileUser />} />
+        {/* <Route path="/profile/" element={<ProfileUser />} /> */}
         {/* Client */}
 
         {/* Admin */}
@@ -61,11 +55,7 @@ ReactDOM.render(
         />
         <Route
           path="/adminstrator/name_services"
-<<<<<<< HEAD
-          element={access_token ? <NameServices /> : <Login />}
-=======
           element={access_admin_token ? <NameServices /> : <Login />}
->>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
         />
         <Route
           path="/adminstrator/orders"
@@ -85,19 +75,11 @@ ReactDOM.render(
         />
         <Route
           path="/adminstrator/detail_order/:id"
-<<<<<<< HEAD
-          element={access_token ? <DetailOrder /> : <Login />}
-        />
-        <Route
-          path="/adminstrator/promotion"
-          element={access_token ? <Promotion /> : <Login />}
-=======
           element={access_admin_token ? <DetailOrder /> : <Login />}
         />
         <Route
           path="/adminstrator/promotion"
           element={access_admin_token ? <Promotion /> : <Login />}
->>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
         />
       </Routes>
     </BrowserRouter>
