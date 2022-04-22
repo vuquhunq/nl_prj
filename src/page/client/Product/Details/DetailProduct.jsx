@@ -136,7 +136,7 @@ export default function DetailProduct() {
             >
               THÊM VÀO GIỎ HÀNG
             </Button>
-            <Button variant="btn btn-outline-success" onClick={handleAddCart}>
+            <Button onClick={()=>window.location = '/purchase'} variant="btn btn-outline-success">
               MUA NGAY
             </Button>
           </Container>
@@ -157,29 +157,34 @@ const CommentContainer = () => {
     <Container className="p-4 shadow-lg">
       <h3>Đánh giá sản phẩm</h3>
       <Row className="my-3">
-        <Col md={2} lg={2}>
-          <div className="d-flex flex-column justify-content-center-align-items-center">
-            <h3 className="text-center" style={{color: '#F15E2C'}}>{5}</h3>
-            <div className="d-flex align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-            </div>
-          </div>
-        </Col>
-        <Col>
-          {comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
-            <></>
-          ) : (
-            <Form>
-              <Form.Control as="textarea" placeholder="Thêm bình luận"/>
-            </Form>
-          )}
-        </Col>
+        {infoUser && comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
+          <></>
+        ) : (
+          <>
+            <Col md={2} lg={2}>
+              <div className="d-flex flex-column justify-content-center-align-items-center">
+                <h3 className="text-center" style={{ color: "#F15E2" }}>
+                  {5}
+                </h3>
+                <div className="d-flex align-items-center justify-content-center">
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                </div>
+              </div>
+            </Col>
+            <Col>
+              <Form>
+                <Form.Control as="textarea" placeholder="Thêm bình luận" />
+              </Form>
+            </Col>
+          </>
+        )}
       </Row>
       <Row>
+       {comments.length > 0 &&  <h5 className="m-0 p-0">Bình luận</h5>}
         {comments &&
           comments.map((comment, index) => (
             <Container

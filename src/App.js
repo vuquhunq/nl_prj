@@ -18,12 +18,14 @@ import Login from "./page/Auth/admin/Login";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
 import ProfileUser from "./page/client/Profile/ProfileUser";
+import Purchase from "./page/client/Purchase/Purchase";
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<ListProducts />} />
+        <Route path="/purchase" element={<Purchase />} />
         <Route
           path="/product/detail/id_product=:id"
           element={<DetailProduct />}

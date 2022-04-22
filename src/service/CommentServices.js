@@ -7,6 +7,12 @@ class CommentsService {
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
+  addCommentProduct(payload) {
+    return axiosInstance
+      .post("/rate-comment/", payload)
+    .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
 }
 
 export default new CommentsService();
