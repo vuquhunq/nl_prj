@@ -39,6 +39,7 @@ export default function ListProducts({ gender }) {
           setCategoryList={setCategoryList}
           colorList={colorList}
           setColorList={setColorList}
+          gender={gender}
         />
         <Container fluid className="py-3 overflow-auto">
           <GridViewProduct products={products} />

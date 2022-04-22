@@ -10,6 +10,7 @@ const Sidebar = ({
   categoryList,
   setColorList,
   setCategoryList,
+  gender
 }) => {
   const [categories, setCategories] = useState([]);
   const [colors, setColors] = useState([]);
@@ -36,9 +37,9 @@ const Sidebar = ({
     >
       <Container className="sidebar-header">
         <div className="main-header d-flex justify-content-stretch">
-          <NavLink>Tất cả</NavLink>
-          <NavLink>Nam</NavLink>
-          <NavLink>Nữ</NavLink>
+          <NavLink style={{color: !gender && '#f15e2c'}} href="/products">Tất cả</NavLink>
+          <NavLink style={{color: gender === 1 && '#f15e2c'}} href="/products/nam">Nam</NavLink>
+          <NavLink style={{color: gender === 2 && '#f15e2c'}} href="/products/nu">Nữ</NavLink>
         </div>
         <div className="sub-header d-flex flex-column">
           {categories ? (
@@ -48,7 +49,11 @@ const Sidebar = ({
                   category={category}
                   categoryList={categoryList}
                   setCategoryList={handleAddCategory}
-                  active={categoryList.indexOf(category.id_category) > -1 ? true : false}
+                  active={
+                    categoryList.indexOf(category.id_category) > -1
+                      ? true
+                      : false
+                  }
                   key={index}
                 />
               );
@@ -87,7 +92,6 @@ const CategoriesList = ({
   setCategoryList,
   active,
 }) => {
-
   return (
     <NavLink
       onClick={() => setCategoryList(category.id_category)}

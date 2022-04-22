@@ -1,14 +1,13 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Button, Container, Image } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
 import { infoUser } from "../../../../config/authConfig";
-import CartService from "../../../../service/CartService";
 import CommentServices from "../../../../service/CommentServices";
 import ProductServices from "../../../../service/ProductServices";
 import RateService from "../../../../service/RateService";
@@ -129,13 +128,16 @@ export default function DetailProduct() {
             isQuantity={quantityProduct}
             setQuantity={setQuantityProduct}
           />
-          <Container fluid>
+          <Container fluid className="d-flex flex-column gap-2">
             <Button
               variant="btn"
               className="cart-button"
               onClick={handleAddCart}
             >
               THÊM VÀO GIỎ HÀNG
+            </Button>
+            <Button variant="btn btn-outline-success" onClick={handleAddCart}>
+              MUA NGAY
             </Button>
           </Container>
         </Container>
@@ -152,24 +154,51 @@ const CommentContainer = () => {
   }, [id]);
   console.log(comments);
   return (
-    <Container className="px-4">
-      <Container>
-        <h1>Đánh giá sản phẩm</h1>
-      </Container>
-      <Container>
+    <Container className="p-4 shadow-lg">
+      <h3>Đánh giá sản phẩm</h3>
+      <Row className="my-3">
+        <Col md={2} lg={2}>
+          <div className="d-flex flex-column justify-content-center-align-items-center">
+            <h3 className="text-center" style={{color: '#F15E2C'}}>{5}</h3>
+            <div className="d-flex align-items-center justify-content-center">
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+            </div>
+          </div>
+        </Col>
+        <Col>
+          {comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
+            <></>
+          ) : (
+            <Form>
+              <Form.Control as="textarea" placeholder="Thêm bình luận"/>
+            </Form>
+          )}
+        </Col>
+      </Row>
+      <Row>
         {comments &&
           comments.map((comment, index) => (
-            <Container className="p-0 my-1" key={index}>
+            <Container
+              className="p-3 my-1"
+              style={{ border: "1px orange solid", borderRadius: 4 }}
+              key={index}
+            >
               <div className="d-flex flex-column">
                 <span className="username">
-                  {comment.Info.full_name} <FontAwesomeIcon icon={faStar} color="orange" /> x{comment.Rate.number_star}
+                  {comment.Info.full_name}{" "}
+                  <FontAwesomeIcon icon={faStar} color="orange" /> x
+                  {comment.Rate.number_star}
                 </span>
-                <span className="text-muted">{}</span>
-                {comment.Comments.Content}
+                <span className="text-muted">{comment.Comments.Date}</span>
+                <span className="mt-2">{comment.Comments.Content}</span>
               </div>
             </Container>
           ))}
-      </Container>
+      </Row>
     </Container>
   );
 };
