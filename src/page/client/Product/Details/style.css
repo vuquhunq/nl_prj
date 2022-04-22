@@ -90,3 +90,6 @@
   border: none;
   border-radius: 0;
 }
+.username {
+  font-weight: 700;
+}

@@ -15,6 +15,7 @@ import Promotion from "./page/admin/promotion/Promotion";
 import NameServices from "./page/admin/Services/NameServices";
 import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
+import Register from "./page/Auth/client/Register";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
 import ProfileUser from "./page/client/Profile/ProfileUser";
@@ -25,6 +26,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<ListProducts />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/purchase" element={<Purchase />} />
         <Route
           path="/product/detail/id_product=:id"

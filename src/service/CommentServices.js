@@ -9,7 +9,11 @@ class CommentsService {
   }
   addCommentProduct(payload) {
     return axiosInstance
-      .post("/rate-comment/", payload)
+      .post("/rate-comment/", payload, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
     .then((res) => res.data)
       .catch((err) => console.log(err));
   }

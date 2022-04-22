@@ -1,13 +1,13 @@
 import {
   faChevronDown,
   faChevronUp,
-  faStar
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Container, Form, InputGroup } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
 import ColorBox from "../../ColorBox";
-import './style.css'
+import "./style.css";
 
 const DetailContent = ({
   product,

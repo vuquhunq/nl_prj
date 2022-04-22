@@ -1,13 +1,13 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
-import { infoUser } from "../../../../config/authConfig";
+import { access_token, infoUser } from "../../../../config/authConfig";
 import CommentServices from "../../../../service/CommentServices";
 import ProductServices from "../../../../service/ProductServices";
 import RateService from "../../../../service/RateService";
@@ -136,7 +136,10 @@ export default function DetailProduct() {
             >
               THÊM VÀO GIỎ HÀNG
             </Button>
-            <Button onClick={()=>window.location = '/purchase'} variant="btn btn-outline-success">
+            <Button
+              onClick={() => (window.location = "/purchase")}
+              variant="btn btn-outline-success"
+            >
               MUA NGAY
             </Button>
           </Container>
@@ -149,42 +152,86 @@ export default function DetailProduct() {
 const CommentContainer = () => {
   const { id } = useParams();
   const [comments, setComments] = useState([]);
+  const [star, setStar] = useState(0);
+  const commentRef = useRef("");
   useEffect(() => {
     CommentServices.getCommentProduct(id).then((res) => setComments(res));
   }, [id]);
+  const handleComment = () => {
+    const obj = {
+      id_rate: star,
+      id_product: id,
+      content: {
+        Date: Date.now(),
+        Content: commentRef.current.value,
+        id_user: access_token && infoUser.id_user,
+      },
+    };
+    CommentServices.addCommentProduct(obj).then(() => window.location.reload()                                                                 );
+  };
+  console.log(star);
   console.log(comments);
   return (
     <Container className="p-4 shadow-lg">
       <h3>Đánh giá sản phẩm</h3>
       <Row className="my-3">
-        {infoUser && comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
+        {infoUser &&
+        comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
           <></>
         ) : (
           <>
             <Col md={2} lg={2}>
               <div className="d-flex flex-column justify-content-center-align-items-center">
-                <h3 className="text-center" style={{ color: "#F15E2" }}>
-                  {5}
+                <h3
+                  className="text-center"
+                  style={{ color: "#F15E2c", fontWeight: 700 }}
+                >
+                  {star}
                 </h3>
                 <div className="d-flex align-items-center justify-content-center">
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
-                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(1)}
+                    icon={faStar}
+                    color={star < 1 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(2)}
+                    icon={faStar}
+                    color={star < 2 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(3)}
+                    icon={faStar}
+                    color={star < 3 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(4)}
+                    icon={faStar}
+                    color={star < 4 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(5)}
+                    icon={faStar}
+                    color={star < 5 ? "black" : "orange"}
+                  />
                 </div>
               </div>
             </Col>
             <Col>
-              <Form>
-                <Form.Control as="textarea" placeholder="Thêm bình luận" />
+              <Form onSubmit={handleComment}>
+                <Form.Control
+                  ref={commentRef}
+                  as="textarea"
+                  placeholder="Thêm bình luận"
+                />
+                <Button type="submit">Bình luận</Button>
               </Form>
             </Col>
           </>
         )}
       </Row>
       <Row>
-       {comments.length > 0 &&  <h5 className="m-0 p-0">Bình luận</h5>}
+        {comments.length > 0 && <h5 className="m-0 p-0">Bình luận</h5>}
         {comments &&
           comments.map((comment, index) => (
             <Container
