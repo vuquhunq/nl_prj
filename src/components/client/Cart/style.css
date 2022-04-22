@@ -1,0 +1,26 @@
+#cart-modal .modal-body {
+  height: 50vh;
+  overflow-y: auto;
+}
+.info-item {
+  padding: 8px 16px;
+}
+.caculator-price {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #f15E2C
+}
+.name-product {
+    font-weight: 700;
+    color: black
+    ;
+}
+.caculator-price span {
+    font-weight: 700;
+    color: black;
+}
+.total-price {
+    color: black;
+    font-weight: 700;
+}

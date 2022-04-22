@@ -11,6 +11,7 @@ class ServiceServices {
       },
     }).then(() => alert("Thành công"));
   }
+<<<<<<< HEAD
 
   getAllService() {
     return axiosInstance({
@@ -23,6 +24,8 @@ class ServiceServices {
   }
 
   //Name Services
+=======
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
   getAllNameServices() {
     return axiosInstance
       .get("/name-services/")

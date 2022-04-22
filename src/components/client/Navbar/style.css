@@ -1,8 +1,17 @@
 .user-toggle {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 8px 12px;
-    background-color: white;
-    box-shadow: 0 0 2px #F15E2C;
+  display: flex;
+  position: relative;
+  gap: 4px;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: white;
+  box-shadow: 0 0 2px #f15e2c;
+}
+#dropdown {
+  z-index: 20;
+  top: 50px;
+  right: 0;
+}
+#dropdown .container {
+    border: none;
 }

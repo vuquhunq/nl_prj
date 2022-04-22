@@ -6,7 +6,7 @@ import {
   Form,
   Modal,
   ModalBody,
-  ModalHeader,
+  ModalHeader
 } from "react-bootstrap";
 import CategoryService from "../../../service/CategoryService";
 import ColorService from "../../../service/ColorService";
@@ -39,7 +39,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
   const [sizeProduct, setSizeProduct] = useState(0);
   const [fileSelected, setFileSelected] = useState({});
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
-  console.log(isUploadSuccess);
   /////
   const [categories, setCategories] = useState([]);
   const [colories, setColories] = useState([]);
@@ -52,9 +51,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
   });
 
   //
-  console.log(idProduct);
-  console.log(colorProduct);
-
   const handleSelectFile = (e) => {
     setFileSelected(e.target.files);
   };
@@ -89,7 +85,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
       }
     });
   };
-  console.log(isAddition);
   const handleSizeAddition = () => {
     let obj = {};
     obj.quantity = parseInt(quantityProduct.current.value);
@@ -97,7 +92,6 @@ export default function ModalAdditionProduct({ show, setShow }) {
     obj.id_product_detail = isAddition.data.detail.id_product_detail || 0;
     obj.id_size = parseInt(sizeProduct);
     ProductServices.addSizeQuantity(obj).then((res) => console.log(res));
-    console.log(obj);
   };
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
@@ -109,7 +103,7 @@ export default function ModalAdditionProduct({ show, setShow }) {
     <Modal
       show={show}
       onHide={() => {
-        setShow()
+        setShow();
         handleResetRef();
       }}
     >

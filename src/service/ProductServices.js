@@ -3,6 +3,23 @@ class ProductServices {
   getAllProduct() {
     return axiosInstance.get("/product/all-product").then((res) => res.data);
   }
+  getFilterProduct(payload) {
+    // return axiosInstance.post("/product/filter-product", payload, {
+    //   "Content-Type": "application/json",
+    //   accept: "application/json",
+    // });
+    return axiosInstance({
+      method: "POST",
+      url: "/product/filter-product",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      data: payload,
+    })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
   getDetailProduct(payload) {
     return axiosInstance
       .get(`/product/first-product/${payload}`)
@@ -18,10 +35,8 @@ class ProductServices {
       .then((res) => res.data);
   }
   addDetailProduct(data) {
-    console.log(data.file);
     const formData = new FormData();
     for (let i = 0; i < data.file.length; i++) {
-      console.log(data.file[i].name);
       formData.append("file", data.file[i], data.file[i].name);
     }
 
@@ -44,6 +59,13 @@ class ProductServices {
         },
       })
       .then((res) => res.data);
+  }
+  getCartProduct(payload) {
+    return axiosInstance.post("/product/get-cart-product/", payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }
 export default new ProductServices();

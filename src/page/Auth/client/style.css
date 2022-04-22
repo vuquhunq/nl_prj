@@ -1,0 +1,11 @@
+#login-form {
+    height: 400px;
+}
+.modal-header {
+    font-weight: 700;
+    font-size: largers;
+    text-align: center;
+}
+.modal-body {
+    height: 200px;
+}

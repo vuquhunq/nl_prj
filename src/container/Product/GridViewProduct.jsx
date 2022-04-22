@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Masonry from "react-masonry-css";
 import CardProduct from "../../components/client/Product/CardProduct";
-import ProductServices from "../../service/ProductServices";
 import "./style.css";
-export default function GridViewProduct() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    ProductServices.getAllProduct().then((res) => setProducts(res));
-  }, []);
+export default function GridViewProduct({products}) {
+  const [limit, setLimit] = useState(8);
+
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
@@ -16,15 +13,26 @@ export default function GridViewProduct() {
   };
 
   return (
-    <Masonry
-      breakpointCols={breakpointColumnsObj}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
-    >
-      {products &&
-        products.map((product, index) => (
-          <CardProduct product={product} key={index} />
-        ))}
-    </Masonry>
+    <>
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {products &&
+          products
+            .slice(0, limit)
+            .map((product, index) => (
+              <CardProduct product={product} key={index} />
+            ))}
+      </Masonry>
+      <span
+        onClick={() => {
+          setLimit(limit + 8);
+        }}
+      >
+        Load more ...
+      </span>
+    </>
   );
 }

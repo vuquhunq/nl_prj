@@ -11,7 +11,7 @@ export default function Login() {
     AuthService.login(obj)
   };
   return (
-    <Modal show>
+    <Modal id='login-form' show centered>
       <Modal.Header>Đăng nhập</Modal.Header>
       <Modal.Body>
         <FormGroup

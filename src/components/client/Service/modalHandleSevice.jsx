@@ -5,7 +5,7 @@ import ServiceServices from "../../../service/ServiceServices";
 export default function ModalHandleSevice({ show, isShow }) {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    ServiceServices.getAllServices().then((res) => setServices(res));
+    ServiceServices.getAllNameServices().then((res) => setServices(res));
   }, []);
   return (
     <Modal size="lg" show={show} onHide={isShow}>

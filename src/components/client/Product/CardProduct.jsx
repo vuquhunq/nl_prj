@@ -7,7 +7,6 @@ import ColorBox from "../../ColorBox";
 import "./style.css";
 export default function CardProduct({ product }) {
   const [colorProduct, setColorProduct] = useState(0);
-  console.log(colorProduct);
   const handleLink = () => {
     window.location = `/product/detail/id_product=${product.id_product}`;
   };
@@ -16,7 +15,7 @@ export default function CardProduct({ product }) {
       <Card.Header className="bg-none" >
         <Card.Img
           src={FileServices.getIMG(
-            product.list_color[colorProduct].list_image[0]
+            product.list_color.length > 0 ? product.list_color[colorProduct].list_image[0] : ''
           )}
         />
       </Card.Header>

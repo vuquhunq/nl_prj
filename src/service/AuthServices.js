@@ -29,6 +29,7 @@ class AuthService {
   logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("access_admin_token");
-
-  }}
+    window.location = "/";
+  }
+}
 export default new AuthService();

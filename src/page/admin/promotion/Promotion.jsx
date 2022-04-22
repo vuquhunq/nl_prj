@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -117,6 +118,20 @@ export default function Promotion() {
     PromotionServices.getAllPromotion().then((res) => setPromotions(res));
   }, []);
 
+=======
+import {
+  faPenToSquare,
+  faPlus,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Container } from "react-bootstrap";
+import AdminNavbar from "../../../common/admin/Navbar";
+import Sidebar from "../../../common/admin/Sidebar";
+
+export default function Promotion() {
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
   return (
     <>
       <AdminNavbar />
@@ -132,7 +147,14 @@ export default function Promotion() {
             <h3>Danh Sách Khuyến Mãi</h3>
           </div>
 
+<<<<<<< HEAD
           <AddPromotion />
+=======
+          <button type="button" className="btn btn-primary float-end">
+            <FontAwesomeIcon icon={faPlus} />
+            Thêm mới
+          </button>
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
 
           <div className="row my-5 w-100">
             <div className="col my-4">
@@ -142,11 +164,19 @@ export default function Promotion() {
                     <th scope="col">Mã</th>
                     <th scope="col">Tên Sự Kiện</th>
                     <th scope="col">Nội Dung Sự Kiện</th>
+<<<<<<< HEAD
                     <th scope="col">Giảm Giá</th>
+=======
+                    <th scope="col">Ngày Bắt Đầu</th>
+                    <th scope="col">Ngày Kết Thúc</th>
+                    <th scope="col">Giảm Giá</th>
+                    <th scope="col">Loại Sản Phẩm</th>
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
                     <th scope="col">Tác Vụ</th>
                   </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
                   {promotions ? (
                     promotions.map((promotion, index) => (
                       <tr key={promotion.id_promotion}>
@@ -173,10 +203,32 @@ export default function Promotion() {
                   ) : (
                     <h1>Loading ...</h1>
                   )}
+=======
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Ngày BlackFriday</td>
+                    <td>dsfdf</td>
+                    <td>fg</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>
+                      <FontAwesomeIcon
+                        className="productlistEdit"
+                        icon={faPenToSquare}
+                      />
+                      <FontAwesomeIcon
+                        className="productlistDel"
+                        icon={faTrashCan}
+                      />
+                    </td>
+                  </tr>
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
                 </tbody>
               </table>
             </div>
           </div>
+<<<<<<< HEAD
           <ModalUpdatePromotion
             promotion={promotion}
             // name={name}
@@ -184,6 +236,8 @@ export default function Promotion() {
             show={modalShow}
             hide={() => setModalShow(false)}
           />
+=======
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
         </Container>
       </Container>
     </>

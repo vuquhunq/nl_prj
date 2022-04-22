@@ -2,7 +2,11 @@ import {
   faBox,
   faComments,
   faCubes,
+<<<<<<< HEAD
   faTruckFast,
+=======
+  faTruckFast
+>>>>>>> 51045eb9a7d28290e2d6c8a36712aee27c120e5b
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
