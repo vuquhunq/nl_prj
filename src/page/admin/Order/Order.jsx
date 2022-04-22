@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-=======
-import { faEye, faTrashCan } from "@fortawesome/free-solid-svg-icons";
->>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -54,13 +50,8 @@ export default function Order() {
                     orders.map((order, index) => (
                       <tr key={index}>
                         <th scope="row">{order.id_bill}</th>
-<<<<<<< HEAD
                         <td>{order.name_user}</td>
                         <td>{order.name_admin}</td>
-=======
-                        <td>{order.id_user}</td>
-                        <td>{order.id_verifier}</td>
->>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
                         <td>{new Date(order.date_create).toDateString()}</td>
                         <td>{order.address}</td>
                         <td>{order.total} VNĐ</td>
@@ -79,11 +70,7 @@ export default function Order() {
                             to={`/adminstrator/detail_order/${order.id_bill}`}
                           >
                             <FontAwesomeIcon
-<<<<<<< HEAD
                               style={{ color: "green" }}
-=======
-                              className="productlistView"
->>>>>>> 2ec2805e3421134df362f5c8d954a74a1aca805b
                               icon={faEye}
                             />
                           </Link>
