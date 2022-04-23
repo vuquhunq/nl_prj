@@ -6,7 +6,7 @@
   font-size: largers;
   text-align: center;
 }
-.modal-body {
+#login-form .modal-body {
   height: 200px;
 }
 #modal-register .modal-body{

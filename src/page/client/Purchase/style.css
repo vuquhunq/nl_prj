@@ -119,3 +119,15 @@ p {
   font-size: 24px;
   margin-top: 12px;
 }
+.content-purcshase {
+  max-height: 200px;
+  overflow-y: auto;
+  width: fit-content;
+}
+.content-purcshase::-webkit-scrollbar {
+  display: none;
+}
+.content-item span {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}

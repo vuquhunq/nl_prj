@@ -65,7 +65,7 @@ const ClientNavbar = () => {
                   {link.name}
                 </Nav.Link>
               ))}
-              {/* <Nav.Link onClick={handleShowService}>Dịch Vụ</Nav.Link> */}
+              <Nav.Link onClick={handleShowService}>Dịch Vụ</Nav.Link>
             </Nav>
           </Container>
         </Col>

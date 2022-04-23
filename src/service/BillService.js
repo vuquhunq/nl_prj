@@ -44,8 +44,12 @@ class BillService {
 
   addBillService(payload) {
     return axiosInstance
-      .post("/bill/", payload)
-      .then((res) => res.data)
+      .post("/bill/", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => res.status)
       .catch((err) => alert(err));
   }
 
