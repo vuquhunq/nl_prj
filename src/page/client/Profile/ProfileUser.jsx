@@ -29,7 +29,6 @@ export default function ProfileUser() {
   const [historyPurchase, setHistoryPurchase] = useState([]);
   const [isUpdatePassword, setIsUpdatePassword] = useState(false);
   const [detailOrder, setDetailOrder] = useState(0);
-  console.log(detailOrder);
   const [showDetailOrder, setShowDetailOrder] = useState(false);
   //
   const passwordRef = useRef("");

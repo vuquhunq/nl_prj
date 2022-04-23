@@ -47,9 +47,9 @@ export default function DetailProduct() {
       : setQuantityProduct(quantityProduct);
   }, [product, colorProduct, sizeProduct, quantityProduct]);
   const [cart, setCart] = useState(cartDetail || []);
-  useEffect(()=>{
-    cartDetail && setCart(cartDetail)
-  },[cartDetail])
+  useEffect(() => {
+    cartDetail && setCart(cartDetail);
+  }, [cartDetail]);
   const handleDuplicateProduct = (carts, diktat, number) => {
     const newArr = carts.map((cart) => {
       if (
@@ -86,7 +86,7 @@ export default function DetailProduct() {
       ? handleDuplicateProduct(cart, diktat, quantityProduct)
       : setCart([...cart, obj]);
     setQuantityProduct(0);
-    localStorage.setItem("cart-detail", JSON.stringify(cart))
+    localStorage.setItem("cart-detail", JSON.stringify(cart));
   };
   return (
     <>
@@ -183,13 +183,13 @@ const CommentContainer = () => {
   };
   return (
     <Container className="p-4 shadow-lg">
-      <h3>Đánh giá sản phẩm</h3>
       <Row className="my-3">
         {infoUser &&
         comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
           <></>
-        ) : (
+        ) : access_token ? (
           <>
+            <h3>Đánh giá sản phẩm</h3>
             <Col md={2} lg={2}>
               <div className="d-flex flex-column justify-content-center-align-items-center">
                 <h3
@@ -228,20 +228,26 @@ const CommentContainer = () => {
               </div>
             </Col>
             <Col>
-              <Form>
+              <Form onSubmit={handleComment}>
                 <Form.Control
                   ref={commentRef}
-                  as="textarea"
+                  // as="textarea"
                   placeholder="Thêm bình luận"
                 />
-                <Button onClick={handleComment}>Bình luận</Button>
+                {/* <Button onClick={handleComment}>Bình luận</Button> */}
               </Form>
             </Col>
           </>
+        ) : (
+          <></>
         )}
       </Row>
       <Row>
-        {comments.length > 0 && <h5 className="m-0 p-0">Bình luận</h5>}
+        {comments.length > 0 ? (
+          <h5 className="m-0 p-0">Bình luận</h5>
+        ) : (
+          <h5 className="m-0 p-0">Chưa có đánh giá nào !!</h5>
+        )}
         {comments &&
           comments.map((comment, index) => (
             <Container

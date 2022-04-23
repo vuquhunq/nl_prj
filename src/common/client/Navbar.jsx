@@ -23,9 +23,8 @@ const SearchBox = () => {
   );
 };
 
-const ClientNavbar = ({ setGender }) => {
+const ClientNavbar = () => {
   const [userInfo, setUserInfo] = useState();
-  //
   const [isShowService, setIsShowService] = useState(false);
   const [isShowCart, setIsShowCart] = useState(false);
 
@@ -35,7 +34,6 @@ const ClientNavbar = ({ setGender }) => {
         setUserInfo(res);
       });
   }, []);
-  //
   const handleShowService = () => {
     setIsShowService(!isShowService);
   };
@@ -67,7 +65,7 @@ const ClientNavbar = ({ setGender }) => {
                   {link.name}
                 </Nav.Link>
               ))}
-              <Nav.Link onClick={handleShowService}>Dịch Vụ</Nav.Link>
+              {/* <Nav.Link onClick={handleShowService}>Dịch Vụ</Nav.Link> */}
             </Nav>
           </Container>
         </Col>

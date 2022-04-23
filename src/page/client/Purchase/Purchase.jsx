@@ -3,37 +3,29 @@ import { Container, Form, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ClientNavbar from "../../../common/client/Navbar";
 import { cartDetail } from "../../../config/authConfig";
+import PurchaseService from "../../../service/PurchaseService";
 // import PurchaseService from "../../../service/PurchaseService";
 import "./style.css";
 
 export default function Purchase() {
-  const { id_order } = useParams();
-  console.log(id_order);
+  // const { id_order } = useParams();
   const total = cartDetail.reduce(
     (a, b) => a + b.current_price * b.quantily,
     0
   );
+  const [link, setLink] = useState("");
   const handlePurchase = () => {
     const obj = {
-      address: "string",
-      method: "string",
-      total: 0,
-      date_create: "2022-04-22",
-      status: "string",
-      id_user: 0,
-      list_bill_detail: [
-        {
-          id_size_quantity: 0,
-          id_product_detail: 0,
-          current_price: 0,
-          quantily: 0,
-          id_product: 0,
-        },
-      ],
+      order_id: 70000,
+      money: total,
     };
-    console.log(obj);
+    PurchaseService.createOrder(obj).then((res) => setLink(res));
   };
-  console.log(total);
+  useEffect(() => {
+    if (link !== "") {
+      window.location.href = link;
+    }
+  }, [link]);
   return (
     <>
       <ClientNavbar />

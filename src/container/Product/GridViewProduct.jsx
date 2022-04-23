@@ -21,18 +21,17 @@ export default function GridViewProduct({ products }) {
       >
         {products &&
           products
-            .slice(0, limit)
             .map((product, index) => (
               <CardProduct product={product} key={index} />
             ))}
       </Masonry>
-      <span
+      {/* <span
         onClick={() => {
           setLimit(limit + 8);
         }}
       >
         Load more ...
-      </span>
+      </span> */}
     </>
   );
 }
