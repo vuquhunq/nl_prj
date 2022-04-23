@@ -29,11 +29,11 @@ export default function CardProduct({ product }) {
         </Card.Subtitle>
       </Card.Body>
       <Card.Footer className="bg-none">
-        <Card.ImgOverlay>
+        {/* <Card.ImgOverlay>
           <Button variant="btn">
             <FontAwesomeIcon icon={faCartShopping} color="#F15E2C" />
           </Button>
-        </Card.ImgOverlay>
+        </Card.ImgOverlay> */}
         {product.list_color &&
           product.list_color.map((color, index) => (
             <ColorBox

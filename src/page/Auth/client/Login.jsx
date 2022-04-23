@@ -1,14 +1,10 @@
 import React, { useRef } from "react";
 import {
-  Form,
-  Button,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
+  Button, Form, Modal,
+  ModalBody, ModalHeader
 } from "react-bootstrap";
-import './style.css'
 import AuthServices from "../../../service/AuthServices";
+import "./style.css";
 
 export default function ModalUserLogin({ show, onHide }) {
   const accountRef = useRef("");
@@ -41,11 +37,11 @@ export default function ModalUserLogin({ show, onHide }) {
           </Form.Group>
         </Form>
       </ModalBody>
-      <ModalFooter>
-        <Button onClick={handleLogin} variant="success">
-          Đăng nhập
-        </Button>
-      </ModalFooter>
+      <Button href="/register">Đăng ký</Button>
+      <Button onClick={handleLogin} variant="success">
+        Đăng nhập
+      </Button>
+      <a href="http://127.0.0.1:8000/login">Đăng nhập bằng googgle</a>
     </Modal>
   );
 }

@@ -91,13 +91,13 @@ export const UserToggle = ({ userInfo, showCart }) => {
           Đăng ký/Đăng nhập
         </Button>
       )}
-      <span
+      {/* <span
         onClick={showCart}
         className="d-flex flex-column position-absolute shadow-lg"
         style={{ bottom: -30, right: 20, zIndex: 5 }}
       >
         <FontAwesomeIcon size="xl" color="#f15e2c" icon={faCartArrowDown} />
-      </span>
+      </span> */}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { faEye, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -46,7 +46,7 @@ export default function Order() {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders ? (
+                  {orders.length > 0 ? (
                     orders.map((order, index) => (
                       <tr key={index}>
                         <th scope="row">{order.id_bill}</th>

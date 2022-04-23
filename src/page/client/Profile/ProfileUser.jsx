@@ -4,13 +4,8 @@ import {
   Col,
   Container,
   Form,
-  FormGroup,
-  Row,
-  Modal,
-  Table,
-  Image,
+  FormGroup, Image, Modal, Row, Table
 } from "react-bootstrap";
-import Skeleton from "react-loading-skeleton";
 import ClientNavbar from "../../../common/client/Navbar";
 import BillService from "../../../service/BillService";
 import UserServices from "../../../service/UserServices";
@@ -33,7 +28,8 @@ export default function ProfileUser() {
   });
   const [historyPurchase, setHistoryPurchase] = useState([]);
   const [isUpdatePassword, setIsUpdatePassword] = useState(false);
-  const [detailOrder, setDetailOrder] = useState(1);
+  const [detailOrder, setDetailOrder] = useState(0);
+  console.log(detailOrder);
   const [showDetailOrder, setShowDetailOrder] = useState(false);
   //
   const passwordRef = useRef("");
@@ -212,8 +208,12 @@ export default function ProfileUser() {
 const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
   const [details, setDetails] = useState({});
   useEffect(() => {
-    BillService.getAdminDetailBillService(detailOrder).then((res) => setDetails(res));
+    detailOrder > 0 &&
+      BillService.getUserDetailBill(detailOrder).then((res) =>
+        setDetails(res)
+      );
   }, [detailOrder]);
+  console.log(details);
   return (
     <Modal centered show={show} onHide={onHide} size="lg">
       <Modal.Body>
@@ -308,7 +308,7 @@ const DetailOrder = ({ order, handleShowDetailOrder }) => {
           );
         })
       ) : (
-        <Skeleton />
+        <p>Không có thông đơn hàng</p>
       )}
     </Container>
   );

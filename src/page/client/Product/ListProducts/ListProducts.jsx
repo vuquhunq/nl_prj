@@ -41,7 +41,7 @@ export default function ListProducts({ gender }) {
           setColorList={setColorList}
           gender={gender}
         />
-        <Container fluid className="py-3 overflow-auto">
+        <Container fluid className="py-3  overflow-auto" onScroll={()=>console.log(window.scrollY)}>
           <GridViewProduct products={products} />
         </Container>
       </Container>

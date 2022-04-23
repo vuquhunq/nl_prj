@@ -1,6 +1,9 @@
 import { axiosInstance } from "../config/axiosConfig";
 
 class AuthService {
+  googleLogin(){
+    return axiosInstance('/login').then((res)=>res.data)
+  }
   login(payload) {
     return axiosInstance
       .post("/admin/login", payload, {
@@ -14,6 +17,14 @@ class AuthService {
         window.location.reload();
       })
       .catch((err) => console.log(err.data));
+  }
+  userRegister(payload) {
+    console.log(payload)
+    return axiosInstance.post("/user/sgin-up", payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(res=>res.status).catch(err=>console.log(err));
   }
   userLogin(payload) {
     return axiosInstance

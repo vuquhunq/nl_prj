@@ -7,7 +7,11 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
-import { access_token, infoUser } from "../../../../config/authConfig";
+import {
+  access_token,
+  cartDetail,
+  infoUser,
+} from "../../../../config/authConfig";
 import CommentServices from "../../../../service/CommentServices";
 import ProductServices from "../../../../service/ProductServices";
 import RateService from "../../../../service/RateService";
@@ -42,8 +46,10 @@ export default function DetailProduct() {
         )
       : setQuantityProduct(quantityProduct);
   }, [product, colorProduct, sizeProduct, quantityProduct]);
-
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(cartDetail || []);
+  useEffect(()=>{
+    cartDetail && setCart(cartDetail)
+  },[cartDetail])
   const handleDuplicateProduct = (carts, diktat, number) => {
     const newArr = carts.map((cart) => {
       if (
@@ -79,8 +85,8 @@ export default function DetailProduct() {
     diktat
       ? handleDuplicateProduct(cart, diktat, quantityProduct)
       : setCart([...cart, obj]);
-
     setQuantityProduct(0);
+    localStorage.setItem("cart-detail", JSON.stringify(cart))
   };
   return (
     <>
@@ -155,7 +161,9 @@ const CommentContainer = () => {
   const [star, setStar] = useState(0);
   const commentRef = useRef("");
   useEffect(() => {
-    CommentServices.getCommentProduct(id).then((res) => setComments(res));
+    CommentServices.getCommentProduct(id).then((res) =>
+      setComments(res.reverse())
+    );
   }, [id]);
   const handleComment = () => {
     const obj = {
@@ -167,10 +175,12 @@ const CommentContainer = () => {
         id_user: access_token && infoUser.id_user,
       },
     };
-    CommentServices.addCommentProduct(obj).then(() => window.location.reload()                                                                 );
+    CommentServices.addCommentProduct(obj).then(() =>
+      CommentServices.getCommentProduct(id).then((res) =>
+        setComments(res.reverse())
+      )
+    );
   };
-  console.log(star);
-  console.log(comments);
   return (
     <Container className="p-4 shadow-lg">
       <h3>Đánh giá sản phẩm</h3>
@@ -218,13 +228,13 @@ const CommentContainer = () => {
               </div>
             </Col>
             <Col>
-              <Form onSubmit={handleComment}>
+              <Form>
                 <Form.Control
                   ref={commentRef}
                   as="textarea"
                   placeholder="Thêm bình luận"
                 />
-                <Button type="submit">Bình luận</Button>
+                <Button onClick={handleComment}>Bình luận</Button>
               </Form>
             </Col>
           </>

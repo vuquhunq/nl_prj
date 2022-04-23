@@ -9,7 +9,6 @@ export default function DetailOrder() {
   const [detail, setDetailOrder] = useState({});
   const location = useLocation();
   const path = location.pathname.split("/")[3];
-  console.log(path);
 
   const handleAccept = () => {
     let objectStatus = {
@@ -17,9 +16,7 @@ export default function DetailOrder() {
       id_verifier: 1,
       id_bill: Number(path),
     };
-    BillService.updateBillService(objectStatus).then((res) =>
-      console.log(res.data)
-    );
+    BillService.updateBillService(objectStatus).then((res) => console.log(res));
   };
 
   const handleCancel = () => {
@@ -28,9 +25,7 @@ export default function DetailOrder() {
       id_verifier: 1,
       id_bill: Number(path),
     };
-    BillService.updateBillService(objectStatus).then((res) =>
-      console.log(res.data)
-    );
+    BillService.updateBillService(objectStatus).then((res) => console.log(res));
   };
 
   useEffect(() => {
@@ -38,8 +33,6 @@ export default function DetailOrder() {
       setDetailOrder(res)
     );
   }, [path]);
-
-  console.log(detail);
 
   return (
     <>
