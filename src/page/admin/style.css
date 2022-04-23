@@ -47,3 +47,18 @@
     align-items: center;
     height: 40px;
 }
+
+/* CreateAccountAdmin */
+.userUpdateForm{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-group{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-right: 20px;
+}

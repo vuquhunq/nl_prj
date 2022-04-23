@@ -30,18 +30,13 @@ export const ModalUpdatePromotion = (props) => {
   };
 
   return (
-    <Modal
-      {...props}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter">
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Cập nhật Khuyến Mãi
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ height: "auto" }}>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Mã Khuyến Mãi:</Form.Label>

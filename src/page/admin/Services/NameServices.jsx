@@ -7,7 +7,7 @@ import ServiceServices from "../../../service/ServiceServices";
 export default function NameServices() {
   const [nameServices, setNameServices] = useState([]);
   const [text, setText] = useState("");
-  const [item, setItem] = useState();
+  const [service, setService] = useState();
   const [update, setUpdate] = useState(false);
 
   const handleAddServices = () => {
@@ -17,7 +17,9 @@ export default function NameServices() {
   };
 
   const handelDelete = (slug) => {
-    ServiceServices.deleteCategory(slug).then(() => window.location.reload());
+    ServiceServices.deleteNameServices(slug).then(() =>
+      window.location.reload()
+    );
   };
 
   const deleteConfirm = (slug) => {
@@ -29,10 +31,17 @@ export default function NameServices() {
     }
   };
 
+  console.log(service);
+
   const handleSaveNameServices = () => {
+    // let obj = {
+    //   name: service.name,
+    //   id_name_services: service.id_name_services,
+    // };
+    // console.log(obj);
     ServiceServices.updateNameServices({
-      name: item.name,
-      id_name_services: item.id_name_services,
+      name: service.name,
+      id_name_services: service.id_name_services,
     }).then(() => window.location.reload());
   };
 
@@ -109,8 +118,13 @@ export default function NameServices() {
                           {update === true ? (
                             <input
                               type="text"
-                              value={item}
-                              onChange={(e) => setItem(e.target.value)}
+                              value={service?.name}
+                              onChange={(e) =>
+                                setService((prevServices) => ({
+                                  ...prevServices,
+                                  name: e.target.value,
+                                }))
+                              }
                             />
                           ) : (
                             item.name
@@ -130,7 +144,8 @@ export default function NameServices() {
                               className="btn btn-warning"
                               style={{ marginRight: 20 }}
                               onClick={() => {
-                                setItem(item);
+                                // console.log(item);
+                                setService(item);
                                 setUpdate(true);
                               }}
                             >

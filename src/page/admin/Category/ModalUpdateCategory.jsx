@@ -52,7 +52,7 @@ export const ModalUpdateCategory = (props) => {
           Cập nhật Loại Sản Phẩm
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ height: "auto" }}>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Mã Loại Sản Phẩm:</Form.Label>

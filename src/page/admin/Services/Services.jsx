@@ -1,17 +1,13 @@
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Tab } from "react-bootstrap";
+import { Tabs } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
-import ServiceServices from "../../../service/ServiceServices";
+import { ConfirmServices } from "./ConfirmServices";
+import { UnconfirmServices } from "./UnconfirmServices";
 
 export default function Services() {
-  const [services, setServices] = useState();
-
-  useEffect(() => {
-    ServiceServices.getAllService().then((res) => setServices(res));
-  }, []);
   return (
     <>
       <AdminNavbar />
@@ -27,49 +23,19 @@ export default function Services() {
             <h3>Dịch Vụ</h3>
           </div>
 
-          <div className="row my-4">
-            <div className="col">
-              <table className="table table-bordered bg-white rounded shadow-sm table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Mã Dịch Vụ</th>
-                    <th scope="col">Tên Khách Hàng</th>
-                    <th scope="col">Tên Dịch Vụ</th>
-                    <th scope="col">Ngày Đặt</th>
-                    <th scope="col">Ngày Đặt Lịch</th>
-                    <th scope="col">Trạng Thái</th>
-                    <th scope="col">Tác Vụ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {services ? (
-                    services.map((service, index) => (
-                      <tr key={index}>
-                        <th scope="row">{service.id_services}</th>
-                        <td>{service.id_user}</td>
-                        <td>{service.id_name_services}</td>
-                        <td>{new Date(service.date_create).toDateString()}</td>
-                        <td>{service.booking_date}</td>
-                        <td>
-                          <span className="badge btn-success">
-                            {service.status}
-                          </span>
-                        </td>
-                        <td>
-                          <FontAwesomeIcon
-                            className="productlistView"
-                            icon={faEye}
-                          />
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <h1>Loading ...</h1>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <Tabs
+            defaultActiveKey="unconfirmServices"
+            transition={false}
+            id="noanim-tab-example"
+            className="mb-3 justify-content-end"
+          >
+            <Tab eventKey="unconfirmServices" title="Chưa Xác Nhận">
+              <UnconfirmServices />
+            </Tab>
+            <Tab eventKey="confirmServices" title="Xác Nhận">
+              <ConfirmServices />
+            </Tab>
+          </Tabs>
         </Container>
       </Container>
     </>

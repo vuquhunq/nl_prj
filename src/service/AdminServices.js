@@ -35,6 +35,17 @@ class AdminServices {
       .then((res) => res.data)
       .catch((err) => alert(err.message));
   }
+
+  createAccountAdmin(payload) {
+    return axiosInstance
+      .post("/admin/create-account/", payload, {
+        headers: {
+          Authorization: `Bearer ${access_admin_token}`,
+          "Content-Type": "Application/json",
+        },
+      })
+      .then((res) => res.data);
+  }
 }
 
 export default new AdminServices();
