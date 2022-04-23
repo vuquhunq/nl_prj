@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
+import { CreateAccount } from "./CreateAccount";
+import { Employee } from "./Employee";
 
 export default function Account() {
   return (
@@ -19,15 +21,15 @@ export default function Account() {
             <h3>Quản Lý Tài Khoản</h3>
           </div>
           <Tabs
-            defaultActiveKey="profile"
+            defaultActiveKey="employee"
             id="uncontrolled-tab-example"
             className="mb-3"
           >
-            <Tab eventKey="home" title="Nhân Viên">
-              <h1>hello</h1>
+            <Tab eventKey="employee" title="Nhân Viên">
+              <Employee />
             </Tab>
-            <Tab eventKey="profile" title="Tạo tài khoản">
-              <h1>hello</h1>
+            <Tab eventKey="createAccount" title="Tạo Tài Khoản">
+              <CreateAccount />
             </Tab>
           </Tabs>
         </Container>

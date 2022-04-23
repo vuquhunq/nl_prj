@@ -40,7 +40,7 @@ const AddPromotion = () => {
         <Modal.Header closeButton>
           <Modal.Title>Tạo Khuyến Mãi </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ height: "auto" }}>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tên Sự Kiện</Form.Label>

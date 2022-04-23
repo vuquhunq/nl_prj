@@ -12,14 +12,30 @@ class ServiceServices {
     }).then(() => alert("Thành công"));
   }
 
-  getAllService() {
+  getAllUncofirmService() {
+    return axiosInstance.get("/services/get-unconfimred-all/").then(() => alert("Thành công"));
+  }
+
+  getAllCofirmService() {
     return axiosInstance({
-      url: "/services/get-unconfimred-all/",
+      url: "/services/get-confimred-all/",
       method: "GET",
       headers: {
         "Content-Type": "Application/json",
       },
     }).then(() => alert("Thành công"));
+  }
+
+  updateServices(payload) {
+    return axiosInstance({
+      url: "/services/",
+      method: "PUT",
+      data: payload,
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    }).then(() => alert("Thành công"))
+      .catch((err) => alert(err));
   }
 
   //Name Services
@@ -54,7 +70,7 @@ class ServiceServices {
       .catch((err) => alert(err));
   }
 
-  deleteCategory(id_name_services) {
+  deleteNameServices(id_name_services) {
     return axiosInstance({
       url: "/name-services/"+id_name_services,
       method: "DELETE",
