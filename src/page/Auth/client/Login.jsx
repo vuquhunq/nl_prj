@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import {
-  Button, Form, Modal,
+  Button, ButtonGroup, Form, Modal,
   ModalBody, ModalHeader
 } from "react-bootstrap";
 import AuthServices from "../../../service/AuthServices";
@@ -37,11 +37,13 @@ export default function ModalUserLogin({ show, onHide }) {
           </Form.Group>
         </Form>
       </ModalBody>
-      <Button href="/register">Đăng ký</Button>
-      <Button onClick={handleLogin} variant="success">
-        Đăng nhập
-      </Button>
-      <a href="http://127.0.0.1:8000/login">Đăng nhập bằng googgle</a>
+      <ButtonGroup className="p-3">
+        <Button className="my-1" href="/register">Đăng ký</Button>
+        <Button className="my-1" onClick={handleLogin} variant="success">
+          Đăng nhập
+        </Button>
+      </ButtonGroup>
+      {/* <a href="http://127.0.0.1:8000/login">Đăng nhập bằng googgle</a> */}
     </Modal>
   );
 }
