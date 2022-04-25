@@ -1,6 +1,9 @@
 import { axiosInstance } from "../config/axiosConfig";
 
 class AuthService {
+  googleLogin(){
+    return axiosInstance('/login').then((res)=>res.data)
+  }
   login(payload) {
     return axiosInstance
       .post("/admin/login", payload, {
@@ -15,6 +18,14 @@ class AuthService {
       })
       .catch((err) => console.log(err.data));
   }
+  userRegister(payload) {
+    console.log(payload)
+    return axiosInstance.post("/user/sgin-up", payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(res=>res.status).catch(err=>console.log(err));
+  }
   userLogin(payload) {
     return axiosInstance
       .post("/user/log-in", payload, {
@@ -24,7 +35,8 @@ class AuthService {
       })
       .then((res) => {
         localStorage.setItem("access_token", res.data);
-      });
+        return res.status
+      }).catch(err=>err.status);
   }
   logout() {
     localStorage.removeItem("access_token");

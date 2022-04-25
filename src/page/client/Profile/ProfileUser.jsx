@@ -5,12 +5,13 @@ import {
   Container,
   Form,
   FormGroup,
-  Row,
-  Modal,
-  Table,
   Image,
+  Modal,
+  Row,
+  Table,
+  Toast,
+  ToastContainer,
 } from "react-bootstrap";
-import Skeleton from "react-loading-skeleton";
 import ClientNavbar from "../../../common/client/Navbar";
 import BillService from "../../../service/BillService";
 import UserServices from "../../../service/UserServices";
@@ -33,7 +34,7 @@ export default function ProfileUser() {
   });
   const [historyPurchase, setHistoryPurchase] = useState([]);
   const [isUpdatePassword, setIsUpdatePassword] = useState(false);
-  const [detailOrder, setDetailOrder] = useState(1);
+  const [detailOrder, setDetailOrder] = useState(0);
   const [showDetailOrder, setShowDetailOrder] = useState(false);
   //
   const passwordRef = useRef("");
@@ -66,6 +67,7 @@ export default function ProfileUser() {
     profile.phone,
     profile.dob,
   ]);
+  const [isHandle, setIsHanle] = useState("");
   const handleUpdateProfile = () => {
     const obj = {
       address: address,
@@ -74,7 +76,11 @@ export default function ProfileUser() {
       email: email,
       full_name: fullName,
     };
-    UserServices.updateProfileUser(obj);
+    UserServices.updateProfileUser(obj).then((res) => {
+      if (res === 200) {
+        setIsHanle("Cập nhật thông tin thành công");
+      } else setIsHanle("Cập nhật thông tin thất bại");
+    });
   };
   const handleUpdatePassword = () => {
     const obj = {
@@ -85,6 +91,18 @@ export default function ProfileUser() {
   };
   return (
     <>
+      <ToastContainer position="bottom-end">
+        <Toast
+          show={isHandle !== ""}
+          onClose={() => setIsHanle("")}
+          delay={3000}
+          autohide
+        >
+          <Toast.Body>
+            <h5>{isHandle}</h5>
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
       <ClientNavbar />
       <Container
         id="client-content"
@@ -131,7 +149,7 @@ export default function ProfileUser() {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Số điện thoại:</Form.Label>
+                  <Form.Label>Địa chỉ:</Form.Label>
                   <Form.Control
                     placeholder={
                       Object.keys(profile).length > 0 ? profile.address : ""
@@ -212,8 +230,10 @@ export default function ProfileUser() {
 const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
   const [details, setDetails] = useState({});
   useEffect(() => {
-    BillService.getAdminDetailBillService(detailOrder).then((res) => setDetails(res));
+    detailOrder > 0 &&
+      BillService.getUserDetailBill(detailOrder).then((res) => setDetails(res));
   }, [detailOrder]);
+  console.log(details);
   return (
     <Modal centered show={show} onHide={onHide} size="lg">
       <Modal.Body>
@@ -308,7 +328,7 @@ const DetailOrder = ({ order, handleShowDetailOrder }) => {
           );
         })
       ) : (
-        <Skeleton />
+        <p>Không có thông đơn hàng</p>
       )}
     </Container>
   );

@@ -1,13 +1,17 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
-import { infoUser } from "../../../../config/authConfig";
+import {
+  access_token,
+  cartDetail,
+  infoUser,
+} from "../../../../config/authConfig";
 import CommentServices from "../../../../service/CommentServices";
 import ProductServices from "../../../../service/ProductServices";
 import RateService from "../../../../service/RateService";
@@ -42,8 +46,10 @@ export default function DetailProduct() {
         )
       : setQuantityProduct(quantityProduct);
   }, [product, colorProduct, sizeProduct, quantityProduct]);
-
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(cartDetail || []);
+  useEffect(() => {
+    cartDetail && setCart(cartDetail);
+  }, [cartDetail]);
   const handleDuplicateProduct = (carts, diktat, number) => {
     const newArr = carts.map((cart) => {
       if (
@@ -79,8 +85,8 @@ export default function DetailProduct() {
     diktat
       ? handleDuplicateProduct(cart, diktat, quantityProduct)
       : setCart([...cart, obj]);
-
     setQuantityProduct(0);
+    localStorage.setItem("cart-detail", JSON.stringify(cart));
   };
   return (
     <>
@@ -136,7 +142,11 @@ export default function DetailProduct() {
             >
               THÊM VÀO GIỎ HÀNG
             </Button>
-            <Button variant="btn btn-outline-success" onClick={handleAddCart}>
+            <Button
+              disabled={!infoUser}
+              onClick={() => (window.location = "/purchase")}
+              variant="btn btn-outline-success"
+            >
               MUA NGAY
             </Button>
           </Container>
@@ -149,37 +159,96 @@ export default function DetailProduct() {
 const CommentContainer = () => {
   const { id } = useParams();
   const [comments, setComments] = useState([]);
+  const [star, setStar] = useState(0);
+  const commentRef = useRef("");
   useEffect(() => {
-    CommentServices.getCommentProduct(id).then((res) => setComments(res));
+    CommentServices.getCommentProduct(id).then((res) =>
+      setComments(res.reverse())
+    );
   }, [id]);
-  console.log(comments);
+  const handleComment = () => {
+    const obj = {
+      id_rate: star,
+      id_product: id,
+      content: {
+        Date: Date.now(),
+        Content: commentRef.current.value,
+        id_user: access_token && infoUser.id_user,
+      },
+    };
+    CommentServices.addCommentProduct(obj).then(() =>
+      CommentServices.getCommentProduct(id).then((res) =>
+        setComments(res.reverse())
+      )
+    );
+  };
   return (
     <Container className="p-4 shadow-lg">
-      <h3>Đánh giá sản phẩm</h3>
       <Row className="my-3">
-        <Col md={2} lg={2}>
-          <div className="d-flex flex-column justify-content-center-align-items-center">
-            <h3 className="text-center" style={{color: '#F15E2C'}}>{5}</h3>
-            <div className="d-flex align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-            </div>
-          </div>
-        </Col>
-        <Col>
-          {comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
-            <></>
-          ) : (
-            <Form>
-              <Form.Control as="textarea" placeholder="Thêm bình luận"/>
-            </Form>
-          )}
-        </Col>
+        {infoUser &&
+        comments.find((e) => e.Comments.id_user === infoUser.id_user) ? (
+          <></>
+        ) : access_token ? (
+          <>
+            <h3>Đánh giá sản phẩm</h3>
+            <Col md={2} lg={2}>
+              <div className="d-flex flex-column justify-content-center-align-items-center">
+                <h3
+                  className="text-center"
+                  style={{ color: "#F15E2c", fontWeight: 700 }}
+                >
+                  {star}
+                </h3>
+                <div className="d-flex align-items-center justify-content-center">
+                  <FontAwesomeIcon
+                    onClick={() => setStar(1)}
+                    icon={faStar}
+                    color={star < 1 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(2)}
+                    icon={faStar}
+                    color={star < 2 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(3)}
+                    icon={faStar}
+                    color={star < 3 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(4)}
+                    icon={faStar}
+                    color={star < 4 ? "black" : "orange"}
+                  />
+                  <FontAwesomeIcon
+                    onClick={() => setStar(5)}
+                    icon={faStar}
+                    color={star < 5 ? "black" : "orange"}
+                  />
+                </div>
+              </div>
+            </Col>
+            <Col>
+              <Form onSubmit={handleComment}>
+                <Form.Control
+                  ref={commentRef}
+                  // as="textarea"
+                  placeholder="Thêm bình luận"
+                />
+                {/* <Button onClick={handleComment}>Bình luận</Button> */}
+              </Form>
+            </Col>
+          </>
+        ) : (
+          <></>
+        )}
       </Row>
       <Row>
+        {comments.length > 0 ? (
+          <h5 className="m-0 p-0">Bình luận</h5>
+        ) : (
+          <h5 className="m-0 p-0">Chưa có đánh giá nào !!</h5>
+        )}
         {comments &&
           comments.map((comment, index) => (
             <Container

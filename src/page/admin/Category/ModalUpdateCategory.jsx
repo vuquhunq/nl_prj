@@ -13,7 +13,6 @@ export const ModalUpdateCategory = (props) => {
     PromotionServices.getAllPromotion().then((res) => setPromotions(res));
   }, [props]);
 
-  console.log(promotions);
 
   const item = props.item;
   const handleUpdate = () => {

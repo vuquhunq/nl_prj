@@ -1,5 +1,4 @@
 import {
-  faCartArrowDown,
   faChevronDown,
   faChevronUp,
   faSignOut,
@@ -17,7 +16,7 @@ import "./style.css";
 const DropMenu = ({ isDisplay }) => {
   return (
     <div
-    id="dropdown"
+      id="dropdown"
       className="container position-absolute p-0"
       style={{
         display: isDisplay ? "block" : "none",
@@ -45,7 +44,7 @@ const DropMenu = ({ isDisplay }) => {
         <Button
           className="d-flex rounded-pill justify-content-end align-items-center bg-light text-muted shadow-lg gap-2 px-2"
           onClick={() => {
-            AuthServices.logout().then(() => window.location = '');
+            AuthServices.logout().then(() => (window.location = ""));
           }}
           variant="btn"
           style={{
@@ -76,14 +75,17 @@ const Toggle = ({ userInfo }) => {
     </div>
   );
 };
-export const UserToggle = ({ userInfo, showCart }) => {
+export const UserToggle = ({ userInfo }) => {
   const [isShow, setIsShow] = useState(false);
   const handleShow = () => {
     setIsShow(!isShow);
   };
   return (
     <div className="d-flex positon-relative">
-      <ModalUserLogin show={isShow} onHide={handleShow} />
+      <ModalUserLogin
+        show={isShow}
+        onHide={handleShow}
+      />
       {access_token ? (
         <Toggle userInfo={userInfo} />
       ) : (
@@ -91,13 +93,6 @@ export const UserToggle = ({ userInfo, showCart }) => {
           Đăng ký/Đăng nhập
         </Button>
       )}
-      <span
-        onClick={showCart}
-        className="d-flex flex-column position-absolute shadow-lg"
-        style={{ bottom: -30, right: 20, zIndex: 5 }}
-      >
-        <FontAwesomeIcon size="xl" color="#f15e2c" icon={faCartArrowDown} />
-      </span>
     </div>
   );
 };

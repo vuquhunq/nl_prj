@@ -1,11 +1,15 @@
 #login-form {
-    height: 400px;
+  height: 400px;
 }
 .modal-header {
-    font-weight: 700;
-    font-size: largers;
-    text-align: center;
+  font-weight: 700;
+  font-size: largers;
+  text-align: center;
 }
-.modal-body {
-    height: 200px;
+#login-form .modal-body {
+  height: 200px;
+}
+#modal-register .modal-body{
+  height: fit-content;
+  padding: 16px;
 }

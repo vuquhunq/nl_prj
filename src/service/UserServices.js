@@ -25,9 +25,10 @@ class UserServices {
           "Content-Type": "Application/json",
         },
       })
-      .then((res) => res.data);
+      .then((res) => res.status)
+      .catch((err) => err.status);
   }
-  updatePasswordUser({payload}) {
+  updatePasswordUser({ payload }) {
     return axiosInstance
       .put("/user/change-password/", payload, {
         header: {

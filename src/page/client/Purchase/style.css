@@ -1,0 +1,133 @@
+#purchase-wrapper {
+  border: 1px #f15e2c dashed;
+  border-radius: 4px;
+  padding: 16px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  height: 600px;
+}
+#purchase-wrapper .detail-product {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+}
+.detail-product::-webkit-scrollbar {
+  display: none;
+}
+.detail-product .product-detail {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+.product-detail .detail-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.detail-content .content-name {
+  display: flex;
+  font-weight: 700;
+  font-size: 34px;
+}
+.detail-content .content-price {
+  display: flex;
+  font-size: large;
+  font-weight: 700;
+  color: #f15e2c;
+  font-weight: normal;
+}
+.detail-content .toggle-product {
+  display: flex;
+  justify-content: space-between;
+}
+.toggle-product .form .form-group {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.toggle-product .select-product {
+  font-weight: 600;
+  font-size: large;
+}
+.toggle-product form {
+  display: flex;
+  gap: 20px;
+}
+.form-label {
+  margin: 0;
+}
+.form-select {
+  width: 150px;
+}
+.select-product {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.detail-purchase {
+  width: 600px;
+  padding: 14px;
+  border-left: 1px #f15e2c dashed;
+}
+.detail-purchase .title-purchase {
+  font-size: 24px;
+  font-weight: 700;
+}
+.content-purchase {
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px #f15e2c dashed;
+  border-bottom: 1px #f15e2c dashed;
+}
+.content-purchase .content-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.content-item span {
+  font-size: large;
+  font-weight: 500;
+  color: #f15e2c;
+  display: flex;
+  gap: 16px;
+}
+p {
+  display: flex;
+  margin: 0;
+}
+.toggle-purchase .purchase-button {
+  margin-top: 14px;
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+  background-color: #f15e2c;
+}
+.total-puchase .content-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  margin-top: 12px;
+}
+.content-purcshase {
+  max-height: 200px;
+  overflow-y: auto;
+  width: fit-content;
+}
+.content-purcshase::-webkit-scrollbar {
+  display: none;
+}
+.content-item span {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}

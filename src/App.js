@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Toast, ToastBody, ToastContainer } from "react-bootstrap";
+import React from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Route, Routes } from "react-router-dom";
 import "swiper/css";
@@ -15,15 +14,21 @@ import Promotion from "./page/admin/promotion/Promotion";
 import NameServices from "./page/admin/Services/NameServices";
 import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
+import Register from "./page/Auth/client/Register";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
 import ProfileUser from "./page/client/Profile/ProfileUser";
+import Purchase from "./page/client/Purchase/Purchase";
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<ListProducts />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/purchase" element={<Purchase />} />
+        <Route path="/purchase/id_order=:id" element={<Purchase />} />
+        {/* <Route path="/order" element={<OrderDetail />} /> */}
         <Route
           path="/product/detail/id_product=:id"
           element={<DetailProduct />}
@@ -52,7 +57,7 @@ export default function App() {
           element={access_admin_token ? <Services /> : <Login />}
         />
         <Route
-          path="/adminstrator/name_services"
+          path="/adminstrator/name_services:order_id"
           element={access_admin_token ? <NameServices /> : <Login />}
         />
         <Route

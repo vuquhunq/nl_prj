@@ -46,7 +46,7 @@ export default function Order() {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders ? (
+                  {orders.length > 0 ? (
                     orders.map((order, index) => (
                       <tr key={index}>
                         <th scope="row">{order.id_bill}</th>

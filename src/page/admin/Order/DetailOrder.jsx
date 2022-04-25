@@ -9,7 +9,6 @@ export default function DetailOrder() {
   const [detail, setDetailOrder] = useState({});
   const location = useLocation();
   const path = location.pathname.split("/")[3];
-  console.log(path);
 
   const handleAccept = () => {
     let objectStatus = {
@@ -38,8 +37,6 @@ export default function DetailOrder() {
       setDetailOrder(res)
     );
   }, [path]);
-
-  console.log(detail);
 
   return (
     <>

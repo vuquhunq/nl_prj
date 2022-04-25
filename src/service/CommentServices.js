@@ -7,6 +7,16 @@ class CommentsService {
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
+  addCommentProduct(payload) {
+    return axiosInstance
+      .post("/rate-comment/", payload, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
 }
 
 export default new CommentsService();

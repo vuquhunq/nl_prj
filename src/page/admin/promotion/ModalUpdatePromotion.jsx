@@ -14,7 +14,6 @@ export const ModalUpdatePromotion = (props) => {
   }, [props]);
 
   const promotion = props.promotion;
-  console.log(promotion);
 
   const handleUpdatePromotion = () => {
     let objPromotion = {
