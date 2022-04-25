@@ -57,37 +57,14 @@ class BillService {
     return axiosInstance
       .put("/bill/", payload, {
         headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "Application/json",
-        },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => alert(err));
-  }
-
-  updateBillService(payload){
-    return axiosInstance
-      .put("/bill/",payload,{
-        headers: {
           Authorization: `Bearer ${access_admin_token}`,
-          "Content-Type": "Application/json",
+          "Content-Type": "application/json",
         },
       })
       .then((res) => console.log(res.data))
       .catch((err) => alert(err));
   }
 
-  updateBillService(payload){
-    return axiosInstance
-      .put("/bill/",payload,{
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "Application/json",
-        },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => alert(err));
-  }
 }
 
 export default new BillService();

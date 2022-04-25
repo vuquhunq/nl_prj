@@ -1,11 +1,13 @@
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Col, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { Col, Container, Form, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../assets/search.svg";
 import ModalCart from "../../components/client/Cart/modalCart";
 import { UserToggle } from "../../components/client/Navbar/Toggle";
 import ModalHandleSevice from "../../components/client/Service/modalHandleSevice";
-import { access_token } from "../../config/authConfig";
+import { access_token, cartDetail } from "../../config/authConfig";
 import { linkData } from "../../constant/DirectClient";
 import UserServices from "../../service/UserServices";
 import "./style.css";
@@ -77,6 +79,34 @@ const ClientNavbar = () => {
           />
         </Col>
       </Container>
+      <Container
+        fluid
+        onClick={() => setIsShowCart(!isShowCart)}
+        style={{
+          display: "flex",
+          alignItem: "center",
+          justifyContent: "center",
+          position: "fixed",
+          width: 50,
+          height: 100,
+          top: 200,
+          right: 0,
+          backgroundColor: "black",
+          color: "orange",
+        }}
+      >
+        <FontAwesomeIcon icon={faCartShopping} />
+      </Container>
+      <Offcanvas
+        show={isShowCart}
+        onHide={() => setIsShowCart(false)}
+        placement="end"
+      >
+        <Offcanvas.Header>Giỏ hàng</Offcanvas.Header>
+        <Offcanvas.Body>
+          {/* {cartDetail && cartDetail.map((cart)=>)} */}
+        </Offcanvas.Body>
+      </Offcanvas>
     </Navbar>
   );
 };

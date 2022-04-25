@@ -18,6 +18,7 @@ import UserServices from "../../../service/UserServices";
 import "./style.css";
 
 export default function Purchase() {
+  const [isShow, setIsShow] = useState(false);
   const total = cartDetail.reduce(
     (a, b) => a + b.current_price * b.quantily,
     0
@@ -28,26 +29,30 @@ export default function Purchase() {
       <Container id="purchase-wrapper">
         <div className="detail-product">
           {cartDetail ? (
-            cartDetail.map((cart, index) => (
-              <div className="product-detail" key={index}>
-                <Image
-                  src={cart.img}
-                  alt="Product Image"
-                  style={{ width: 200, height: 200 }}
-                />
-                <div className="detail-content">
-                  <div className="container">
-                    <div className="content-name">{cart.name}</div>
-                    <div className="content-price">
-                      {cart.current_price.toLocaleString("it-IT", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
+            cartDetail.length > 0 ? (
+              cartDetail.map((cart, index) => (
+                <div className="product-detail" key={index}>
+                  <Image
+                    src={cart.img}
+                    alt="Product Image"
+                    style={{ width: 200, height: 200 }}
+                  />
+                  <div className="detail-content">
+                    <div className="container">
+                      <div className="content-name">{cart.name}</div>
+                      <div className="content-price">
+                        {cart.current_price.toLocaleString("it-IT", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))
+            ) : (
+              <Container fluid className='d-flex justify-content-center' style={{height: '100%', alignItems: 'center'}}>Không có sản phẩm trong giỏ hàng</Container>
+            )
           ) : (
             <Container>Không có sản phẩm trong giỏ hàng</Container>
           )}
@@ -92,19 +97,27 @@ export default function Purchase() {
               </div>
             </div>
             <div className="toggle-purchase">
-              <Button variant="btn" className="purchase-button">
+              <Button
+                variant="btn"
+                className="purchase-button"
+                onClick={() => setIsShow(true)}
+              >
                 THANH TOÁN
               </Button>
             </div>
           </div>
         </div>
-        <ModalSubmitPurchase total={total} />
+        <ModalSubmitPurchase
+          total={total}
+          isShow={isShow}
+          setIsShow={setIsShow}
+        />
       </Container>
     </>
   );
 }
 
-const ModalSubmitPurchase = ({ total }) => {
+const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
   const [userInfo, setUserInfo] = useState({
     address: "",
     dob: "",
@@ -171,8 +184,8 @@ const ModalSubmitPurchase = ({ total }) => {
     });
   };
   return (
-    <Modal show centered size="xl">
-      <Modal.Header onHide={()=>window.location = '/'} closeButton>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
+    <Modal show={isShow} onHide={() => setIsShow(false)} centered size="xl">
+      <Modal.Header closeButton>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
       <Modal.Body>
         <Row>
           <Col>
