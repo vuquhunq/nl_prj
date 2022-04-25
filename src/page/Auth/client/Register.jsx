@@ -1,5 +1,6 @@
+import { dblClick } from "@testing-library/user-event/dist/click";
 import React, { useRef, useState } from "react";
-import { Form, FormGroup, Modal } from "react-bootstrap";
+import { Form, FormGroup, Modal, Toast, ToastContainer } from "react-bootstrap";
 import ClientNavbar from "../../../common/client/Navbar";
 import AuthServices from "../../../service/AuthServices";
 import "./style.css";
@@ -13,6 +14,7 @@ export default function Register() {
   const emailRef = useRef("");
   const phoneRef = useRef("");
   const fullnameRef = useRef("");
+  const [error, setError] = useState("");
   const handleRegister = () => {
     const obj = {
       id_permission: 3,
@@ -26,12 +28,27 @@ export default function Register() {
         full_name: fullnameRef.current.value,
       },
     };
+    passwordRef !== repasswordRef
+      ? setError("Không khớp với mật khẩu trên")
+      : usernameRef.current.value === "" ||
+        passwordRef.current.value === "" ||
+        repasswordRef.current.value === "" ||
+        dobRef.current.value === "" ||
+        emailRef.current.value === "" ||
+        phoneRef.current.value === "" ||
+        fullnameRef.current.value === ""
+      ? setError("Phải nhập đầy đủ thông tin để hoàn tất đăng ký")
+      : setError("Đăng nhập thành công");
     AuthServices.userRegister(obj).then((res) => {
       if (res === 200) window.location = "/";
     });
   };
   return (
     <>
+      <Modal show centered>
+        <Modal.Header show ></Modal.Header>
+        <Modal.Body>Hello World</Modal.Body>
+      </Modal>
       <ClientNavbar />
       <Modal show id="modal-register" centered>
         <Modal.Header>Đăng ký khách hàng</Modal.Header>

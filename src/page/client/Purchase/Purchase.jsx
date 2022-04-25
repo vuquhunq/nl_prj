@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Image,
+  Modal,
+  Row,
+} from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import VNPayLogo from "../../../assets/vnpay.png";
 import ClientNavbar from "../../../common/client/Navbar";
 import { access_token, cartDetail, infoUser } from "../../../config/authConfig";
@@ -21,7 +30,7 @@ export default function Purchase() {
           {cartDetail ? (
             cartDetail.map((cart, index) => (
               <div className="product-detail" key={index}>
-                <img
+                <Image
                   src={cart.img}
                   alt="Product Image"
                   style={{ width: 200, height: 200 }}
@@ -128,26 +137,42 @@ const ModalSubmitPurchase = ({ total }) => {
       window.location.href = link;
     }
   }, [link]);
+  const { id } = useParams();
+  useEffect(() => {
+    const obj = {
+      address: address,
+      method: "Payment",
+      total: total,
+      date_create: Date.now(),
+      status: "Đang chờ xử lý",
+      id_user: infoUser.id_user,
+      list_bill_detail: cartDetail,
+    };
+    id &&
+      BillService.addBillService(obj).then(() => {
+        window.location = "/products";
+        localStorage.removeItem("cart-detail");
+      });
+  }, [id]);
   const handleOrder = () => {
     const obj = {
       address: address,
       method: "COD",
       total: total,
       date_create: Date.now(),
-      status: "",
+      status: "Đang chơ xử lý",
       id_user: infoUser.id_user,
       list_bill_detail: cartDetail,
     };
-    console.log(obj);
     BillService.addBillService(obj).then((res) => {
       if (res === 200) {
-        window.location = '/'
+        window.location = "/";
       }
     });
   };
   return (
     <Modal show centered size="xl">
-      <Modal.Header>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
+      <Modal.Header onHide={()=>window.location = '/'} closeButton>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
       <Modal.Body>
         <Row>
           <Col>
