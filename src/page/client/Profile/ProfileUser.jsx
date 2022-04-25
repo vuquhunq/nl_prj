@@ -4,7 +4,13 @@ import {
   Col,
   Container,
   Form,
-  FormGroup, Image, Modal, Row, Table
+  FormGroup,
+  Image,
+  Modal,
+  Row,
+  Table,
+  Toast,
+  ToastContainer,
 } from "react-bootstrap";
 import ClientNavbar from "../../../common/client/Navbar";
 import BillService from "../../../service/BillService";
@@ -61,6 +67,7 @@ export default function ProfileUser() {
     profile.phone,
     profile.dob,
   ]);
+  const [isHandle, setIsHanle] = useState("");
   const handleUpdateProfile = () => {
     const obj = {
       address: address,
@@ -69,7 +76,11 @@ export default function ProfileUser() {
       email: email,
       full_name: fullName,
     };
-    UserServices.updateProfileUser(obj);
+    UserServices.updateProfileUser(obj).then((res) => {
+      if (res === 200) {
+        setIsHanle("Cập nhật thông tin thành công");
+      } else setIsHanle("Cập nhật thông tin thất bại");
+    });
   };
   const handleUpdatePassword = () => {
     const obj = {
@@ -80,6 +91,18 @@ export default function ProfileUser() {
   };
   return (
     <>
+      <ToastContainer position="bottom-end">
+        <Toast
+          show={isHandle !== ""}
+          onClose={() => setIsHanle("")}
+          delay={3000}
+          autohide
+        >
+          <Toast.Body>
+            <h5>{isHandle}</h5>
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
       <ClientNavbar />
       <Container
         id="client-content"
@@ -126,7 +149,7 @@ export default function ProfileUser() {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Số điện thoại:</Form.Label>
+                  <Form.Label>Địa chỉ:</Form.Label>
                   <Form.Control
                     placeholder={
                       Object.keys(profile).length > 0 ? profile.address : ""
@@ -208,9 +231,7 @@ const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
   const [details, setDetails] = useState({});
   useEffect(() => {
     detailOrder > 0 &&
-      BillService.getUserDetailBill(detailOrder).then((res) =>
-        setDetails(res)
-      );
+      BillService.getUserDetailBill(detailOrder).then((res) => setDetails(res));
   }, [detailOrder]);
   console.log(details);
   return (

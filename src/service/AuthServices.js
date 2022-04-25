@@ -35,7 +35,8 @@ class AuthService {
       })
       .then((res) => {
         localStorage.setItem("access_token", res.data);
-      });
+        return res.status
+      }).catch(err=>err.status);
   }
   logout() {
     localStorage.removeItem("access_token");
