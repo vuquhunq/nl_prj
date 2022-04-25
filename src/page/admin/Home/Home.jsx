@@ -108,23 +108,23 @@ export default function Home() {
                     <tbody>
                       <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>Vu Quang Hung</td>
+                        <td>Sun Apr 10 2022</td>
+                        <td>720000 VNĐ</td>
                         <td>
                           <Button type="XacNhan" />
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td>Vu Quang Hung</td>
+                        <td>Sun Apr 10 2022</td>
+                        <td>980000 VNĐ</td>
                         <td>
                           <Button type="Huy" />
                         </td>
                       </tr>
-                      <tr>
+                      {/* <tr>
                         <th scope="row">3</th>
                         <td>Larry the Bird</td>
                         <td>Larry the Bird</td>
@@ -132,7 +132,7 @@ export default function Home() {
                         <td>
                           <Button type="ChuaXacNhan" />
                         </td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                 </div>
