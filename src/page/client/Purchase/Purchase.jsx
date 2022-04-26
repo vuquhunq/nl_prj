@@ -26,6 +26,8 @@ import UserServices from "../../../service/UserServices";
 import "./style.css";
 
 export default function Purchase() {
+  const { id } = useParams();
+
   const [isShow, setIsShow] = useState(false);
   const [carts, setCarts] = useState(cartDetail || []);
   useEffect(() => {
@@ -38,6 +40,24 @@ export default function Purchase() {
     const newList = carts && carts.filter((e) => e.id_size_quantity !== id);
     carts && setCarts(newList);
   };
+  const [isSuccess, setIsSuccess] = useState("");
+  const order = localStorage.getItem("order");
+  useEffect(() => {
+    const obj = {
+      address: order ? order.address : '', 
+      method: "Payment",
+      total: total,
+      date_create: Date.now(),
+      status: "Đang chờ xử lý",
+      id_user: infoUser.id_user,
+      list_bill_detail: cartDetail,
+    };
+    id &&
+      BillService.addBillService(obj).then((res) => {
+        if (res === 200) setIsSuccess("Thanh toán thành công");
+        localStorage.removeItem("cart-detail");
+      });
+  }, [id]);
   const handleQuantity = (id, count) => {
     const newArr = carts.map((cart) => {
       if (cart.id_size_quantity === id) {
@@ -51,6 +71,19 @@ export default function Purchase() {
   };
   return (
     <>
+      <Modal
+        show={isSuccess !== ""}
+        onHide={() => {
+          setIsSuccess("");
+          localStorage.removeItem('cart-detail')
+          window.location = "/purchase";
+        }}
+        centered
+      >
+        <Modal.Body className="text-center">
+          <h3>Đăng ký thành công</h3>
+        </Modal.Body>
+      </Modal>
       <ClientNavbar />
       <Container id="purchase-wrapper">
         <div className="detail-product">
@@ -83,7 +116,6 @@ export default function Purchase() {
                       <div
                         className="content-price d-flex flex-column"
                         style={{ fontWeight: 700 }}
-                        k
                       >
                         <span className="d-flex gap-1">
                           <span style={{ fontWeight: 600, color: "black" }}>
@@ -105,10 +137,11 @@ export default function Purchase() {
                                 icon={faChevronUp}
                               />
                               <FontAwesomeIcon
-                                onClick={() =>
-                                 { handleQuantity(cart.id_size_quantity, -1)
-                                  cart.quantily <=1 && handleRemoveItem(cart.id_size_quantity)}
-                                }
+                                onClick={() => {
+                                  handleQuantity(cart.id_size_quantity, -1);
+                                  cart.quantily <= 1 &&
+                                    handleRemoveItem(cart.id_size_quantity);
+                                }}
                                 icon={faChevronDown}
                               />
                             </span>
@@ -228,24 +261,7 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       window.location.href = link;
     }
   }, [link]);
-  const { id } = useParams();
-  const [isSuccess, setIsSuccess] = useState('')
-  useEffect(() => {
-    const obj = {
-      address: address,
-      method: "Payment",
-      total: total,
-      date_create: Date.now(),
-      status: "Đang chờ xử lý",
-      id_user: infoUser.id_user,
-      list_bill_detail: cartDetail,
-    };
-    id &&
-      BillService.addBillService(obj).then((res) => {
-        localStorage.removeItem("cart-detail");
-        if(res=200) setIsSuccess('Thanh toán thành công')
-      });
-  }, [id]);
+
   const handleOrder = () => {
     const obj = {
       address: address,
@@ -256,6 +272,7 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       id_user: infoUser.id_user,
       list_bill_detail: cartDetail,
     };
+    localStorage.setItem("order", obj);
     BillService.addBillService(obj).then((res) => {
       if (res === 200) {
         window.location = "/";
@@ -396,10 +413,6 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
               </div>
             </div>
           </Col>
-        </Row>
-        <Row className="overflow-auto">
-          <Col></Col>
-          <Col></Col>
         </Row>
       </Modal.Body>
     </Modal>

@@ -8,6 +8,7 @@ export const UnconfirmServices = () => {
   console.log(services);
 
   const handleConfirm = (id) => {
+    console.log(id)
     let objConfirm = {
       status: "Xác Nhận",
       id_services: id.id_services,
