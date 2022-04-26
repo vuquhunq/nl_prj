@@ -13,7 +13,6 @@ export const ModalUpdateCategory = (props) => {
     PromotionServices.getAllPromotion().then((res) => setPromotions(res));
   }, [props]);
 
-
   const item = props.item;
   const handleUpdate = () => {
     let objCategory = {
@@ -24,7 +23,7 @@ export const ModalUpdateCategory = (props) => {
     CategoryService.updateCategory(objCategory).then(() =>
       window.location.reload()
     );
-    props.hide();
+    props.onHide();
   };
 
   const handleDeletePromotion = () => {
@@ -36,7 +35,7 @@ export const ModalUpdateCategory = (props) => {
     CategoryService.updateCategory(objCategory).then(() =>
       window.location.reload()
     );
-    props.hide();
+    props.onHide();
   };
 
   return (
@@ -92,7 +91,7 @@ export const ModalUpdateCategory = (props) => {
         <Button variant="success" onClick={handleUpdate}>
           Lưu
         </Button>
-        <Button variant="danger" onClick={props.hide}>
+        <Button variant="danger" onClick={props.onHide}>
           Đóng
         </Button>
       </Modal.Footer>

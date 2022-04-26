@@ -142,7 +142,7 @@ export default function Category() {
             // name={name}
             // id_promotion={promotion}
             show={modalShow}
-            hide={() => setModalShow(false)}
+            onHide={() => setModalShow(false)}
           />
         </Container>
       </Container>
