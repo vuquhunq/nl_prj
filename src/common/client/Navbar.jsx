@@ -1,6 +1,6 @@
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Col,
@@ -9,7 +9,6 @@ import {
   Nav,
   Navbar,
   Offcanvas,
-  OffcanvasBody,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../assets/search.svg";
@@ -18,24 +17,30 @@ import { UserToggle } from "../../components/client/Navbar/Toggle";
 import ModalHandleSevice from "../../components/client/Service/modalHandleSevice";
 import { access_token, cartDetail } from "../../config/authConfig";
 import { linkData } from "../../constant/DirectClient";
-import ServiceServices from "../../service/ServiceServices";
 import UserServices from "../../service/UserServices";
 import "./style.css";
 
-const SearchBox = () => {
+const SearchBox = ({ searchInput }) => {
+  const searchRef = useRef("");
+  const handleSubmit = () => searchInput(searchRef.current.value);
   return (
-    <Form>
-      <Form.Group className="navbar-search position-relative">
-        <Form.Label>
-          <SearchIcon />
-        </Form.Label>
-        <Form.Control className="rounded-pill" type="text" />
-      </Form.Group>
-    </Form>
+    <Form.Group className="navbar-search position-relative">
+      <Form.Label>
+        <SearchIcon />
+      </Form.Label>
+      <Form.Control
+        ref={searchRef}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSubmit();
+        }}
+        className="rounded-pill"
+        type="text"
+      />
+    </Form.Group>
   );
 };
 
-const ClientNavbar = () => {
+const ClientNavbar = ({ searchInput }) => {
   const [userInfo, setUserInfo] = useState();
   const [isShowService, setIsShowService] = useState(false);
   const [isShowCart, setIsShowCart] = useState(false);
@@ -81,7 +86,7 @@ const ClientNavbar = () => {
           </Container>
         </Col>
         <Col className="d-flex gap-4 justify-content-end align-items-center">
-          <SearchBox />
+          <SearchBox searchInput={searchInput} />
           <UserToggle
             userInfo={userInfo}
             showCart={() => setIsShowCart(!isShowCart)}
@@ -126,10 +131,7 @@ const ClientNavbar = () => {
         <></>
       )}
 
-      <OffcanvasCart
-        isShowCart={isShowCart}
-        setIsShowCart={setIsShowCart}
-      />
+      <OffcanvasCart isShowCart={isShowCart} setIsShowCart={setIsShowCart} />
       {/* {access_token && <OffCanvasService />} */}
     </Navbar>
   );

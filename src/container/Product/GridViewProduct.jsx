@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Masonry from "react-masonry-css";
 import CardProduct from "../../components/client/Product/CardProduct";
 import "./style.css";

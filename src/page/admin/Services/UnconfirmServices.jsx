@@ -8,9 +8,10 @@ export const UnconfirmServices = () => {
   console.log(services);
 
   const handleConfirm = (id) => {
+    console.log(id)
     let objConfirm = {
       status: "Xác Nhận",
-      id_services: id,
+      id_services: id.id_services,
     };
     ServiceServices.updateServices(objConfirm).then((res) => console.log(res));
   };
@@ -46,23 +47,15 @@ export const UnconfirmServices = () => {
                   <th scope="row">{index + 1}</th>
                   <td>{service?.name_user}</td>
                   <td>{service?.name_service}</td>
+                  <td>{new Date(service?.date_create).toDateString()}</td>
+                  <td>{new Date(service?.booking_date).toDateString()}</td>
                   <td>
-                    {new Date(service?.date_create).toDateString()}
-                  </td>
-                  <td>
-                    {new Date(service?.booking_date).toDateString()}
-                  </td>
-                  <td>
-                    <span className="badge btn-success">
-                      {service?.status}
-                    </span>
+                    <span className="badge btn-success">{service?.status}</span>
                   </td>
                   <td>
                     <Button
                       className="btn btn-success"
-                      onClick={() =>
-                        handleConfirm(service)
-                      }
+                      onClick={() => handleConfirm(service)}
                     >
                       Xác Nhận
                     </Button>

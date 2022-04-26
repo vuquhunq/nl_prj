@@ -60,7 +60,7 @@ export default function ModalUserLogin({ show, onHide }) {
           </Button>
         </ButtonGroup>
 
-        {/* <a href="http://127.0.0.1:8000/login">Đăng nhập bằng googgle</a> */}
+        <a href="http://127.0.0.1:8000/login">Đăng nhập bằng googgle</a>
         <ToastContainer position="center" style={{ top: 40 }}>
           <Toast
             show={isError !== ""}

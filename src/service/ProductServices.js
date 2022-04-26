@@ -3,6 +3,12 @@ class ProductServices {
   getAllProduct() {
     return axiosInstance.get("/product/all-product").then((res) => res.data);
   }
+  filterNameProduct(payload) {
+    return axiosInstance
+      .post(`/product/search-product/${payload}`, "")
+      .then((res) => res.data)
+      .catch((err) => alert(err));
+  }
   getFilterProduct(payload) {
     // return axiosInstance.post("/product/filter-product", payload, {
     //   "Content-Type": "application/json",

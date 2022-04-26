@@ -12,27 +12,55 @@ export default function CardProduct({ product }) {
   };
   return (
     <Card bg="none" onClick={handleLink}>
-      <Card.Header className="bg-none" >
+      <Card.Header className="bg-none">
         <Card.Img
           src={FileServices.getIMG(
-            product.list_color.length > 0 ? product.list_color[colorProduct].list_image[0] : ''
+            product.list_color.length > 0
+              ? product.list_color[colorProduct].list_image[0]
+              : ""
           )}
         />
       </Card.Header>
       <Card.Body>
         <Card.Title className="text-center">{product.name}</Card.Title>
         <Card.Subtitle>
-          {product.money.toLocaleString("it-IT", {
-            style: "currency",
-            currency: "VND",
-          })}
+          {product.discount < product.money ? (
+            <span className="d-flex flex-column align-items-center">
+              <span
+                style={{
+                  textDecoration: "line-through",
+                  fontWeight: 500,
+                  fontSize: "small",
+                  color: "black",
+                }}
+              >
+                {product.money.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+              </span>
+              <span
+                className="d-flex gap-1"
+                style={{ color: "#F15E12", fontWeight: 600 }}
+              >
+                {product.discount.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+                <span>({product.reduction}%)</span>
+              </span>
+            </span>
+          ) : (
+            product.discount.toLocaleString("it-IT", {
+              style: "currency",
+              currency: "VND",
+            })
+          )}
         </Card.Subtitle>
       </Card.Body>
       <Card.Footer className="bg-none">
         {/* <Card.ImgOverlay>
-          <Button variant="btn">
-            <FontAwesomeIcon icon={faCartShopping} color="#F15E2C" />
-          </Button>
+         <span>{product.reduction}</span>
         </Card.ImgOverlay> */}
         {product.list_color &&
           product.list_color.map((color, index) => (
