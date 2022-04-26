@@ -309,7 +309,7 @@ const DetailOrder = ({ order, handleShowDetailOrder }) => {
         <thead>
           <tr>
             <td>Ngày đặt</td>
-            <td>Nơi nhận hàng</td>
+            <td>Địa chỉ</td>
             <td>Phương thức thanh toán</td>
             <td>Tổng tiền</td>
             <td>Tình trạng</td>

@@ -19,7 +19,6 @@ class AuthService {
       .catch((err) => console.log(err.data));
   }
   userRegister(payload) {
-    console.log(payload)
     return axiosInstance.post("/user/sgin-up", payload, {
       headers: {
         "Content-Type": "application/json",

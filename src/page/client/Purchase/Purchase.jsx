@@ -229,6 +229,7 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
     }
   }, [link]);
   const { id } = useParams();
+  const [isSuccess, setIsSuccess] = useState('')
   useEffect(() => {
     const obj = {
       address: address,
@@ -240,8 +241,9 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       list_bill_detail: cartDetail,
     };
     id &&
-      BillService.addBillService(obj).then(() => {
+      BillService.addBillService(obj).then((res) => {
         localStorage.removeItem("cart-detail");
+        if(res=200) setIsSuccess('Thanh toán thành công')
       });
   }, [id]);
   const handleOrder = () => {

@@ -1,4 +1,4 @@
-import { access_token } from "../config/authConfig";
+import { access_admin_token, access_token } from "../config/authConfig";
 import { axiosInstance } from "../config/axiosConfig";
 class ServiceServices {
   addService(payload) {
@@ -44,6 +44,7 @@ class ServiceServices {
       method: "PUT",
       data: payload,
       headers: {
+        Authorization: `Bearer ${access_admin_token}`,
         "Content-Type": "Application/json",
       },
     })

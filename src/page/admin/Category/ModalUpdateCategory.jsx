@@ -67,7 +67,11 @@ export const ModalUpdateCategory = (props) => {
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Loại Khuyến Mãi:</Form.Label>
             <div className="d-flex align-iems-center flex-nowrap gap-3 ">
-              <Form.Select onChange={(e) => setPromotionIndex(e.target.value)}>
+              <Form.Select
+                style={{ width: "fit-content" }}
+                onChange={(e) => setPromotionIndex(e.target.value)}
+              >
+                <option value="0">Chọn</option>
                 {promotions ? (
                   promotions.map((item) => (
                     <option key={item?.id_promotion} value={item?.id_promotion}>
