@@ -9,6 +9,7 @@ import {
   Nav,
   Navbar,
   Offcanvas,
+  OffcanvasBody,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../assets/search.svg";
@@ -17,6 +18,7 @@ import { UserToggle } from "../../components/client/Navbar/Toggle";
 import ModalHandleSevice from "../../components/client/Service/modalHandleSevice";
 import { access_token, cartDetail } from "../../config/authConfig";
 import { linkData } from "../../constant/DirectClient";
+import ServiceServices from "../../service/ServiceServices";
 import UserServices from "../../service/UserServices";
 import "./style.css";
 
@@ -110,25 +112,63 @@ const ClientNavbar = () => {
             width: 15,
             height: 15,
             top: 50,
-            right: 0,
-            fontSize: 'small',
+            left: 5,
+            fontSize: "small",
             backgroundColor: "orangered",
             color: "black",
           }}
         >
-          {cartDetail && cartDetail.length}
+          {cartDetail ? cartDetail.length : 0}
         </div>
         <FontAwesomeIcon icon={faCartShopping} />
       </Container>
+      {access_token ? (
+        <Container
+          fluid
+          onClick={() => setIsShowCart(!isShowCart)}
+          style={{
+            display: "flex",
+            alignItem: "center",
+            justifyContent: "center",
+            position: "fixed",
+            width: 50,
+            height: 100,
+            top: 300,
+            right: 0,
+            backgroundColor: "orangered",
+            color: "black",
+          }}
+        >
+          <div
+            className="d-flex rounded-circle justify-content-center align-items-center"
+            style={{
+              position: "absolute",
+              width: 15,
+              height: 15,
+              top: 50,
+              left: 5,
+              fontSize: "small",
+              backgroundColor: "black",
+              color: "orangered",
+            }}
+          >
+            {cartDetail ? cartDetail.length : 0}
+          </div>
+          <FontAwesomeIcon icon={faCartShopping} />
+        </Container>
+      ) : (
+        <></>
+      )}
+
       <OffcanvasCart isShowCart={isShowCart} setIsShowCart={setIsShowCart} />
+      {access_token && <OffCanvasService />}
     </Navbar>
   );
 };
 const OffcanvasCart = ({ isShowCart, setIsShowCart }) => {
-  const total = cartDetail.reduce(
-    (a, b) => a + b.current_price * b.quantily,
-    0
-  );
+  const total = cartDetail
+    ? cartDetail.reduce((a, b) => a + b.current_price * b.quantily, 0)
+    : 0;
   return (
     <Offcanvas
       show={isShowCart}
@@ -207,6 +247,20 @@ const OffcanvasCart = ({ isShowCart, setIsShowCart }) => {
       >
         Xem giỏ hàng
       </Button>
+    </Offcanvas>
+  );
+};
+const OffCanvasService = () => {
+  const [serviceDetail, setServiceDetail] = useState([]);
+  useEffect(() => {
+    ServiceServices.getAllUserService().then((res) => setServiceDetail(res));
+  }, []);
+  console.log(serviceDetail);
+  return (
+    <Offcanvas show>
+      <OffcanvasBody>
+        {}
+      </OffcanvasBody>
     </Offcanvas>
   );
 };
