@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   ToastContainer,
-  Toast
+  Toast,
 } from "react-bootstrap";
 import { infoUser } from "../../../config/authConfig";
 import ServiceServices from "../../../service/ServiceServices";
@@ -28,7 +28,10 @@ export default function ModalHandleSevice({ show, isShow }) {
       id_user: infoUser.id_user,
       id_name_services: service,
     };
-    ServiceServices.addService(obj).then((res) => setIsSuccess(res));
+    ServiceServices.addService(obj).then((res) => {
+      if (res === 200) setIsSuccess("Đăng ký dịch vụ thành công");
+      else setIsSuccess("Đăng ký dịch vụ thất bại");
+    });
   };
   return (
     <Modal size="md" show={show} onHide={isShow}>
@@ -61,8 +64,13 @@ export default function ModalHandleSevice({ show, isShow }) {
       <ModalFooter>
         <Button onClick={hanldeSubmitService}>ĐĂNG KÝ DỊCH VỤ</Button>
       </ModalFooter>
-      <ToastContainer>
-        <Toast show={isSuccess !== ''} onHide={()=>setIsSuccess('')} delay={1000} autohide>
+      <ToastContainer className="position-fixed" position="bottom-end">
+        <Toast
+          show={isSuccess !== ""}
+          onClose={() => setIsSuccess("")}
+          delay={3000}
+          autohide
+        >
           <Toast.Body>{isSuccess}</Toast.Body>
         </Toast>
       </ToastContainer>
