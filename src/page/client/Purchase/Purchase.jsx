@@ -19,10 +19,9 @@ import "./style.css";
 
 export default function Purchase() {
   const [isShow, setIsShow] = useState(false);
-  const total = cartDetail.reduce(
-    (a, b) => a + b.current_price * b.quantily,
-    0
-  );
+  const total = cartDetail
+    ? cartDetail.reduce((a, b) => a + b.current_price * b.quantily, 0)
+    : 0;
   return (
     <>
       <ClientNavbar />
@@ -51,7 +50,13 @@ export default function Purchase() {
                 </div>
               ))
             ) : (
-              <Container fluid className='d-flex justify-content-center' style={{height: '100%', alignItems: 'center'}}>Không có sản phẩm trong giỏ hàng</Container>
+              <Container
+                fluid
+                className="d-flex justify-content-center"
+                style={{ height: "100%", alignItems: "center" }}
+              >
+                Không có sản phẩm trong giỏ hàng
+              </Container>
             )
           ) : (
             <Container>Không có sản phẩm trong giỏ hàng</Container>
@@ -107,11 +112,13 @@ export default function Purchase() {
             </div>
           </div>
         </div>
-        <ModalSubmitPurchase
-          total={total}
-          isShow={isShow}
-          setIsShow={setIsShow}
-        />
+        {access_token && (
+          <ModalSubmitPurchase
+            total={total}
+            isShow={isShow}
+            setIsShow={setIsShow}
+          />
+        )}
       </Container>
     </>
   );

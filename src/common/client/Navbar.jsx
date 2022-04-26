@@ -179,7 +179,7 @@ const OffcanvasCart = ({ isShowCart, setIsShowCart }) => {
         GIỎ HÀNG
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <div className="content-purcshase">
+        <div>
           {cartDetail ? (
             cartDetail.length > 0 ? (
               cartDetail.map((cart, index) => (
@@ -257,7 +257,7 @@ const OffCanvasService = () => {
   }, []);
   console.log(serviceDetail);
   return (
-    <Offcanvas show>
+    <Offcanvas >
       <OffcanvasBody>
         {}
       </OffcanvasBody>
