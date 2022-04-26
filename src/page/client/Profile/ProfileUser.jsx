@@ -305,31 +305,39 @@ const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
 const DetailOrder = ({ order, handleShowDetailOrder }) => {
   return (
     <Container id="detail-order" className="d-flex flex-column gap-2">
-      {order.length > 0 ? (
-        order.map((props, index) => {
-          return (
-            <Container
-              fluid
-              className="detail-items d-flex justify-content-between"
-              onClick={() => handleShowDetailOrder(props.id_bill)}
-              key={index}
-            >
-              <span>{props.date_create}</span>
-              <span>{props.address}</span>
-              <span>{props.method}</span>
-              <span>
-                {props.total.toLocaleString("it-IT", {
-                  style: "currency",
-                  currency: "VND",
-                })}
-              </span>
-              <span>{props.status}</span>
-            </Container>
-          );
-        })
-      ) : (
-        <p>Không có thông đơn hàng</p>
-      )}
+      <Table>
+        <thead>
+          <tr>
+            <td>Ngày đặt</td>
+            <td>Nơi nhận hàng</td>
+            <td>Phương thức thanh toán</td>
+            <td>Tổng tiền</td>
+            <td>Tình trạng</td>
+          </tr>
+        </thead>
+        <tbody>
+          {order.length > 0 ? (
+            order.map((props, index) => {
+              return (
+                <tr>
+                  <td>{props.date_create}</td>
+                  <td>{props.address}</td>
+                  <td>{props.method}</td>
+                  <td>
+                    {props.total.toLocaleString("it-IT", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
+                  </td>
+                  <td>{props.status}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <p>Không có thông đơn hàng</p>
+          )}
+        </tbody>
+      </Table>
     </Container>
   );
 };
