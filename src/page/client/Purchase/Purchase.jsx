@@ -106,7 +106,8 @@ export default function Purchase() {
                               />
                               <FontAwesomeIcon
                                 onClick={() =>
-                                  handleQuantity(cart.id_size_quantity, -1)
+                                 { handleQuantity(cart.id_size_quantity, -1)
+                                  cart.quantily <=1 && handleRemoveItem(cart.id_size_quantity)}
                                 }
                                 icon={faChevronDown}
                               />
