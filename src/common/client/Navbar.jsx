@@ -39,7 +39,6 @@ const ClientNavbar = () => {
   const [userInfo, setUserInfo] = useState();
   const [isShowService, setIsShowService] = useState(false);
   const [isShowCart, setIsShowCart] = useState(false);
-
   useEffect(() => {
     access_token &&
       UserServices.getInfoUser().then((res) => {
@@ -160,7 +159,10 @@ const ClientNavbar = () => {
         <></>
       )}
 
-      <OffcanvasCart isShowCart={isShowCart} setIsShowCart={setIsShowCart} />
+      <OffcanvasCart
+        isShowCart={isShowCart}
+        setIsShowCart={setIsShowCart}
+      />
       {access_token && <OffCanvasService />}
     </Navbar>
   );
@@ -257,10 +259,8 @@ const OffCanvasService = () => {
   }, []);
   console.log(serviceDetail);
   return (
-    <Offcanvas >
-      <OffcanvasBody>
-        {}
-      </OffcanvasBody>
+    <Offcanvas>
+      <OffcanvasBody>{}</OffcanvasBody>
     </Offcanvas>
   );
 };

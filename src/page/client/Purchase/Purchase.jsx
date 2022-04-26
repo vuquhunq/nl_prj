@@ -1,3 +1,5 @@
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -19,9 +21,18 @@ import "./style.css";
 
 export default function Purchase() {
   const [isShow, setIsShow] = useState(false);
+  const [carts, setCarts] = useState(cartDetail || []);
+  useEffect(() => {
+    localStorage.setItem("cart-detail", JSON.stringify(carts));
+  }, [carts]);
+  console.log(carts, cartDetail);
   const total = cartDetail
     ? cartDetail.reduce((a, b) => a + b.current_price * b.quantily, 0)
     : 0;
+  const handleRemoveItem = (id) => {
+    const newList = carts && carts.filter((e) => e.id_product !== id);
+    carts && setCarts(newList);
+  };
   return (
     <>
       <ClientNavbar />
@@ -38,7 +49,9 @@ export default function Purchase() {
                   />
                   <div className="detail-content">
                     <div className="container">
-                      <div className="content-name">{cart.name}</div>
+                      <div className="content-name">
+                        {cart.name} <FontAwesomeIcon icon={faRemove} />
+                      </div>
                       <div className="content-price">
                         {cart.current_price.toLocaleString("it-IT", {
                           style: "currency",
@@ -105,7 +118,7 @@ export default function Purchase() {
               <Button
                 variant="btn"
                 className="purchase-button"
-                disabled={access_token}
+                disabled={!access_token}
                 onClick={() => setIsShow(true)}
               >
                 THANH TOÁN
@@ -171,7 +184,6 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
     };
     id &&
       BillService.addBillService(obj).then(() => {
-        window.location = "/products";
         localStorage.removeItem("cart-detail");
       });
   }, [id]);

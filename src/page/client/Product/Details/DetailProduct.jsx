@@ -202,27 +202,27 @@ const CommentContainer = () => {
                   <FontAwesomeIcon
                     onClick={() => setStar(1)}
                     icon={faStar}
-                    color={star < 1 ? "black" : "orange"}
+                    color={star < 1 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(2)}
                     icon={faStar}
-                    color={star < 2 ? "black" : "orange"}
+                    color={star < 2 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(3)}
                     icon={faStar}
-                    color={star < 3 ? "black" : "orange"}
+                    color={star < 3 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(4)}
                     icon={faStar}
-                    color={star < 4 ? "black" : "orange"}
+                    color={star < 4 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(5)}
                     icon={faStar}
-                    color={star < 5 ? "black" : "orange"}
+                    color={star < 5 ? "black" : "orangered"}
                   />
                 </div>
               </div>

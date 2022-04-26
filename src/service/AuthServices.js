@@ -42,7 +42,7 @@ class AuthService {
     localStorage.removeItem("access_token");
     localStorage.removeItem("access_admin_token");
     localStorage.removeItem("cart-detail")
-    window.location = "/";
+    window.location.reload()
   }
 }
 export default new AuthService();
