@@ -143,7 +143,6 @@ export default function DetailProduct() {
               THÊM VÀO GIỎ HÀNG
             </Button>
             <Button
-              disabled={!infoUser}
               onClick={() => (window.location = "/purchase")}
               variant="btn btn-outline-success"
             >

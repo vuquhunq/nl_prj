@@ -105,6 +105,7 @@ export default function Purchase() {
               <Button
                 variant="btn"
                 className="purchase-button"
+                disabled={access_token}
                 onClick={() => setIsShow(true)}
               >
                 THANH TOÁN
