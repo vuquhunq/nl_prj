@@ -1,4 +1,10 @@
-import { faRemove } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronCircleDown,
+  faChevronCircleUp,
+  faChevronDown,
+  faChevronUp,
+  faRemove,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
@@ -21,26 +27,36 @@ import "./style.css";
 
 export default function Purchase() {
   const [isShow, setIsShow] = useState(false);
-  // const [carts, setCarts] = useState(cartDetail || []);
-  // useEffect(() => {
-  //   localStorage.setItem("cart-detail", JSON.stringify(carts));
-  // }, [carts]);
-  // console.log(carts, cartDetail);
-  const total = cartDetail
-    ? cartDetail.reduce((a, b) => a + b.current_price * b.quantily, 0)
+  const [carts, setCarts] = useState(cartDetail || []);
+  useEffect(() => {
+    localStorage.setItem("cart-detail", JSON.stringify(carts));
+  }, [carts]);
+  const total = carts
+    ? carts.reduce((a, b) => a + b.current_price * b.quantily, 0)
     : 0;
-  // const handleRemoveItem = (id) => {
-  //   const newList = carts && carts.filter((e) => e.id_product !== id);
-  //   carts && setCarts(newList);
-  // };
+  const handleRemoveItem = (id) => {
+    const newList = carts && carts.filter((e) => e.id_size_quantity !== id);
+    carts && setCarts(newList);
+  };
+  const handleQuantity = (id, count) => {
+    const newArr = carts.map((cart) => {
+      if (cart.id_size_quantity === id) {
+        return {
+          ...cart,
+          quantily: cart.quantily + count,
+        };
+      } else return { ...cart };
+    });
+    setCarts(newArr);
+  };
   return (
     <>
       <ClientNavbar />
       <Container id="purchase-wrapper">
         <div className="detail-product">
-          {cartDetail ? (
-            cartDetail.length > 0 ? (
-              cartDetail.map((cart, index) => (
+          {carts ? (
+            carts.length > 0 ? (
+              carts.map((cart, index) => (
                 <div className="product-detail" key={index}>
                   <Image
                     src={cart.img}
@@ -50,13 +66,53 @@ export default function Purchase() {
                   <div className="detail-content">
                     <div className="container">
                       <div className="content-name">
-                        {cart.name} <FontAwesomeIcon icon={faRemove} />
+                        {cart.name}
+                        <FontAwesomeIcon
+                          onClick={() =>
+                            handleRemoveItem(cart.id_size_quantity)
+                          }
+                          icon={faRemove}
+                        />
                       </div>
                       <div className="content-price">
                         {cart.current_price.toLocaleString("it-IT", {
                           style: "currency",
                           currency: "VND",
                         })}
+                      </div>
+                      <div
+                        className="content-price d-flex flex-column"
+                        style={{ fontWeight: 700 }}
+                        k
+                      >
+                        <span className="d-flex gap-1">
+                          <span style={{ fontWeight: 600, color: "black" }}>
+                            Kích cỡ:
+                          </span>
+                          <span>{cart.size}</span>
+                        </span>
+                        <span className="d-flex align-items-center flex-nowrap gap-1">
+                          <span style={{ fontWeight: 600, color: "black" }}>
+                            Số lượng:
+                          </span>
+                          <span className="d-flex flex-nowrap align-items-center gap-2">
+                            {cart.quantily}
+                            <span className="d-flex flex-column justify-content-center align-items-center">
+                              <FontAwesomeIcon
+                                onClick={() =>
+                                  handleQuantity(cart.id_size_quantity, 1)
+                                }
+                                icon={faChevronUp}
+                              />
+                              <FontAwesomeIcon
+                                onClick={() =>
+                                  handleQuantity(cart.id_size_quantity, -1)
+                                }
+                                icon={faChevronDown}
+                              />
+                            </span>
+                          </span>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -79,8 +135,8 @@ export default function Purchase() {
           <div className="container sticky-top" style={{ top: 120 }}>
             <div className="title-purchase">ĐƠN HÀNG</div>
             <div className="content-purchase">
-              {cartDetail &&
-                cartDetail.map((cart, index) => (
+              {carts &&
+                carts.map((cart, index) => (
                   <div className="content-item" key={index}>
                     <span>
                       <span>
