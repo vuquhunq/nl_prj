@@ -35,6 +35,12 @@ export default function Category() {
     setModalShow(true);
   };
 
+  // const handleAdd = (data) => {
+  //   let text = {};
+  //   text.name = data;
+  //   CategoryService.addCategory(text).then(() => window.location.reload());
+  // };
+
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
   }, []);
@@ -83,7 +89,8 @@ export default function Category() {
                   className="btn btn-success mt-2"
                   name="btnLuu"
                   type="submit"
-                  onClick={handleAdd}
+                  // onClick={handleAdd}
+                  onClick={(e) => handleAdd(e.target.value)}
                 >
                   Lưu
                 </button>
@@ -106,7 +113,7 @@ export default function Category() {
                       <tr key={item.id_category}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
-                        <td>{item.name_promotion}</td>
+                        <td>{item.id_promotion}</td>
                         {console.log(item)}
                         <td>
                           <Button

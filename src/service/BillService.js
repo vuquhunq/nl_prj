@@ -23,7 +23,7 @@ class BillService {
       .get("/bill/get-bill/", {
         params: { id_bill: id },
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${access_admin_token}`,
           "Content-Type": "Application/json",
         },
       })
