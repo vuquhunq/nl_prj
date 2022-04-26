@@ -73,5 +73,14 @@ class ProductServices {
       },
     });
   }
+  async importFile(payload) {
+    let formdata = new FormData();
+    formdata.append("_in", payload[0], payload[0].name);
+    console.log(formdata);
+    return await axiosInstance
+      .post("/file/read", formdata)
+      .then((res) => res.status)
+      .catch((err) => err.status);
+  }
 }
 export default new ProductServices();

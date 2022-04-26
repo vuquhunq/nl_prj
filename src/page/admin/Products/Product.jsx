@@ -1,18 +1,36 @@
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Button, Container, Navbar } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Navbar,
+  ToastBody,
+  ToastContainer,
+  Toast,
+} from "react-bootstrap";
 import AdminNavbar from "../../../common/admin/Navbar";
 import Sidebar from "../../../common/admin/Sidebar";
 import ModalAdditionProduct from "../../../components/admin/Product/modalAdditionProduct";
 import FileServices from "../../../service/FileServices";
 import ProductServices from "../../../service/ProductServices";
-
-const HeaderProduct = () => {
+import "./style.css";
+const HeaderProduct = ({ setStatus }) => {
   const [isShowModalAddition, setIsShowModalAddition] = useState(false);
   const handleShowModalAddition = () => {
     setIsShowModalAddition(!isShowModalAddition);
   };
+  const [file, setFile] = useState(null);
+  useEffect(() => {
+    file && setStatus("Đang xử lý file");
+    file &&
+      ProductServices.importFile(file).then((res) => {
+        if (res === 200) {
+          setStatus("Thành công");
+          setFile(null);
+        } else setStatus("Thất bại");
+      });
+  }, [file]);
   return (
     <>
       <Navbar
@@ -21,6 +39,11 @@ const HeaderProduct = () => {
         className="d-flex justify-content-between py-4"
       >
         <h3>Quản lý sản phẩm</h3>
+        <input
+          onChange={(e) => setFile(e.target.files)}
+          type="file"
+          className="custom-file-input"
+        />
         <Button onClick={handleShowModalAddition}>Thêm sản phẩm</Button>
       </Navbar>
       <ModalAdditionProduct
@@ -33,11 +56,23 @@ const HeaderProduct = () => {
 
 export default function Product() {
   const [products, setProducts] = useState([]);
+  const [status, setStatus] = useState("");
+
   useEffect(() => {
     ProductServices.getAllProduct().then((res) => setProducts(res));
   }, []);
   return (
     <>
+      <ToastContainer className="position-fixsed" position="bottom-end">
+        <Toast
+          show={status !== ""}
+          delay={3000}
+          onClose={() => setStatus("")}
+          autohide
+        >
+          <ToastBody>{status}</ToastBody>
+        </Toast>
+      </ToastContainer>
       <AdminNavbar />
       <Container
         id="admin-content"
@@ -47,7 +82,7 @@ export default function Product() {
       >
         <Sidebar active="products" />
         <Container fluid className="overflow-auto">
-          <HeaderProduct />
+          <HeaderProduct setStatus={setStatus} />
           <table className="table table-bordered bg-white rounded  table-hover">
             <thead
               className="text-center sticky-top bg-white shadow-sm"
