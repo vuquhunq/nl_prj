@@ -16,7 +16,9 @@ export default function DetailOrder() {
       id_verifier: 1,
       id_bill: Number(path),
     };
-    BillService.updateBillService(objectStatus).then((res) => console.log(res));
+    BillService.updateBillService(objectStatus)
+      .then((res) => console.log(res.data))
+      .then(() => window.location.reload());
   };
 
   const handleCancel = () => {
@@ -25,7 +27,9 @@ export default function DetailOrder() {
       id_verifier: 1,
       id_bill: Number(path),
     };
-    BillService.updateBillService(objectStatus).then((res) => console.log(res));
+    BillService.updateBillService(objectStatus)
+      .then((res) => console.log(res.data))
+      .then(() => window.location.reload());
   };
 
   useEffect(() => {

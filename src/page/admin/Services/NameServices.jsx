@@ -6,13 +6,44 @@ import ServiceServices from "../../../service/ServiceServices";
 
 export default function NameServices() {
   const [nameServices, setNameServices] = useState([]);
-  // const [text, setText] = useState("");
+  const [text, setText] = useState("");
+  const [service, setService] = useState();
+  const [update, setUpdate] = useState(false);
 
-  //   const handleAdd = (data) => {
-  //     let text = {};
-  //     text.name = data;
-  //     ServiceServices.addCategory(text).then(() => window.location.reload());
-  //   };
+  const handleAddServices = () => {
+    ServiceServices.addNameServices({ name: text }).then(() =>
+      window.location.reload()
+    );
+  };
+
+  const handelDelete = (slug) => {
+    ServiceServices.deleteNameServices(slug).then(() =>
+      window.location.reload()
+    );
+  };
+
+  const deleteConfirm = (slug) => {
+    let answer = window.confirm(
+      "Are you sure you want to delete your category?"
+    );
+    if (answer) {
+      handelDelete(slug);
+    }
+  };
+
+  console.log(service);
+
+  const handleSaveNameServices = () => {
+    // let obj = {
+    //   name: service.name,
+    //   id_name_services: service.id_name_services,
+    // };
+    // console.log(obj);
+    ServiceServices.updateNameServices({
+      name: service.name,
+      id_name_services: service.id_name_services,
+    }).then(() => window.location.reload());
+  };
 
   useEffect(() => {
     ServiceServices.getAllNameServices().then((res) => setNameServices(res));
@@ -45,7 +76,7 @@ export default function NameServices() {
                       fontSize: 18,
                     }}
                   >
-                    Tên Loại Sản Phẩm:
+                    Tên Loại Dịch Vụ:
                   </label>
                   <input
                     required={true}
@@ -53,16 +84,16 @@ export default function NameServices() {
                     className="form-control"
                     id="tendmuc"
                     name="tendmuc"
-                    // value={text}
+                    value={text}
                     style={{ width: 500, marginBottom: 5 }}
-                    // onChange={(e) => setText(e.target.value)}
+                    onChange={(e) => setText(e.target.value)}
                   />
                 </div>
                 <button
                   className="btn btn-success mt-2"
                   name="btnLuu"
                   type="submit"
-                  //   onClick={(e) => handleAdd(e.target.value)}
+                  onClick={handleAddServices}
                 >
                   Lưu
                 </button>
@@ -74,7 +105,7 @@ export default function NameServices() {
                 <thead>
                   <tr>
                     <th style={{ width: 80 }}>Mã Loại</th>
-                    <th>Tên Loại Sản Phẩm</th>
+                    <th>Tên Loại Dịch Vụ</th>
                     <th style={{ width: 150 }}>Tác Vụ</th>
                   </tr>
                 </thead>
@@ -83,19 +114,48 @@ export default function NameServices() {
                     nameServices.map((item, index) => (
                       <tr key={item.id_name_services}>
                         <td>{index + 1}</td>
-                        <td>{item.name}</td>
                         <td>
-                          <a href="/">
+                          {update === true ? (
+                            <input
+                              type="text"
+                              value={service?.name}
+                              onChange={(e) =>
+                                setService((prevServices) => ({
+                                  ...prevServices,
+                                  name: e.target.value,
+                                }))
+                              }
+                            />
+                          ) : (
+                            item.name
+                          )}
+                        </td>
+                        <td>
+                          {update === true ? (
                             <button
                               className="btn btn-warning"
                               style={{ marginRight: 20 }}
+                              onClick={handleSaveNameServices}
+                            >
+                              Lưu
+                            </button>
+                          ) : (
+                            <button
+                              className="btn btn-warning"
+                              style={{ marginRight: 20 }}
+                              onClick={() => {
+                                // console.log(item);
+                                setService(item);
+                                setUpdate(true);
+                              }}
                             >
                               Sửa
                             </button>
-                          </a>
+                          )}
+
                           <button
                             className="btn btn-danger"
-                            // onClick={() => deleteConfirm(item.id_category)}
+                            onClick={() => deleteConfirm(item.id_name_services)}
                           >
                             Xóa
                           </button>
