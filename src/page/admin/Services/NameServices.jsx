@@ -115,7 +115,8 @@ export default function NameServices() {
                       <tr key={item.id_name_services}>
                         <td>{index + 1}</td>
                         <td>
-                          {update === true ? (
+                          {update === true &&
+                          item.id_name_services === service.id_name_services ? (
                             <input
                               type="text"
                               value={service?.name}
