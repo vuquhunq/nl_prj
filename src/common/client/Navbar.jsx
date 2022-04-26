@@ -88,39 +88,6 @@ const ClientNavbar = () => {
           />
         </Col>
       </Container>
-      <Container
-        fluid
-        onClick={() => setIsShowCart(!isShowCart)}
-        style={{
-          display: "flex",
-          alignItem: "center",
-          justifyContent: "center",
-          position: "fixed",
-          width: 50,
-          height: 100,
-          top: 200,
-          right: 0,
-          backgroundColor: "black",
-          color: "orange",
-        }}
-      >
-        <div
-          className="d-flex rounded-circle justify-content-center align-items-center"
-          style={{
-            position: "absolute",
-            width: 15,
-            height: 15,
-            top: 50,
-            left: 5,
-            fontSize: "small",
-            backgroundColor: "orangered",
-            color: "black",
-          }}
-        >
-          {cartDetail ? cartDetail.length : 0}
-        </div>
-        <FontAwesomeIcon icon={faCartShopping} />
-      </Container>
       {access_token ? (
         <Container
           fluid

@@ -21,18 +21,18 @@ import "./style.css";
 
 export default function Purchase() {
   const [isShow, setIsShow] = useState(false);
-  const [carts, setCarts] = useState(cartDetail || []);
-  useEffect(() => {
-    localStorage.setItem("cart-detail", JSON.stringify(carts));
-  }, [carts]);
-  console.log(carts, cartDetail);
+  // const [carts, setCarts] = useState(cartDetail || []);
+  // useEffect(() => {
+  //   localStorage.setItem("cart-detail", JSON.stringify(carts));
+  // }, [carts]);
+  // console.log(carts, cartDetail);
   const total = cartDetail
     ? cartDetail.reduce((a, b) => a + b.current_price * b.quantily, 0)
     : 0;
-  const handleRemoveItem = (id) => {
-    const newList = carts && carts.filter((e) => e.id_product !== id);
-    carts && setCarts(newList);
-  };
+  // const handleRemoveItem = (id) => {
+  //   const newList = carts && carts.filter((e) => e.id_product !== id);
+  //   carts && setCarts(newList);
+  // };
   return (
     <>
       <ClientNavbar />
