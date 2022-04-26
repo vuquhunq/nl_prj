@@ -9,7 +9,7 @@ class ServiceServices {
       headers: {
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"));
+    }).then((res) => res.status);
   }
 
   getAllUserService() {
@@ -46,7 +46,8 @@ class ServiceServices {
       headers: {
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"))
+    })
+      .then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
 

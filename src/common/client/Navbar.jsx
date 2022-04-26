@@ -130,7 +130,7 @@ const ClientNavbar = () => {
         isShowCart={isShowCart}
         setIsShowCart={setIsShowCart}
       />
-      {access_token && <OffCanvasService />}
+      {/* {access_token && <OffCanvasService />} */}
     </Navbar>
   );
 };
@@ -216,18 +216,6 @@ const OffcanvasCart = ({ isShowCart, setIsShowCart }) => {
       >
         Xem giỏ hàng
       </Button>
-    </Offcanvas>
-  );
-};
-const OffCanvasService = () => {
-  const [serviceDetail, setServiceDetail] = useState([]);
-  useEffect(() => {
-    ServiceServices.getAllUserService().then((res) => setServiceDetail(res));
-  }, []);
-  console.log(serviceDetail);
-  return (
-    <Offcanvas>
-      <OffcanvasBody>{}</OffcanvasBody>
     </Offcanvas>
   );
 };

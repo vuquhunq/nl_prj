@@ -113,7 +113,7 @@ export default function Category() {
                       <tr key={item.id_category}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
-                        <td>{item.id_promotion}</td>
+                        <td>{item.name_promotion === 'null' ? 'Không có khuyến mãi' : item.name_promotion}</td>
                         {console.log(item)}
                         <td>
                           <Button
