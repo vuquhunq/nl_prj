@@ -1,7 +1,7 @@
 import { axiosInstance } from "../config/axiosConfig";
 class ProductServices {
   getAllProduct() {
-    return axiosInstance.get("/product/all-product").then((res) => res.data);
+    return axiosInstance.get("/product/user-all-product").then((res) => res.data);
   }
   filterNameProduct(payload) {
     return axiosInstance
