@@ -254,7 +254,7 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       order_id: Date.now(),
       money: total,
     };
-    localStorage.setItem("order", JSON.stringify(userInfo.address));
+    localStorage.setItem("order", JSON.stringify(address));
     PurchaseService.createOrder(obj).then((res) => setLink(res));
   };
   useEffect(() => {
