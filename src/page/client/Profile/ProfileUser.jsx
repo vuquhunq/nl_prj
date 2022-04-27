@@ -208,12 +208,18 @@ export default function ProfileUser() {
                 <></>
               )}
             </Col>
-            <Col>
-              <h4 className="text-center">Thông tin đơn hàng</h4>
-              <DetailOrder
-                order={historyPurchase}
-                handleShowDetailOrder={handleShowDetailOrder}
-              />
+            <Col md={8} sm={8}>
+              <Row>
+                <h4 className="text-center">Thông tin đơn hàng</h4>
+                <DetailOrder
+                  order={historyPurchase}
+                  handleShowDetailOrder={handleShowDetailOrder}
+                />
+              </Row>
+              {/* <Row>
+                <h4 className="text-center">Thông tin dịch vụ</h4>
+                <DetailService />
+              </Row> */}
             </Col>
           </Row>
         </Container>
@@ -228,14 +234,14 @@ export default function ProfileUser() {
 }
 
 const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState();
   useEffect(() => {
     detailOrder > 0 &&
-      BillService.getUserDetailBill(detailOrder).then((res) => setDetails(res));
+      BillService.getDetailBill(detailOrder).then((res) => setDetails(res));
   }, [detailOrder]);
   console.log(details);
   return (
-    <Modal centered show={show} onHide={onHide} size="lg">
+    <Modal centered show={show} onHide={onHide} size="xl">
       <Modal.Body>
         <Modal.Title className="text-center">
           Thông tin đơn đặt hàng
@@ -252,7 +258,7 @@ const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.keys(details).length > 0 &&
+            {details &&
               details.list_product_details.map((detail, index) => (
                 <tr
                   style={{ verticalAlign: "middle", textAlign: "center" }}
@@ -302,6 +308,47 @@ const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
     </Modal>
   );
 };
+// const DetailService = ({ service }) => {
+//   return (
+//     <Container id="detail-order" className="d-flex flex-column gap-2">
+//       <Table>
+//         <thead>
+//           <tr>
+//             <td>Ngày đặt</td>
+//             <td>Địa chỉ</td>
+//             <td>Phương thức thanh toán</td>
+//             <td>Tổng tiền</td>
+//             <td>Tình trạng</td>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {service.length > 0 ? (
+//             service.map((props, index) => {
+//               return (
+//                 <tr
+//                   key={index}
+//                 >
+//                   <td>{new Date(props.date_create).toDateString()}</td>
+//                   <td>{props.address}</td>
+//                   <td>{props.method}</td>
+//                   <td>
+//                     {props.total.toLocaleString("it-IT", {
+//                       style: "currency",
+//                       currency: "VND",
+//                     })}
+//                   </td>
+//                   <td>{props.status}</td>
+//                 </tr>
+//               );
+//             })
+//           ) : (
+//             <p>Không có thông đơn hàng</p>
+//           )}
+//         </tbody>
+//       </Table>
+//     </Container>
+//   );
+// };
 const DetailOrder = ({ order, handleShowDetailOrder }) => {
   return (
     <Container id="detail-order" className="d-flex flex-column gap-2">
@@ -319,8 +366,11 @@ const DetailOrder = ({ order, handleShowDetailOrder }) => {
           {order.length > 0 ? (
             order.map((props, index) => {
               return (
-                <tr>
-                  <td>{props.date_create}</td>
+                <tr
+                  onClick={() => handleShowDetailOrder(props.id_bill)}
+                  key={index}
+                >
+                  <td>{new Date(props.date_create).toDateString()}</td>
                   <td>{props.address}</td>
                   <td>{props.method}</td>
                   <td>
@@ -334,7 +384,11 @@ const DetailOrder = ({ order, handleShowDetailOrder }) => {
               );
             })
           ) : (
-            <p>Không có thông đơn hàng</p>
+            <tr>
+              <td colSpan={5}>
+                <p>Không có thông đơn hàng</p>
+              </td>
+            </tr>
           )}
         </tbody>
       </Table>

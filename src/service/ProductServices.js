@@ -79,7 +79,7 @@ class ProductServices {
     console.log(formdata);
     return await axiosInstance
       .post("/file/read", formdata)
-      .then((res) => res.status)
+    .then((res) => res.status)
       .catch((err) => err.status);
   }
 }
