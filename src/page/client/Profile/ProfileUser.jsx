@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import ClientNavbar from "../../../common/client/Navbar";
 import BillService from "../../../service/BillService";
+import ServiceServices from "../../../service/ServiceServices";
 import UserServices from "../../../service/UserServices";
 import "./style.css";
 export default function ProfileUser() {
@@ -40,7 +41,6 @@ export default function ProfileUser() {
   const passwordRef = useRef("");
   const newPasswordRef = useRef("");
   const rePasswordRef = useRef("");
-
   const handleHideOrder = () => {
     setShowDetailOrder(!showDetailOrder);
   };
@@ -50,10 +50,13 @@ export default function ProfileUser() {
     }
     setShowDetailOrder(true);
   };
+  const [userServices, setUserServices] = useState([]);
   useEffect(() => {
     UserServices.getInfoUser().then((res) => setProfile(res));
     BillService.getBillService().then((res) => setHistoryPurchase(res));
+    ServiceServices.getAllUserService().then((res) => setUserServices(res));
   }, []);
+  console.log(userServices);
   useEffect(() => {
     setFullName(profile.full_name);
     setEmail(profile.email);
@@ -216,10 +219,10 @@ export default function ProfileUser() {
                   handleShowDetailOrder={handleShowDetailOrder}
                 />
               </Row>
-              {/* <Row>
+              <Row>
                 <h4 className="text-center">Thông tin dịch vụ</h4>
-                <DetailService />
-              </Row> */}
+                <DetailService service={userServices} />
+              </Row>
             </Col>
           </Row>
         </Container>
@@ -308,50 +311,49 @@ const ModalDetailOrder = ({ show, onHide, detailOrder }) => {
     </Modal>
   );
 };
-// const DetailService = ({ service }) => {
-//   return (
-//     <Container id="detail-order" className="d-flex flex-column gap-2">
-//       <Table>
-//         <thead>
-//           <tr>
-//             <td>Ngày đặt</td>
-//             <td>Địa chỉ</td>
-//             <td>Phương thức thanh toán</td>
-//             <td>Tổng tiền</td>
-//             <td>Tình trạng</td>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {service.length > 0 ? (
-//             service.map((props, index) => {
-//               return (
-//                 <tr
-//                   key={index}
-//                 >
-//                   <td>{new Date(props.date_create).toDateString()}</td>
-//                   <td>{props.address}</td>
-//                   <td>{props.method}</td>
-//                   <td>
-//                     {props.total.toLocaleString("it-IT", {
-//                       style: "currency",
-//                       currency: "VND",
-//                     })}
-//                   </td>
-//                   <td>{props.status}</td>
-//                 </tr>
-//               );
-//             })
-//           ) : (
-//             <p>Không có thông đơn hàng</p>
-//           )}
-//         </tbody>
-//       </Table>
-//     </Container>
-//   );
-// };
+const DetailService = ({ service }) => {
+  return (
+    <Container
+      id="detail-order"
+      className="d-flex flex-column overflow-auto gap-2"
+      style={{ height: 300 }}
+    >
+      <Table>
+        <thead>
+          <tr>
+            <td>Ngày đặt</td>
+            <td>Ngày thực hiện</td>
+            <td>Tên dịch vụ</td>
+            <td>Trạng thái</td>
+          </tr>
+        </thead>
+        <tbody>
+          {service.length > 0 ? (
+            service.map((props, index) => {
+              return (
+                <tr key={index}>
+                  <td>{new Date(props.date_create).toDateString()}</td>
+                  <td>{new Date(props.booking_date).toDateString()}</td>
+                  <td>{props.name_service}</td>
+                  <td>{props.status}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <p>Không có thông đơn hàng</p>
+          )}
+        </tbody>
+      </Table>
+    </Container>
+  );
+};
 const DetailOrder = ({ order, handleShowDetailOrder }) => {
   return (
-    <Container id="detail-order" className="d-flex flex-column gap-2">
+    <Container
+      id="detail-order"
+      className="d-flex flex-column overflow-auto gap-2"
+      style={{ height: 300 }}
+    >
       <Table>
         <thead>
           <tr>

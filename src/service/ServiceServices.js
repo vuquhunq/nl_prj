@@ -51,7 +51,12 @@ class ServiceServices {
       .then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
-
+  getAllUserService() {
+    return axiosInstance
+      .get("/services/get-all-service-user/")
+      .then((res) => res.data)
+      .catch((err) => err.data);
+  }
   //Name Services
   getAllNameServices() {
     return axiosInstance

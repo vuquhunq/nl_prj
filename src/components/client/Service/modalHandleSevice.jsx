@@ -22,7 +22,7 @@ export default function ModalHandleSevice({ show, isShow }) {
   const [dateService, setDateService] = useState("");
   const hanldeSubmitService = () => {
     const obj = {
-      status: "Chua",
+      status: "Đang chờ xử lý",
       date_create: Date.now(),
       booking_date: dateService,
       id_user: infoUser.id_user,

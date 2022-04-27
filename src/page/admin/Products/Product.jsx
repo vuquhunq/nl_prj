@@ -27,6 +27,7 @@ const HeaderProduct = ({ setStatus }) => {
       ProductServices.importFile(file).then((res) => {
         if (res === 200) {
           setStatus("Thành công");
+          setInterval(() => window.location.reload(), 3000);
           setFile(null);
         } else setStatus("Thất bại");
       });
@@ -93,7 +94,7 @@ export default function Product() {
                 <th scope="col">Tên Sản Phẩm</th>
                 <th scope="col">Hình Ảnh</th>
                 <th scope="col">Giá</th>
-                <th scope="col">Tác Vụ</th>
+                {/* <th scope="col">Tác Vụ</th> */}
               </tr>
             </thead>
             <tbody style={{ verticalAlign: "middle" }}>
@@ -114,8 +115,13 @@ export default function Product() {
                         style={{ width: "auto", height: 200 }}
                       />
                     </td>
-                    <td>{product.money} VNĐ</td>
                     <td>
+                      {product.money.toLocaleString("it-IT", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </td>
+                    {/* <td>
                       <FontAwesomeIcon
                         className="productlistEdit"
                         icon={faPenToSquare}
@@ -124,7 +130,7 @@ export default function Product() {
                         className="productlistDel"
                         icon={faTrashCan}
                       />
-                    </td>
+                    </td> */}
                   </tr>
                 ))
               ) : (

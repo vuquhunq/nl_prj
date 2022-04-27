@@ -123,7 +123,7 @@ export const Employee = () => {
                     <th scope="row">{index + 1}</th>
                     <td>{account.account}</td>
                     <td>{account.full_name}</td>
-                    <td>sdf</td>
+                    <td>{account.name}</td>
                     {/* <td>
                       <DisplayInfoAccount id={index + 1} />
                     </td> */}
