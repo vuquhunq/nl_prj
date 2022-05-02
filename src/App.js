@@ -45,7 +45,7 @@ export default function App() {
         {/* Admin */}
         <Route
           path="/adminstrator/"
-          element={access_admin_token ? <Home /> : <Login />}
+          element={access_admin_token ? <Order /> : <Login />}
         />
         <Route
           path="/adminstrator/products"

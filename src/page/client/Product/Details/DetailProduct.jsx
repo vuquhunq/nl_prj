@@ -7,6 +7,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
+import PopupNoti from "../../../../components/PopupNoti";
 import {
   access_token,
   cartDetail,
@@ -62,6 +63,7 @@ export default function DetailProduct() {
     });
     setCart(newArr);
   };
+  const [isSuccess, setIsSucess] = useState("");
   const handleAddCart = () => {
     let obj = {};
     obj.id_size_quantity =
@@ -87,9 +89,11 @@ export default function DetailProduct() {
       : setCart([...cart, obj]);
     setQuantityProduct(0);
     localStorage.setItem("cart-detail", JSON.stringify(cart));
+    setIsSucess("Thêm giỏ hàng thành công");
   };
   return (
     <>
+      <PopupNoti status={isSuccess} setStatus={setIsSucess} />
       <ClientNavbar />
       <Container id="detail-product" className="d-flex">
         <Container className="img-product">

@@ -1,6 +1,4 @@
 import {
-  faChevronCircleDown,
-  faChevronCircleUp,
   faChevronDown,
   faChevronUp,
   faRemove,
@@ -23,6 +21,7 @@ import { access_token, cartDetail, infoUser } from "../../../config/authConfig";
 import BillService from "../../../service/BillService";
 import PurchaseService from "../../../service/PurchaseService";
 import UserServices from "../../../service/UserServices";
+import PopupNoti from "../../../components/PopupNoti";
 import "./style.css";
 
 export default function Purchase() {
@@ -41,10 +40,10 @@ export default function Purchase() {
     carts && setCarts(newList);
   };
   const [isSuccess, setIsSuccess] = useState("");
-  const order = localStorage.getItem("order");
+  const order = JSON.parse(localStorage.getItem("order"))
   useEffect(() => {
     const obj = {
-      address: order ? order.address : '', 
+      address: order,
       method: "Payment",
       total: total,
       date_create: Date.now(),
@@ -53,6 +52,7 @@ export default function Purchase() {
       list_bill_detail: cartDetail,
     };
     id &&
+      order &&
       BillService.addBillService(obj).then((res) => {
         if (res === 200) setIsSuccess("Thanh toán thành công");
         localStorage.removeItem("cart-detail");
@@ -75,13 +75,13 @@ export default function Purchase() {
         show={isSuccess !== ""}
         onHide={() => {
           setIsSuccess("");
-          localStorage.removeItem('cart-detail')
+          localStorage.removeItem("cart-detail");
           window.location = "/purchase";
         }}
         centered
       >
         <Modal.Body className="text-center">
-          <h3>Đăng ký thành công</h3>
+          <h3>Thanh toán thành công</h3>
         </Modal.Body>
       </Modal>
       <ClientNavbar />
@@ -254,6 +254,7 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       order_id: Date.now(),
       money: total,
     };
+    localStorage.setItem("order", JSON.stringify(address));
     PurchaseService.createOrder(obj).then((res) => setLink(res));
   };
   useEffect(() => {
@@ -261,7 +262,7 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       window.location.href = link;
     }
   }, [link]);
-
+  const [isSuccess, setIsSuccess] = useState("");
   const handleOrder = () => {
     const obj = {
       address: address,
@@ -272,15 +273,19 @@ const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
       id_user: infoUser.id_user,
       list_bill_detail: cartDetail,
     };
-    localStorage.setItem("order", obj);
     BillService.addBillService(obj).then((res) => {
       if (res === 200) {
-        window.location = "/";
+        setIsSuccess("Đặt hàng thành công");
+        setInterval(() => {
+          localStorage.removeItem("cart-detail");
+          window.location.reload();
+        }, 3000);
       }
     });
   };
   return (
     <Modal show={isShow} onHide={() => setIsShow(false)} centered size="xl">
+      <PopupNoti status={isSuccess} setStaus={setIsSuccess} />
       <Modal.Header closeButton>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
       <Modal.Body>
         <Row>

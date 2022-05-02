@@ -81,7 +81,9 @@ const ClientNavbar = ({ searchInput }) => {
                   {link.name}
                 </Nav.Link>
               ))}
-              <Nav.Link onClick={handleShowService}>Dịch Vụ</Nav.Link>
+              <Nav.Link disabled={!access_token} onClick={handleShowService}>
+                Dịch Vụ
+              </Nav.Link>
             </Nav>
           </Container>
         </Col>
