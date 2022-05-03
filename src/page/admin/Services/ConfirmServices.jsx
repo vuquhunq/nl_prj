@@ -32,20 +32,14 @@ export const ConfirmServices = () => {
           <tbody>
             {services ? (
               services.map((service, index) => (
-                <tr key={service?.UserServices.id_services}>
+                <tr key={service?.id_services}>
                   <th scope="row">{index + 1}</th>
-                  <td>{service?.UserServices.id_user}</td>
-                  <td>{service?.Services.id_name_services}</td>
+                  <td>{service?.name_user}</td>
+                  <td>{service?.name_service}</td>
+                  <td>{new Date(service?.date_create).toDateString()}</td>
+                  <td>{new Date(service?.booking_date).toDateString()}</td>
                   <td>
-                    {new Date(service?.Services.date_create).toDateString()}
-                  </td>
-                  <td>
-                    {new Date(service?.Services.booking_date).toDateString()}
-                  </td>
-                  <td>
-                    <span className="badge btn-success">
-                      {service?.Services.status}
-                    </span>
+                    <span className="badge btn-success">{service?.status}</span>
                   </td>
                 </tr>
               ))

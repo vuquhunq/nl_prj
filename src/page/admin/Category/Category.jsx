@@ -11,11 +11,11 @@ export default function Category() {
   const [modalShow, setModalShow] = useState(false);
   const [item, setItem] = useState("");
 
-  // const handleAdd = () => {
-  //   CategoryService.addCategory({ name: text }).then(() =>
-  //     window.location.reload()
-  //   );
-  // };
+  const handleAdd = () => {
+    CategoryService.addCategory({ name: text }).then(() =>
+      window.location.reload()
+    );
+  };
 
   const handelDelete = (slug) => {
     CategoryService.deleteCategory(slug).then(() => window.location.reload());
@@ -35,11 +35,11 @@ export default function Category() {
     setModalShow(true);
   };
 
-  const handleAdd = (data) => {
-    let text = {};
-    text.name = data;
-    CategoryService.addCategory(text).then(() => window.location.reload());
-  };
+  // const handleAdd = (data) => {
+  //   let text = {};
+  //   text.name = data;
+  //   CategoryService.addCategory(text).then(() => window.location.reload());
+  // };
 
   useEffect(() => {
     CategoryService.getAllCategory().then((res) => setCategories(res));
@@ -113,7 +113,11 @@ export default function Category() {
                       <tr key={item.id_category}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
-                        <td>{item.id_promotion}</td>
+                        <td>
+                          {item.name_promotion === "null"
+                            ? "Không có khuyến mãi"
+                            : item.name_promotion}
+                        </td>
                         {console.log(item)}
                         <td>
                           <Button
@@ -142,7 +146,7 @@ export default function Category() {
             // name={name}
             // id_promotion={promotion}
             show={modalShow}
-            hide={() => setModalShow(false)}
+            onHide={() => setModalShow(false)}
           />
         </Container>
       </Container>

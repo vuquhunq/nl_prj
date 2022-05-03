@@ -7,24 +7,22 @@ export const ModalUpdateCategory = (props) => {
   const [name, setName] = useState("");
   const [promotions, setPromotions] = useState([]);
   const [promotionIndex, setPromotionIndex] = useState(0);
-
+  console.log(promotions);
   useEffect(() => {
     setName(props.item?.name);
     PromotionServices.getAllPromotion().then((res) => setPromotions(res));
   }, [props]);
 
-
   const item = props.item;
   const handleUpdate = () => {
-    let objCategory = {
-      name: name,
-      id_promotion: promotionIndex,
-      id_category: item.id_category,
-    };
+    let objCategory = {};
+    objCategory.name = name;
+    if (promotionIndex > 0) objCategory.id_promotion = promotionIndex;
+    objCategory.id_category = item.id_category;
     CategoryService.updateCategory(objCategory).then(() =>
       window.location.reload()
     );
-    props.hide();
+    props.onHide();
   };
 
   const handleDeletePromotion = () => {
@@ -36,7 +34,7 @@ export const ModalUpdateCategory = (props) => {
     CategoryService.updateCategory(objCategory).then(() =>
       window.location.reload()
     );
-    props.hide();
+    props.onHide();
   };
 
   return (
@@ -70,9 +68,10 @@ export const ModalUpdateCategory = (props) => {
             <Form.Label>Loại Khuyến Mãi:</Form.Label>
             <div className="d-flex align-iems-center flex-nowrap gap-3 ">
               <Form.Select
-                aria-label="Default select example"
+                style={{ width: "fit-content" }}
                 onChange={(e) => setPromotionIndex(e.target.value)}
               >
+                <option value="0">Chọn</option>
                 {promotions ? (
                   promotions.map((item) => (
                     <option key={item?.id_promotion} value={item?.id_promotion}>
@@ -92,7 +91,7 @@ export const ModalUpdateCategory = (props) => {
         <Button variant="success" onClick={handleUpdate}>
           Lưu
         </Button>
-        <Button variant="danger" onClick={props.hide}>
+        <Button variant="danger" onClick={props.onHide}>
           Đóng
         </Button>
       </Modal.Footer>
