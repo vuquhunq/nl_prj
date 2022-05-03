@@ -19,7 +19,6 @@ class AuthService {
       .catch((err) => console.log(err.data));
   }
   userRegister(payload) {
-    console.log(payload)
     return axiosInstance.post("/user/sgin-up", payload, {
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +40,8 @@ class AuthService {
   logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("access_admin_token");
-    window.location = "/";
+    localStorage.removeItem("cart-detail")
+    window.location.reload()
   }
 }
 export default new AuthService();

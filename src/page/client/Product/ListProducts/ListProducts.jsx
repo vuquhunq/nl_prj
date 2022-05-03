@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import ClientNavbar from "../../../../common/client/Navbar";
 import Sidebar from "../../../../common/client/Sidebar";
 import GridViewProduct from "../../../../container/Product/GridViewProduct";
 import ProductServices from "../../../../service/ProductServices";
 import "./style.css";
 export default function ListProducts({ gender }) {
+  const params = useParams();
+  console.log(params);
   const [products, setProducts] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
   useEffect(() => {
-    if (colorList.length > 0 || categoryList.length > 0) {
+    if (searchInput !== "") {
+      ProductServices.filterNameProduct(searchInput).then((res) =>
+        setProducts(res)
+      );
+    } else if (colorList.length > 0 || categoryList.length > 0) {
       let obj = {};
       if (categoryList.length > 0) obj.list_id_category = categoryList;
       if (colorList.length > 0) obj.list_id_color = colorList;
@@ -22,11 +30,11 @@ export default function ListProducts({ gender }) {
           ? setProducts(res.filter((product) => product.id_gender === gender))
           : setProducts(res)
       );
-  }, [colorList, categoryList, gender]);
+  }, [colorList, categoryList, gender, searchInput]);
 
   return (
     <>
-      <ClientNavbar />
+      <ClientNavbar searchInput={setSearchInput} />
       <Container
         id="client-content"
         fluid
@@ -41,8 +49,12 @@ export default function ListProducts({ gender }) {
           setColorList={setColorList}
           gender={gender}
         />
-        <Container fluid className="py-3  overflow-auto" onScroll={()=>console.log(window.scrollY)}>
-          <GridViewProduct products={products} />
+        <Container
+          fluid
+          className="py-3  overflow-auto"
+          onScroll={() => console.log(window.scrollY)}
+        >
+          <GridViewProduct products={products} search={searchInput} />
         </Container>
       </Container>
     </>

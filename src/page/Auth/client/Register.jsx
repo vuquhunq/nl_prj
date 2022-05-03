@@ -1,6 +1,14 @@
 import { dblClick } from "@testing-library/user-event/dist/click";
 import React, { useRef, useState } from "react";
-import { Form, FormGroup, Modal, Toast, ToastContainer } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Form,
+  FormGroup,
+  Modal,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
 import ClientNavbar from "../../../common/client/Navbar";
 import AuthServices from "../../../service/AuthServices";
 import "./style.css";
@@ -45,12 +53,8 @@ export default function Register() {
   };
   return (
     <>
-      <Modal show centered>
-        <Modal.Header show ></Modal.Header>
-        <Modal.Body>Hello World</Modal.Body>
-      </Modal>
       <ClientNavbar />
-      <Modal show id="modal-register" centered>
+      <Modal show id="modal-register" onHide={()=>window.location = '/'} centered>
         <Modal.Header>Đăng ký khách hàng</Modal.Header>
         <Modal.Body>
           <Form
@@ -91,6 +95,12 @@ export default function Register() {
             </Form.Group>
           </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <ButtonGroup>
+            <Button onClick={() => (window.location = "/")}>Trở về</Button>
+            <Button onClick={handleRegister}>ĐĂng ký</Button>
+          </ButtonGroup>
+        </Modal.Footer>
       </Modal>
     </>
   );

@@ -1,5 +1,5 @@
 export const dataLink = [
-  { url: "/adminstrator", name: "Trang chủ", active: "dashboard" },
+  // { url: "/adminstrator", name: "Trang chủ", active: "dashboard" },
   {
     url: "/adminstrator/orders",
     name: "Quản lý Đơn hàng",

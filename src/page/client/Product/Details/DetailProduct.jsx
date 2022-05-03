@@ -7,6 +7,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientNavbar from "../../../../common/client/Navbar";
 import DetailContent from "../../../../components/client/Product/DetailProduct";
+import PopupNoti from "../../../../components/PopupNoti";
 import {
   access_token,
   cartDetail,
@@ -62,6 +63,7 @@ export default function DetailProduct() {
     });
     setCart(newArr);
   };
+  const [isSuccess, setIsSucess] = useState("");
   const handleAddCart = () => {
     let obj = {};
     obj.id_size_quantity =
@@ -87,9 +89,11 @@ export default function DetailProduct() {
       : setCart([...cart, obj]);
     setQuantityProduct(0);
     localStorage.setItem("cart-detail", JSON.stringify(cart));
+    setIsSucess("Thêm giỏ hàng thành công");
   };
   return (
     <>
+      <PopupNoti status={isSuccess} setStatus={setIsSucess} />
       <ClientNavbar />
       <Container id="detail-product" className="d-flex">
         <Container className="img-product">
@@ -143,7 +147,6 @@ export default function DetailProduct() {
               THÊM VÀO GIỎ HÀNG
             </Button>
             <Button
-              disabled={!infoUser}
               onClick={() => (window.location = "/purchase")}
               variant="btn btn-outline-success"
             >
@@ -203,27 +206,27 @@ const CommentContainer = () => {
                   <FontAwesomeIcon
                     onClick={() => setStar(1)}
                     icon={faStar}
-                    color={star < 1 ? "black" : "orange"}
+                    color={star < 1 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(2)}
                     icon={faStar}
-                    color={star < 2 ? "black" : "orange"}
+                    color={star < 2 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(3)}
                     icon={faStar}
-                    color={star < 3 ? "black" : "orange"}
+                    color={star < 3 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(4)}
                     icon={faStar}
-                    color={star < 4 ? "black" : "orange"}
+                    color={star < 4 ? "black" : "orangered"}
                   />
                   <FontAwesomeIcon
                     onClick={() => setStar(5)}
                     icon={faStar}
-                    color={star < 5 ? "black" : "orange"}
+                    color={star < 5 ? "black" : "orangered"}
                   />
                 </div>
               </div>

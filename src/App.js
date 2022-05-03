@@ -14,6 +14,7 @@ import Promotion from "./page/admin/promotion/Promotion";
 import NameServices from "./page/admin/Services/NameServices";
 import Services from "./page/admin/Services/Services";
 import Login from "./page/Auth/admin/Login";
+import Confirm from "./page/Auth/client/Confirm";
 import Register from "./page/Auth/client/Register";
 import DetailProduct from "./page/client/Product/Details/DetailProduct";
 import ListProducts from "./page/client/Product/ListProducts/ListProducts";
@@ -25,15 +26,17 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<ListProducts />} />
+        <Route path="/token=:id" element={<Confirm />} />
         <Route path="/register" element={<Register />} />
         <Route path="/purchase" element={<Purchase />} />
-        <Route path="/purchase/id_order=:id" element={<Purchase />} />
+        <Route path="/purchase/id_order:id" element={<Purchase />} />
         {/* <Route path="/order" element={<OrderDetail />} /> */}
         <Route
           path="/product/detail/id_product=:id"
           element={<DetailProduct />}
         />
         <Route path="/products/" element={<ListProducts />} />
+        <Route path="/products/name=:name_product" element={<ListProducts />} />
         <Route path="/products/nam" element={<ListProducts gender={1} />} />
         <Route path="/products/nu" element={<ListProducts gender={2} />} />
         <Route path="/profile/" element={<ProfileUser />} />
@@ -42,7 +45,7 @@ export default function App() {
         {/* Admin */}
         <Route
           path="/adminstrator/"
-          element={access_admin_token ? <Home /> : <Login />}
+          element={access_admin_token ? <Order /> : <Login />}
         />
         <Route
           path="/adminstrator/products"

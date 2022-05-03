@@ -6,8 +6,9 @@ import {
   Form,
   Modal,
   ModalBody,
-  ModalHeader
+  ModalHeader,
 } from "react-bootstrap";
+import { Swiper, SwiperSlide } from "swiper/react";
 import CategoryService from "../../../service/CategoryService";
 import ColorService from "../../../service/ColorService";
 import GenderService from "../../../service/GenderService";
@@ -173,20 +174,20 @@ export default function ModalAdditionProduct({ show, setShow }) {
             <Form.Group>
               <div className="container p-0">
                 <Form.Label>Màu: </Form.Label>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex align-items-center gap-2">
-                    {colories &&
-                      colories.map((color, index) => (
+                <Swiper slidesPerView={10} spaceBetween={8}>
+                  {colories &&
+                    colories.map((color, index) => (
+                      <SwiperSlide>
                         <ColorBox
                           color={color}
                           colorProduct={colorProduct}
                           setColorProduct={setColorProduct}
                           key={index}
                         />
-                      ))}
-                  </div>
-                  <Button>+</Button>
-                </div>
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+                <Button>+</Button>
               </div>
             </Form.Group>
           )}

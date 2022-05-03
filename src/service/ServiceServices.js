@@ -1,5 +1,5 @@
+import { access_admin_token, access_token } from "../config/authConfig";
 import { axiosInstance } from "../config/axiosConfig";
-
 class ServiceServices {
   addService(payload) {
     return axiosInstance({
@@ -9,11 +9,23 @@ class ServiceServices {
       headers: {
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"));
+    }).then((res) => res.status);
   }
 
+  getAllUserService() {
+    return axiosInstance
+      .get("/services/get-all-service-user/")
+      .then((res) => res.data);
+  }
   getAllUncofirmService() {
-    return axiosInstance.get("/services/get-unconfimred-all/").then(() => alert("Thành công"));
+    return axiosInstance
+      .get("/services/get-unconfimred-all/", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "Application/json",
+        },
+      })
+      .then(() => alert("Thành công"));
   }
 
   getAllCofirmService() {
@@ -32,12 +44,19 @@ class ServiceServices {
       method: "PUT",
       data: payload,
       headers: {
+        Authorization: `Bearer ${access_admin_token}`,
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"))
+    })
+      .then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
-
+  getAllUserService() {
+    return axiosInstance
+      .get("/services/get-all-service-user/")
+      .then((res) => res.data)
+      .catch((err) => err.data);
+  }
   //Name Services
   getAllNameServices() {
     return axiosInstance
@@ -54,7 +73,8 @@ class ServiceServices {
       headers: {
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"))
+    })
+      .then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
 
@@ -66,19 +86,21 @@ class ServiceServices {
       headers: {
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"))
+    })
+      .then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
 
   deleteNameServices(id_name_services) {
     return axiosInstance({
-      url: "/name-services/"+id_name_services,
+      url: "/name-services/" + id_name_services,
       method: "DELETE",
       data: id_name_services,
       headers: {
         "Content-Type": "Application/json",
       },
-    }).then(() => alert("Thành công"))
+    })
+      .then(() => alert("Thành công"))
       .catch((err) => alert(err));
   }
 }

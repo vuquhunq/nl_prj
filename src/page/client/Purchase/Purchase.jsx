@@ -1,3 +1,9 @@
+import {
+  faChevronDown,
+  faChevronUp,
+  faRemove,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -15,39 +21,146 @@ import { access_token, cartDetail, infoUser } from "../../../config/authConfig";
 import BillService from "../../../service/BillService";
 import PurchaseService from "../../../service/PurchaseService";
 import UserServices from "../../../service/UserServices";
+import PopupNoti from "../../../components/PopupNoti";
 import "./style.css";
 
 export default function Purchase() {
-  const total = cartDetail.reduce(
-    (a, b) => a + b.current_price * b.quantily,
-    0
-  );
+  const { id } = useParams();
+
+  const [isShow, setIsShow] = useState(false);
+  const [carts, setCarts] = useState(cartDetail || []);
+  useEffect(() => {
+    localStorage.setItem("cart-detail", JSON.stringify(carts));
+  }, [carts]);
+  const total = carts
+    ? carts.reduce((a, b) => a + b.current_price * b.quantily, 0)
+    : 0;
+  const handleRemoveItem = (id) => {
+    const newList = carts && carts.filter((e) => e.id_size_quantity !== id);
+    carts && setCarts(newList);
+  };
+  const [isSuccess, setIsSuccess] = useState("");
+  const order = JSON.parse(localStorage.getItem("order"))
+  useEffect(() => {
+    const obj = {
+      address: order,
+      method: "Payment",
+      total: total,
+      date_create: Date.now(),
+      status: "Đang chờ xử lý",
+      id_user: infoUser.id_user,
+      list_bill_detail: cartDetail,
+    };
+    id &&
+      order &&
+      BillService.addBillService(obj).then((res) => {
+        if (res === 200) setIsSuccess("Thanh toán thành công");
+        localStorage.removeItem("cart-detail");
+      });
+  }, [id]);
+  const handleQuantity = (id, count) => {
+    const newArr = carts.map((cart) => {
+      if (cart.id_size_quantity === id) {
+        return {
+          ...cart,
+          quantily: cart.quantily + count,
+        };
+      } else return { ...cart };
+    });
+    setCarts(newArr);
+  };
   return (
     <>
+      <Modal
+        show={isSuccess !== ""}
+        onHide={() => {
+          setIsSuccess("");
+          localStorage.removeItem("cart-detail");
+          window.location = "/purchase";
+        }}
+        centered
+      >
+        <Modal.Body className="text-center">
+          <h3>Thanh toán thành công</h3>
+        </Modal.Body>
+      </Modal>
       <ClientNavbar />
       <Container id="purchase-wrapper">
         <div className="detail-product">
-          {cartDetail ? (
-            cartDetail.map((cart, index) => (
-              <div className="product-detail" key={index}>
-                <Image
-                  src={cart.img}
-                  alt="Product Image"
-                  style={{ width: 200, height: 200 }}
-                />
-                <div className="detail-content">
-                  <div className="container">
-                    <div className="content-name">{cart.name}</div>
-                    <div className="content-price">
-                      {cart.current_price.toLocaleString("it-IT", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
+          {carts ? (
+            carts.length > 0 ? (
+              carts.map((cart, index) => (
+                <div className="product-detail" key={index}>
+                  <Image
+                    src={cart.img}
+                    alt="Product Image"
+                    style={{ width: 200, height: 200 }}
+                  />
+                  <div className="detail-content">
+                    <div className="container">
+                      <div className="content-name">
+                        {cart.name}
+                        <FontAwesomeIcon
+                          onClick={() =>
+                            handleRemoveItem(cart.id_size_quantity)
+                          }
+                          icon={faRemove}
+                        />
+                      </div>
+                      <div className="content-price">
+                        {cart.current_price.toLocaleString("it-IT", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </div>
+                      <div
+                        className="content-price d-flex flex-column"
+                        style={{ fontWeight: 700 }}
+                      >
+                        <span className="d-flex gap-1">
+                          <span style={{ fontWeight: 600, color: "black" }}>
+                            Kích cỡ:
+                          </span>
+                          <span>{cart.size}</span>
+                        </span>
+                        <span className="d-flex align-items-center flex-nowrap gap-1">
+                          <span style={{ fontWeight: 600, color: "black" }}>
+                            Số lượng:
+                          </span>
+                          <span className="d-flex flex-nowrap align-items-center gap-2">
+                            {cart.quantily}
+                            <span className="d-flex flex-column justify-content-center align-items-center">
+                              <FontAwesomeIcon
+                                onClick={() =>
+                                  handleQuantity(cart.id_size_quantity, 1)
+                                }
+                                icon={faChevronUp}
+                              />
+                              <FontAwesomeIcon
+                                onClick={() => {
+                                  handleQuantity(cart.id_size_quantity, -1);
+                                  cart.quantily <= 1 &&
+                                    handleRemoveItem(cart.id_size_quantity);
+                                }}
+                                icon={faChevronDown}
+                              />
+                            </span>
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))
+            ) : (
+              <Container
+                fluid
+                className="d-flex justify-content-center"
+                style={{ height: "100%", alignItems: "center" }}
+              >
+                Không có sản phẩm trong giỏ hàng
+              </Container>
+            )
           ) : (
             <Container>Không có sản phẩm trong giỏ hàng</Container>
           )}
@@ -56,8 +169,8 @@ export default function Purchase() {
           <div className="container sticky-top" style={{ top: 120 }}>
             <div className="title-purchase">ĐƠN HÀNG</div>
             <div className="content-purchase">
-              {cartDetail &&
-                cartDetail.map((cart, index) => (
+              {carts &&
+                carts.map((cart, index) => (
                   <div className="content-item" key={index}>
                     <span>
                       <span>
@@ -92,19 +205,30 @@ export default function Purchase() {
               </div>
             </div>
             <div className="toggle-purchase">
-              <Button variant="btn" className="purchase-button">
+              <Button
+                variant="btn"
+                className="purchase-button"
+                disabled={!access_token}
+                onClick={() => setIsShow(true)}
+              >
                 THANH TOÁN
               </Button>
             </div>
           </div>
         </div>
-        <ModalSubmitPurchase total={total} />
+        {access_token && (
+          <ModalSubmitPurchase
+            total={total}
+            isShow={isShow}
+            setIsShow={setIsShow}
+          />
+        )}
       </Container>
     </>
   );
 }
 
-const ModalSubmitPurchase = ({ total }) => {
+const ModalSubmitPurchase = ({ total, isShow, setIsShow }) => {
   const [userInfo, setUserInfo] = useState({
     address: "",
     dob: "",
@@ -130,6 +254,7 @@ const ModalSubmitPurchase = ({ total }) => {
       order_id: Date.now(),
       money: total,
     };
+    localStorage.setItem("order", JSON.stringify(address));
     PurchaseService.createOrder(obj).then((res) => setLink(res));
   };
   useEffect(() => {
@@ -137,23 +262,7 @@ const ModalSubmitPurchase = ({ total }) => {
       window.location.href = link;
     }
   }, [link]);
-  const { id } = useParams();
-  useEffect(() => {
-    const obj = {
-      address: address,
-      method: "Payment",
-      total: total,
-      date_create: Date.now(),
-      status: "Đang chờ xử lý",
-      id_user: infoUser.id_user,
-      list_bill_detail: cartDetail,
-    };
-    id &&
-      BillService.addBillService(obj).then(() => {
-        window.location = "/products";
-        localStorage.removeItem("cart-detail");
-      });
-  }, [id]);
+  const [isSuccess, setIsSuccess] = useState("");
   const handleOrder = () => {
     const obj = {
       address: address,
@@ -166,13 +275,18 @@ const ModalSubmitPurchase = ({ total }) => {
     };
     BillService.addBillService(obj).then((res) => {
       if (res === 200) {
-        window.location = "/";
+        setIsSuccess("Đặt hàng thành công");
+        setInterval(() => {
+          localStorage.removeItem("cart-detail");
+          window.location.reload();
+        }, 3000);
       }
     });
   };
   return (
-    <Modal show centered size="xl">
-      <Modal.Header onHide={()=>window.location = '/'} closeButton>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
+    <Modal show={isShow} onHide={() => setIsShow(false)} centered size="xl">
+      <PopupNoti status={isSuccess} setStaus={setIsSuccess} />
+      <Modal.Header closeButton>PHƯƠNG THỨC THANH TOÁN</Modal.Header>
       <Modal.Body>
         <Row>
           <Col>
@@ -304,10 +418,6 @@ const ModalSubmitPurchase = ({ total }) => {
               </div>
             </div>
           </Col>
-        </Row>
-        <Row className="overflow-auto">
-          <Col></Col>
-          <Col></Col>
         </Row>
       </Modal.Body>
     </Modal>

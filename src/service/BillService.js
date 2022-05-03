@@ -18,6 +18,19 @@ class BillService {
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
+
+  getDetailBill(id) {
+    return axiosInstance
+      .get("/bill/get-bill/", {
+        params: { id_bill: id },
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "Application/json",
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
   getUserDetailBill(id) {
     return axiosInstance
       .get("/bill/get-bill/", {
@@ -57,32 +70,8 @@ class BillService {
     return axiosInstance
       .put("/bill/", payload, {
         headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "Application/json",
-        },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => alert(err));
-  }
-
-  updateBillService(payload){
-    return axiosInstance
-      .put("/bill/",payload,{
-        headers: {
           Authorization: `Bearer ${access_admin_token}`,
-          "Content-Type": "Application/json",
-        },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => alert(err));
-  }
-
-  updateBillService(payload){
-    return axiosInstance
-      .put("/bill/",payload,{
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "Application/json",
+          "Content-Type": "application/json",
         },
       })
       .then((res) => console.log(res.data))

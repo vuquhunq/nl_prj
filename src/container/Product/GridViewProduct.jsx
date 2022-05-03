@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Masonry from "react-masonry-css";
 import CardProduct from "../../components/client/Product/CardProduct";
 import "./style.css";
 export default function GridViewProduct({ products }) {
-  const [limit, setLimit] = useState(8);
 
   const breakpointColumnsObj = {
     default: 4,

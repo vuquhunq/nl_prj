@@ -21,7 +21,7 @@ const DetailContent = ({
 }) => {
   //
   //
-
+  console.log(product);
   return (
     <Container fluid>
       <Col className="name-product">
@@ -35,10 +35,26 @@ const DetailContent = ({
       <Col className="money-product py-2">
         <h4>
           {product ? (
-            product.money.toLocaleString("it-IT", {
-              style: "currency",
-              currency: "VND",
-            })
+            product.discount < product.money ? (
+              <span className="d-flex gap-1">
+                <span style={{ textDecoration: "line-through black solid" }}>
+                  {product.money.toLocaleString("it-IT", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </span>
+                <span>{product.discount.toLocaleString("it-IT", {
+                    style: "currency",
+                    currency: "VND",
+                  })}</span>
+                <span>(-{product.reduction}%)</span>
+              </span>
+            ) : (
+              product.money.toLocaleString("it-IT", {
+                style: "currency",
+                currency: "VND",
+              })
+            )
           ) : (
             <Skeleton />
           )}

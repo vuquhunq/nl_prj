@@ -1,7 +1,13 @@
 import { axiosInstance } from "../config/axiosConfig";
 class ProductServices {
   getAllProduct() {
-    return axiosInstance.get("/product/all-product").then((res) => res.data);
+    return axiosInstance.get("/product/user-all-product").then((res) => res.data);
+  }
+  filterNameProduct(payload) {
+    return axiosInstance
+      .post(`/product/search-product/${payload}`, "")
+      .then((res) => res.data)
+      .catch((err) => alert(err));
   }
   getFilterProduct(payload) {
     // return axiosInstance.post("/product/filter-product", payload, {
@@ -66,6 +72,15 @@ class ProductServices {
         "Content-Type": "application/json",
       },
     });
+  }
+  async importFile(payload) {
+    let formdata = new FormData();
+    formdata.append("_in", payload[0], payload[0].name);
+    console.log(formdata);
+    return await axiosInstance
+      .post("/file/read", formdata)
+    .then((res) => res.status)
+      .catch((err) => err.status);
   }
 }
 export default new ProductServices();
